@@ -1,19 +1,21 @@
-// TODO LIST:
-// Store questions in a llist, external?
-// Set up Navigation to information page and leaderboard
-// Set up UI
-// Connect to firebase and store data
+/* TODO LIST:                                                              Status
+------------------------------------------------------------------------------------------
+Store questions in a list                                                  Done
+Set up Navigation to information page and leaderboard                      Done
+Set up UI                                                                  In progress
+Connect to firebase and store data                                         Not started */
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import questions from './question';
 
 function Leaderboard() {
+  // Leaderboad Component
   return <p>Leaderboard</p>;
 }
 
 function Quiz({score, setScore}) {
-  // Your quiz component logic here
+  // Quiz Component
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   
   const currentQuestion = questions[currentQuestionIndex];
@@ -48,10 +50,12 @@ function Quiz({score, setScore}) {
 }
 
 function Information() {
+  // Information Component
   return (<p>information about the solar eclipse</p>);
 }
 
 function App() {
+  // Main App component
   const [score, setScore] = useState(0);
 
   return (

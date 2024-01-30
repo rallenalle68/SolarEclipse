@@ -1,3 +1,37 @@
+Welcome to Gannons Solar Eclipse quiz game
+
+## Dependencies:
+Download Node.js
+- `https://nodejs.org/en`
+
+Make sure to git pull the latest version as origin
+- `git pull`
+
+# Navigation
+- `npm install react-router-dom`
+
+# Firebase
+- `npm install firebase`
+
+# Start the application
+- `npm start`
+This will launch the project in //localhost:3000
+
+ - if you encounter encryption error
+    - Run the project on Node -v 16.
+
+
+### GIT COMMANDS
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
