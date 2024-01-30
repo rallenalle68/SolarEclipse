@@ -1,4 +1,7 @@
-Welcome to Gannons Solar Eclipse quiz game
+# Welcome to Gannons Solar Eclipse quiz game
+Authors:
+Rasmus Seppänen `https://github.com/rallenalle68/SolarEclipse.git`
+Matthew Gentry 
 
 ## Dependencies:
 Download Node.js
@@ -7,31 +10,28 @@ Download Node.js
 Make sure to git pull the latest version as origin
 - `git pull`
 
-# Navigation
+### Navigation
 - `npm install react-router-dom`
 
-# Firebase
+### Firebase
 - `npm install firebase`
 
-# Start the application
+### Start the application
 - `npm start`
 This will launch the project in //localhost:3000
 
  - if you encounter encryption error
     - Run the project on Node -v 16.
-
+    - `nvm install 16`
+    - `nvm use 16`
 
 ### GIT COMMANDS
+- `git pull`
+- `git add .` 
+- `git commit -m "Your message"`
+- `git push origin main`
 
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
