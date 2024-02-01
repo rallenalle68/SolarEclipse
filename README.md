@@ -1,13 +1,13 @@
 # Welcome to Gannons Solar Eclipse quiz game
 Authors:
-Rasmus Seppänen `https://github.com/rallenalle68/SolarEclipse.git`
-Matthew Gentry 
+Rasmus Seppänen: `https://github.com/rallenalle68/SolarEclipse.git`,
+Matthew Gentry:
 
 ## Dependencies:
 Download Node.js
 - `https://nodejs.org/en`
 
-Make sure to git pull the latest version as origin
+**Make sure to git pull the latest version as origin**
 - `git pull`
 
 ### Navigation
@@ -18,12 +18,12 @@ Make sure to git pull the latest version as origin
 
 ### Start the application
 - `npm start`
-This will launch the project in //localhost:3000
 
- - if you encounter encryption error
-    - Run the project on Node -v 16.
-    - `nvm install 16`
-    - `nvm use 16`
+This will launch the project in //localhost:3000
+**You need to be on Node.js version >= 18.0.0**
+    - Run the project on Node -v 18 (Worked best for me).
+    - `nvm install 18`
+    - `nvm use 18`
 
 ### GIT COMMANDS
 - `git pull`
@@ -31,7 +31,15 @@ This will launch the project in //localhost:3000
 - `git commit -m "Your message"`
 - `git push origin main`
 
------------------------------------------------------------------------------------------------------------------------------
+--------
+
+# Current Errors and Todo
+ - writing to realtime database
+ - Question: Do we use a realtime database or cloud firestore?
+ - 
+
+--------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,0 +1,56 @@
+[debug] [2024-02-01T04:23:00.381Z] ----------------------------------------------------------------------
+[debug] [2024-02-01T04:23:00.383Z] Command:       /Users/rallesaccount/.nvm/versions/node/v18.0.0/bin/node /Users/rallesaccount/.nvm/versions/node/v18.0.0/bin/firebase database:set / {"message": "Hello, Firebase!"}
+[debug] [2024-02-01T04:23:00.383Z] CLI Version:   13.1.0
+[debug] [2024-02-01T04:23:00.383Z] Platform:      darwin
+[debug] [2024-02-01T04:23:00.384Z] Node Version:  v18.0.0
+[debug] [2024-02-01T04:23:00.389Z] Time:          Wed Jan 31 2024 23:23:00 GMT-0500 (Eastern Standard Time)
+[debug] [2024-02-01T04:23:00.390Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-01T04:23:00.447Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-01T04:23:00.447Z] > authorizing via signed-in user (rasmussep@gmail.com)
+[debug] [2024-02-01T04:23:00.447Z] [iam] checking project gannonsolareclipse for permissions ["firebase.projects.get","firebasedatabase.instances.update"]
+[debug] [2024-02-01T04:23:00.449Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions [none]
+[debug] [2024-02-01T04:23:00.449Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions x-goog-quota-user=projects/gannonsolareclipse
+[debug] [2024-02-01T04:23:00.449Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2024-02-01T04:23:01.764Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions 200
+[debug] [2024-02-01T04:23:01.765Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2024-02-01T04:23:01.767Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse [none]
+[debug] [2024-02-01T04:23:02.351Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse 200
+[debug] [2024-02-01T04:23:02.351Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse {"projectId":"gannonsolareclipse","projectNumber":"1065976711375","displayName":"GannonSolarEclipse","name":"projects/gannonsolareclipse","resources":{"hostingSite":"gannonsolareclipse","realtimeDatabaseInstance":"gannonsolareclipse-default-rtdb"},"state":"ACTIVE","etag":"1_1a11b13b-1aef-4c13-ac72-9692d09a8c10"}
+[debug] [2024-02-01T04:23:02.352Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb [none]
+[debug] [2024-02-01T04:23:03.517Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb 200
+[debug] [2024-02-01T04:23:03.518Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb {"name":"projects/1065976711375/locations/us-central1/instances/gannonsolareclipse-default-rtdb","project":"projects/1065976711375","databaseUrl":"https://gannonsolareclipse-default-rtdb.firebaseio.com","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2024-02-01T04:23:07.244Z] >>> [apiv2][query] PUT https://gannonsolareclipse-default-rtdb.firebaseio.com/.json 
+[debug] [2024-02-01T04:23:07.245Z] >>> [apiv2][body] PUT https://gannonsolareclipse-default-rtdb.firebaseio.com/.json [stream]
+[debug] [2024-02-01T04:24:07.611Z] *** [apiv2] error from fetch(https://gannonsolareclipse-default-rtdb.firebaseio.com/.json, {"headers":{},"method":"PUT","body":{"fd":null,"path":"{\"message\": \"Hello, Firebase!\"}","flags":"r","mode":438,"end":null,"bytesRead":0,"_readableState":{"objectMode":false,"highWaterMark":65536,"buffer":{"head":null,"tail":null,"length":0},"length":0,"pipes":[],"flowing":false,"ended":false,"endEmitted":false,"reading":false,"constructed":true,"sync":true,"needReadable":true,"emittedReadable":false,"readableListening":false,"resumeScheduled":false,"errorEmitted":true,"emitClose":true,"autoDestroy":true,"destroyed":true,"errored":{"errno":-2,"code":"ENOENT","syscall":"open","path":"{\"message\": \"Hello, Firebase!\"}"},"closed":true,"closeEmitted":true,"defaultEncoding":"utf8","awaitDrainWriters":null,"multiAwaitDrain":false,"readingMore":false,"dataEmitted":false,"decoder":null,"encoding":null},"_events":{},"_eventsCount":2}}): FetchError: request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json failed, reason: socket hang up
+[debug] Failed to make request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json
+[error] 
+[error] Error: Unexpected error while setting data: FirebaseError: Failed to make request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json
+[debug] [2024-02-01T04:24:37.900Z] ----------------------------------------------------------------------
+[debug] [2024-02-01T04:24:37.901Z] Command:       /Users/rallesaccount/.nvm/versions/node/v18.0.0/bin/node /Users/rallesaccount/.nvm/versions/node/v18.0.0/bin/firebase database:set / {"message": "Hello, Firebase!"}
+[debug] [2024-02-01T04:24:37.901Z] CLI Version:   13.1.0
+[debug] [2024-02-01T04:24:37.902Z] Platform:      darwin
+[debug] [2024-02-01T04:24:37.902Z] Node Version:  v18.0.0
+[debug] [2024-02-01T04:24:37.903Z] Time:          Wed Jan 31 2024 23:24:37 GMT-0500 (Eastern Standard Time)
+[debug] [2024-02-01T04:24:37.903Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-01T04:24:37.946Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-01T04:24:37.947Z] > authorizing via signed-in user (rasmussep@gmail.com)
+[debug] [2024-02-01T04:24:37.947Z] [iam] checking project gannonsolareclipse for permissions ["firebase.projects.get","firebasedatabase.instances.update"]
+[debug] [2024-02-01T04:24:37.948Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions [none]
+[debug] [2024-02-01T04:24:37.948Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions x-goog-quota-user=projects/gannonsolareclipse
+[debug] [2024-02-01T04:24:37.948Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2024-02-01T04:24:39.369Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions 200
+[debug] [2024-02-01T04:24:39.370Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gannonsolareclipse:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2024-02-01T04:24:39.371Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse [none]
+[debug] [2024-02-01T04:24:40.147Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse 200
+[debug] [2024-02-01T04:24:40.147Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/gannonsolareclipse {"projectId":"gannonsolareclipse","projectNumber":"1065976711375","displayName":"GannonSolarEclipse","name":"projects/gannonsolareclipse","resources":{"hostingSite":"gannonsolareclipse","realtimeDatabaseInstance":"gannonsolareclipse-default-rtdb"},"state":"ACTIVE","etag":"1_1a11b13b-1aef-4c13-ac72-9692d09a8c10"}
+[debug] [2024-02-01T04:24:40.148Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb [none]
+[debug] [2024-02-01T04:24:41.621Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb 200
+[debug] [2024-02-01T04:24:41.622Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/gannonsolareclipse/locations/-/instances/gannonsolareclipse-default-rtdb {"name":"projects/1065976711375/locations/us-central1/instances/gannonsolareclipse-default-rtdb","project":"projects/1065976711375","databaseUrl":"https://gannonsolareclipse-default-rtdb.firebaseio.com","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2024-02-01T04:24:43.308Z] >>> [apiv2][query] PUT https://gannonsolareclipse-default-rtdb.firebaseio.com/.json 
+[debug] [2024-02-01T04:24:43.308Z] >>> [apiv2][body] PUT https://gannonsolareclipse-default-rtdb.firebaseio.com/.json [stream]
+[debug] [2024-02-01T04:25:43.772Z] *** [apiv2] error from fetch(https://gannonsolareclipse-default-rtdb.firebaseio.com/.json, {"headers":{},"method":"PUT","body":{"fd":null,"path":"{\"message\": \"Hello, Firebase!\"}","flags":"r","mode":438,"end":null,"bytesRead":0,"_readableState":{"objectMode":false,"highWaterMark":65536,"buffer":{"head":null,"tail":null,"length":0},"length":0,"pipes":[],"flowing":false,"ended":false,"endEmitted":false,"reading":false,"constructed":true,"sync":true,"needReadable":true,"emittedReadable":false,"readableListening":false,"resumeScheduled":false,"errorEmitted":true,"emitClose":true,"autoDestroy":true,"destroyed":true,"errored":{"errno":-2,"code":"ENOENT","syscall":"open","path":"{\"message\": \"Hello, Firebase!\"}"},"closed":true,"closeEmitted":true,"defaultEncoding":"utf8","awaitDrainWriters":null,"multiAwaitDrain":false,"readingMore":false,"dataEmitted":false,"decoder":null,"encoding":null},"_events":{},"_eventsCount":2}}): FetchError: request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json failed, reason: socket hang up
+[debug] Failed to make request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json
+[error] 
+[error] Error: Unexpected error while setting data: FirebaseError: Failed to make request to https://gannonsolareclipse-default-rtdb.firebaseio.com/.json
