@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import questions from '../Assets/question';
 
 function Quiz({score, setScore}) {
     // Quiz Component
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    
+    const [timer, setTimer] = useState(5); // Initial timer value is 5 seconds
     const currentQuestion = questions[currentQuestionIndex];
     
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       setTimer(prevTimer => {
+  //         if (prevTimer === 1) {
+  //           // If timer reaches 1, move to the next question
+  //           nextQuestion();
+  //           return 5; // Reset timer for the next question
+  //         }
+  //         return prevTimer - 1;
+  //       });
+  //     }, 1000);
+  //     // Cleanup the interval on component unmount or when moving to the next question
+  //   return () => clearInterval(interval);
+  // }, [currentQuestionIndex]);
+
+
     function scoreUpdate(selectedOption){
       if(selectedOption === currentQuestion.correctOption){
         setScore(prevScore => prevScore +1);
@@ -22,16 +38,19 @@ function Quiz({score, setScore}) {
       })
     }
     return (
-      <div>
+      <div className='Quiz'>
         <h2>Question {currentQuestion.id}</h2>
         <p>{currentQuestion.text}</p>
-        <ul>
-          {currentQuestion.options.map((option, index) => (
-            <li key={index}>
-              <button onClick={() => scoreUpdate(option)}>{option}</button>
-            </li>
-          ))}
-        </ul>
+        <p>Time remaining: {timer} seconds</p>
+        <div className='quiz-container'>
+          <ul>
+            {currentQuestion.options.map((option, index) => (
+              <li key={index} className='question-box'>
+                <button onClick={() => scoreUpdate(option)}>{option}</button>
+              </li>
+            ))}
+          </ul>
+        </div>
         <p>Score: {score}</p>
       </div>
     );

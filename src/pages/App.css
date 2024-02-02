@@ -72,10 +72,6 @@ ul {
   padding: 0;
 }
 
-li {
-  margin: 10px 0;
-}
-
 /* Add this to your existing App.css */
 
 nav {
@@ -106,3 +102,41 @@ nav a:hover {
   border-radius: 8px;
   border-width: 1px;
 }
+
+.Quiz{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 480px;
+}
+
+.question-box {
+  float: left;
+  border: none;
+  padding: 20px;
+  height: 70px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  width: 100%; /* Ensures buttons take up the full width of the box */
+
+}
+
