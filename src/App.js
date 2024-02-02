@@ -7,17 +7,13 @@ Firebase authentication                                                    In pr
 Set up UI                                                                  In progress
 Connect to firebase and store data                                         In progress 
 */
+// App.js
 import React from 'react';
-
 import './pages/App.css';
-import Auth from './pages/Authentication';
+import Authentication from './pages/Authentication';
 
 function App() {
-  // MAIN APP COMPONENT
-
-  return(
-  <Auth/>
-  );
+  return <Authentication />;
 }
 
 export default App;

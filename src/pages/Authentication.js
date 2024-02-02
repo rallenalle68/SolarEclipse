@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-
+// Pages
 import Quiz from './Quiz';
 import Information from "./Information";
 import Leaderboard from './Leaderboard';
 
+// Auth Functionality
 import { auth } from "../Assets/firebase-config";
 import {
   createUserWithEmailAndPassword,
@@ -14,9 +15,8 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import "./App.css";
 
-function Auth() {
+function Authentication() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -61,46 +61,46 @@ function Auth() {
     <div className="App">
       {user ? (
         <Router>
-        <div className="App">
-          <div className='H1'>
-            <h1>Gannons Eclipse Knowledge</h1>
+          <div className="App">
+            <div className='H1'>
+              <h1>Gannons Eclipse Knowledge</h1>
+            </div>
+    
+            {/* Navigation Links */}
+            <nav>
+              <Link to="/quiz">Quiz</Link>
+              <Link to="/Leaderboard">Leaderboard</Link>
+              <Link to="/Information">Information</Link>
+            </nav>
+    
+            {/* Routes */}
+            <Routes>
+              <Route path="/Leaderboard" element={<Leaderboard />} />
+              <Route path="/quiz" element={<Quiz score={score} setScore={setScore} />} />
+              <Route path="/Information" element={<Information />} />
+            </Routes>
+    
+            <button onClick={handleSignOut}>Sign Out</button>
           </div>
-  
-          {/* Navigation Links */}
-          <nav>
-            <Link to="/quiz">Quiz</Link>
-            <Link to="/Leaderboard">Leaderboard</Link>
-            <Link to="/Information">Information</Link>
-          </nav>
-  
-          {/* Routes */}
-          <Routes>
-            <Route path="/Leaderboard" element={<Leaderboard />} />
-            <Route path="/quiz" element={<Quiz score={score} setScore={setScore} />} />
-            <Route path="/Information" element={<Information />} />
-          </Routes>
-  
-          <button onClick={handleSignOut}>Sign Out</button>
-
-        </div>
-      </Router>
+        </Router>
       ) : (
-        
         <div className="FormHolder">
           <div className='H1'>
             <h1>Solar Eclipse</h1>
           </div>
-          <input className="AuthenticationForm"
+          <input
+            className="AuthenticationForm"
             type="email"
             placeholder="Email..."
             onChange={(event) => setEmail(event.target.value)}
           />
-          <input className="AuthenticationForm"
+          <input
+            className="AuthenticationForm"
             type="password"
             placeholder="Password..."
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button onClick={handleSignUp}>Sign Up</button>
+          <button onClick={handleSignUp}>Create Account</button>
           <button onClick={handleSignIn}>Sign In</button>
         </div>
       )}
@@ -108,4 +108,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default Authentication;
