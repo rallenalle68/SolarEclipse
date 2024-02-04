@@ -4,33 +4,60 @@ Rasmus Seppänen: `https://github.com/rallenalle68/SolarEclipse.git`,
 Matthew Gentry:
 
 ## Dependencies:
-Download Node.js
-- `https://nodejs.org/en`
-
-**Make sure to git pull the latest version as origin**
+**Make sure to git pull the latest version from origin**
 - `git pull`
+
+**MUST INSTALL**
+### Download Node.js
+- `https://nodejs.org/en`
+Functionality: Node.js
+
+### Install nvm
+macOS/Linux
+- `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash`
+*Keep track of nvm path*
+Functionality: nvm (Node Version Manager) manages Node.js version.
 
 ### Navigation
 - `npm install react-router-dom`
+Functionality: Manages navigation in application.
 
-### Firebase
+*Optional*
+#### Firebase
 - `npm install firebase`
 
+
+**RUN PROJECT**
 ### Start the application
 - `npm start`
 
-This will launch the project in //localhost:3000
+Functionality: This will launch the project in //localhost:3000
 **You need to be on Node.js version >= 18.0.0**
     - Run the project on Node -v 18 (Worked best for me).
     - `nvm install 18`
     - `nvm use 18`
-
-### GIT COMMANDS
+    
+**GIT**
+### Commands
 - `git pull`
 - `git add .` 
 - `git commit -m "Your message"`
 - `git push origin main`
 
+### GIT BRANCH
+To start working on a new feature or fixing a bug, follow these steps to create and switch to a new branch:
+1. Open a terminal window.
+Create a new branch:
+- `git checkout -b new_branch_name`
+- `git push origin branch_name`
+
+**NOTE**
+Rasmus will review your pushed branch and merge if necessary. Please write below the changes you have made.
+Follow this protocol please:
+1. What files did you change?
+2. What did you add/remove, specify the function and variable changes.
+3. Did you encounter any errors, list what could go wrong.
+4. Why are these changes good.
 --------
 
 # Current Errors and Todo

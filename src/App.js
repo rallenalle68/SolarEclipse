@@ -4,6 +4,7 @@ import './pages/App.css';
 import Quiz from './pages/Quiz';
 import Information from "./pages/Information";
 import Leaderboard from './pages/Leaderboard';
+import mySVG from './Assets/wave.svg';
 
 /* 
 TODO LIST:                                                                 Status
@@ -24,25 +25,28 @@ function HomePage(){
   return(
     <Router>
           <div className="App">
+
+            <div className='Header'>
             <div className='H1'>
-              <h1>Gannons Eclipse Knowledge</h1>
-            </div>
-    
-            {/* Navigation Links */}
-            <nav>
-              <Link to="/quiz">Quiz</Link>
-              <Link to="/Leaderboard">Leaderboard</Link>
-              <Link to="/Information">Information</Link>
-            </nav>
-    
+                <h1>Gannons Eclipse Knowledge</h1>
+              </div>
+      
+              {/* Navigation Links */}
+              <nav>
+                <Link to="/quiz">Quiz</Link>
+                <Link to="/Leaderboard">Leaderboard</Link>
+                <Link to="/Information">Information</Link>
+              </nav>
             {/* Routes */}
             <Routes>
               <Route path="/Leaderboard" element={<Leaderboard />} />
               <Route path="/quiz" element={<Quiz score={score} setScore={setScore} />} />
               <Route path="/Information" element={<Information />} />
             </Routes>
+              </div>
     
-            <button> Sign Out</button>
+            
+            <button className='SignOutButton'> Sign Out</button>
           </div>
         </Router>
   );
@@ -51,7 +55,11 @@ function HomePage(){
 function App() {
   
   //Production Mode
-  return <HomePage />;
+  return (
+    <div className='App'>
+      <HomePage />;
+    </div>
+  );
   // Test Mode: Uncomment
   // return <Authentication />;
 }

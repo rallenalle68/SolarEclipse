@@ -1,5 +1,28 @@
+
 .App {
+  background-image: url('../Assets/mySVG2.svg'), url('../Assets/wave.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
   text-align: center;
+  height: fit-content;
+  object-fit: contain;
+  text-align: center;
+  height: fit-content;
+  object-fit:contain
+}
+/* Rotate the first background image by 180 degrees */
+.App::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url('../Assets/mySVG2.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: rotate(180deg);
 }
 
 .App-logo {
@@ -14,7 +37,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,7 +47,39 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #fff;
+}
+
+/* Add this to your existing App.css */
+.H1 {
+  padding: 20px;
+  text-shadow: 2px 2px 4px #a95528;
+}
+
+h1 {
+  margin: 0;
+  color: #fff;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+
+}
+
+nav a:hover {
+  background-color: rgb(245, 95, 25);
 }
 
 @keyframes App-logo-spin {
@@ -42,24 +96,22 @@ button {
   margin: 5px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #3498db;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   border: none;
   border-radius: 5px;
+  box-shadow: #a95528 1px 5px 5px;
+  transition: 0.5s ease;
+}
+
+button:hover{
+  box-shadow: #a95528 1px 10px 5px;
+  background-color: rgb(245, 130, 25);
 }
 
 .score {
   font-size: 20px;
   margin-top: 20px;
-  color: #3498db;
-}
-.H1 {
-  background-color: #3498db;
-  padding: 20px;
-}
-
-h1 {
-  margin: 0;
   color: #fff;
 }
 
@@ -70,29 +122,7 @@ p {
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-/* Add this to your existing App.css */
-
-nav {
-  display: flex;
-  justify-content: space-around;
-  background-color: #3498db;
-  padding: 10px;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-
-}
-
-nav a:hover {
-  background-color: #2980b9;
+  
 }
 
 .AuthenticationForm{
@@ -135,8 +165,6 @@ ul {
   margin: 0;
 }
 
-button {
-  width: 100%; /* Ensures buttons take up the full width of the box */
-
+.SignOutButton{
+  width: 100px;
 }
-
