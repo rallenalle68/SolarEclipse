@@ -39,9 +39,11 @@ function Quiz({score, setScore}) {
     }
     return (
       <div className='Quiz'>
+        <div className='Quiz-main'>
         <h2>Question {currentQuestion.id}</h2>
+            <p className='score'>Score: {score}</p>
         <p>{currentQuestion.text}</p>
-        <p>Time remaining: {timer} seconds</p>
+        <p className='Timer'>{timer}</p>
         <div className='quiz-container'>
           <ul>
             {currentQuestion.options.map((option, index) => (
@@ -51,7 +53,7 @@ function Quiz({score, setScore}) {
             ))}
           </ul>
         </div>
-        <p>Score: {score}</p>
+      </div>
       </div>
     );
   }

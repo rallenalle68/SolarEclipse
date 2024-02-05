@@ -6,6 +6,7 @@ import Information from "./pages/Information";
 import Leaderboard from './pages/Leaderboard';
 import mySVG from './Assets/wave.svg';
 
+
 /* 
 TODO LIST:                                                                 Status
 ------------------------------------------------------------------------------------------
@@ -33,8 +34,8 @@ function HomePage(){
       
               {/* Navigation Links */}
               <nav>
-                <Link to="/quiz">Quiz</Link>
                 <Link to="/Leaderboard">Leaderboard</Link>
+                <Link to="/quiz">Quiz</Link>
                 <Link to="/Information">Information</Link>
               </nav>
             {/* Routes */}
@@ -57,7 +58,7 @@ function App() {
   //Production Mode
   return (
     <div className='App'>
-      <HomePage />;
+      <HomePage />
     </div>
   );
   // Test Mode: Uncomment
