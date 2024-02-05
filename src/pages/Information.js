@@ -38,6 +38,39 @@ const Information = () => {
         {timeRemaining.days} days, {timeRemaining.hours} hours, {timeRemaining.minutes} minutes,{' '}
         {timeRemaining.seconds}
       </p>
+      <div className='Phases'>
+        <div className='Phase 1'>
+          <h2>Phase 1</h2>
+        </div>
+        <div className='Phase 2'>
+          <h2>Phase 2</h2>
+            
+        </div>
+        <div className='Phase 3'>
+          <h2>Phase 3</h2>
+
+        </div>
+        <div className='Phase 4'>
+          <h2>Phase 4</h2>
+
+        </div>
+      </div>
+      
+      <div className='Info'>
+        <div className='pBox'>
+          <p>Light Intensity</p>
+        </div>
+        <div className='pBox'>
+          <p>Distances</p>
+        </div>
+      </div>
+
+
+      <div className='Sources'>
+        <div>
+          <p>By: Rasmus Seppänen</p>
+        </div>
+      </div>
     </div>
   );
 };
