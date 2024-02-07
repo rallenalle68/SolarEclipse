@@ -1,14 +1,12 @@
 // Authentication.js
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 // Pages
-import Quiz from './Quiz';
-import Information from "./Information";
-import Leaderboard from './Leaderboard';
+import { addDoc, collection } from "firebase/firestore";
+import FirstPage from "./FirstPage"
 
 // Auth Functionality
-import { auth } from "../Assets/firebase-config";
+import { auth, db } from "../Assets/firebase-config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -19,15 +17,24 @@ import {
 function Authentication() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
-  const [score, setScore] = useState(0);
 
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, username, password);
       setUser(userCredential.user);
     } catch (error) {
       console.error(error.message);
+    }
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        username: username,
+        score: 0
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   };
 
@@ -60,29 +67,7 @@ function Authentication() {
   return (
     <div className="App">
       {user ? (
-        <Router>
-          <div className="App">
-            <div className='H1'>
-              <h1>Gannons Eclipse Knowledge</h1>
-            </div>
-    
-            {/* Navigation Links */}
-            <nav>
-              <Link to="/quiz">Quiz</Link>
-              <Link to="/Leaderboard">Leaderboard</Link>
-              <Link to="/Information">Information</Link>
-            </nav>
-    
-            {/* Routes */}
-            <Routes>
-              <Route path="/Leaderboard" element={<Leaderboard />} />
-              <Route path="/quiz" element={<Quiz score={score} setScore={setScore} />} />
-              <Route path="/Information" element={<Information />} />
-            </Routes>
-    
-            <button onClick={handleSignOut}>Sign Out</button>
-          </div>
-        </Router>
+        <FirstPage />
       ) : (
         <div className="FormHolder">
           <div className='H1'>
@@ -93,6 +78,12 @@ function Authentication() {
             type="email"
             placeholder="Email..."
             onChange={(event) => setEmail(event.target.value)}
+          />
+          <input
+            className="AuthenticationForm"
+            type="username"
+            placeholder="Username..."
+            onChange={(event) => setUsername(event.target.value)}
           />
           <input
             className="AuthenticationForm"
