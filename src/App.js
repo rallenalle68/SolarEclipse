@@ -19,7 +19,7 @@ function App() {
   //Production Mode
   return (
     <div className='App'>
-       <Authentication />;
+       <Authentication /> 
     </div>
   // Test Mode: Uncomment
   // <HomePage />

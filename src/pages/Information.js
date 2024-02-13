@@ -69,6 +69,7 @@ const Information = () => {
       <div className='Sources'>
         <div>
           <p>By: Rasmus Seppänen</p>
+          
         </div>
       </div>
     </div>
