@@ -9,7 +9,7 @@ body{
 }
 
 .App {
-  background-image: url('../Assets/mySVG2.svg'), url('../Assets/wave.svg');
+  background-image: url('../Assets/SunsetBackground.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   text-align: center;
@@ -18,20 +18,6 @@ body{
   height: fit-content;
   object-fit:contain;
   
-}
-/* Rotate the first background image by 180 degrees */
-.App::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background-image: url('../Assets/mySVG2.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  transform: rotate(180deg);
 }
 /* Add this to your existing App.css */
 .H1 {

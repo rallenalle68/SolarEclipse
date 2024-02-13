@@ -27,6 +27,8 @@ function Authentication() {
     } catch (error) {
       console.error(error.message);
     }
+
+    // Writing to the database:
     try {
       const docRef = await addDoc(collection(db, "users"), {
         username: username,
