@@ -22,6 +22,9 @@ Functionality: nvm (Node Version Manager) manages Node.js version.
 - `npm install react-router-dom`
 Functionality: Manages navigation in application.
 
+- `npm install react-modal`
+Modal funcitionality in information page
+
 *Optional*
 #### Firebase
 - `npm install firebase`

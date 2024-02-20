@@ -1,10 +1,28 @@
 // Information.js
 import React, { useState, useEffect } from 'react';
+import InfoModal from './InfoModal';
+import infoData from '../Assets/info.json';
 
 const targetDate = new Date('April 8, 2024 13:00:00 EDT-1516'); // Adjust timezone as needed
 
 const Information = () => {
   const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
+
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedInfo, setSelectedInfo] = useState({ title: '', content: '' });
+
+  const openModal = (title, content) => {
+    setSelectedInfo({ title, content });
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,14 +74,21 @@ const Information = () => {
         </div>
       </div>
       
-      <div className='Info'>
-        <div className='pBox'>
-          <p>Light Intensity</p>
+       
+      <div className='Info' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {infoData.map((info, index) => (
+        <div key={index} className='infoBox' onClick={() => openModal(info.title, info.content)}>
+          <p>{info.title}</p>
         </div>
-        <div className='pBox'>
-          <p>Distances</p>
-        </div>
-      </div>
+      ))}
+
+      <InfoModal
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        title={selectedInfo.title}
+        content={selectedInfo.content}
+      />
+    </div>
 
 
       <div className='Sources'>

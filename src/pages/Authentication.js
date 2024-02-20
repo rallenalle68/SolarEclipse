@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 // Pages
-import { addDoc, collection } from "firebase/firestore";
-import FirstPage from "./FirstPage"
-
+import { doc, collection, setDoc } from "firebase/firestore";
 // Auth Functionality
 import { auth, db } from "../Assets/firebase-config";
 import {
@@ -13,6 +11,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+import HomePage from "./HomePage";
 
 function Authentication() {
   const [email, setEmail] = useState("");
@@ -22,19 +21,26 @@ function Authentication() {
 
   const handleSignUp = async () => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, username, password);
-      setUser(userCredential.user);
+      if(!email.includes("@gannon.edu")){
+        console.log("Invalid Email!")
+      }
+      else{
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        setUser(userCredential.user);
+        const userId = userCredential.user.uid; // Get the user ID
+
+        const docRef = await setDoc(doc(collection(db, "users"), userId), {
+          username: username,
+          score: 0
+        });
+        console.log("Document written with ID: ", userId);
+      }
     } catch (error) {
       console.error(error.message);
     }
 
     // Writing to the database:
     try {
-      const docRef = await addDoc(collection(db, "users"), {
-        username: username,
-        score: 0
-      });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -69,12 +75,15 @@ function Authentication() {
   return (
     <div className="App">
       {user ? (
-        <FirstPage />
+        <HomePage handleSignOut={handleSignOut} user={user}/>
       ) : (
-        <div className="FormHolder">
+        <div className="ParentFormHolder">
+
           <div className='H1'>
-            <h1>Solar Eclipse</h1>
+            <h1>Gannons Eclipse</h1>
           </div>
+
+          <div className="FormsContainer">
           <input
             className="AuthenticationForm"
             type="email"
@@ -95,6 +104,8 @@ function Authentication() {
           />
           <button onClick={handleSignUp}>Create Account</button>
           <button onClick={handleSignIn}>Sign In</button>
+
+          </div>
         </div>
       )}
     </div>

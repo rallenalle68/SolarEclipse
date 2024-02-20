@@ -6,17 +6,16 @@ import Quiz from './Quiz';
 import Information from "./Information";
 import Leaderboard from './Leaderboard';
 
+function HomePage({ handleSignOut, user }){
+    const [score, setScore] = useState(0);  
 
-function HomePage(){
-
-    const [score, setScore] = useState(0);
     return(
       <Router>
             <div className="App">
   
               <div className='Header'>
               <div className='H1'>
-                  <h1>Gannons Eclipse Knowledge</h1>
+                  <h1>Gannons Eclipse</h1>
                 </div>
         
                 {/* Navigation Links */}
@@ -28,13 +27,13 @@ function HomePage(){
               {/* Routes */}
               <Routes>
                 <Route path="/Leaderboard" element={<Leaderboard />} />
-                <Route path="/quiz" element={<Quiz score={score} setScore={setScore} />} />
+                <Route path="/quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
                 <Route path="/Information" element={<Information />} />
               </Routes>
                 </div>
       
               
-              <button className='SignOutButton'> Sign Out</button>
+              <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
             </div>
           </Router>
     );
