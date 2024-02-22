@@ -5,6 +5,7 @@ import './App.css';
 import Quiz from './Quiz';
 import Information from "./Information";
 import Leaderboard from './Leaderboard';
+import SolarEclipse from './SolarEclipse';
 
 function HomePage({ handleSignOut, user }){
     const [score, setScore] = useState(0);  
@@ -14,23 +15,24 @@ function HomePage({ handleSignOut, user }){
             <div className="App">
   
               <div className='Header'>
-              <div className='H1'>
-                  <h1>Gannons Eclipse</h1>
-                </div>
-        
-                {/* Navigation Links */}
-                <nav>
+                  <h1>Gannon's Eclipse</h1>
+              </div>
+
+              <div className="NavigationContainer">
+                <nav className="NavigationLinks">
                   <Link to="/Leaderboard">Leaderboard</Link>
-                  <Link to="/quiz">Quiz</Link>
+                  <Link to="/Quiz">Quiz</Link>
+                  <Link to="/SolarEclipse">Solar Eclipse</Link>
                   <Link to="/Information">Information</Link>
                 </nav>
-              {/* Routes */}
+              </div>
+
               <Routes>
                 <Route path="/Leaderboard" element={<Leaderboard />} />
-                <Route path="/quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
+                <Route path="/Quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
                 <Route path="/Information" element={<Information />} />
+                <Route path="/SolarEclipse" element={<SolarEclipse />} />
               </Routes>
-                </div>
       
               
               <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>

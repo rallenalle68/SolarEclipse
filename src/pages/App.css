@@ -1,4 +1,9 @@
 
+
+/*
+Main App component, all of the componenets -
+will inherit these styles and backgorunds
+*/
 *{
   font-family: 'Single Day', cursive;
   margin: 0px;
@@ -20,39 +25,60 @@ body{
   height: fit-content;
   object-fit:contain;
 }
-/* Add this to your existing App.css */
-.H1 {
+.Header{
+  color: #fff;
   padding: 20px;
   text-shadow: 2px 2px 4px #a95528;
-}
-
-h1 {
   margin: 0;
-  color: #fff;
+}
+.LeaderBoard, .Quiz, .SolarEclipse, .Info{
+  margin-top: 40px;
 }
 
+/*
+Navigation Styles
+*/
 
-nav {
-  padding: 10px;
-
+.NavigationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: auto; /* Adjusted to automatic height */
+  width: 100%;
 }
 
-nav a {
+.NavigationLinks{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.NavigationLinks a {
   color: #fff;
   text-decoration: none;
-  margin: 10px;
+  margin: 5px;
   font-size: 20px;
   box-shadow: 2px 2px 2px black;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
-
+  display: block; /* Ensure each link is a block element */
+  width: 100px; /* Make each link take up the full width of the container */
 }
 
-nav a:hover {
+.NavigationLinks a:hover {
   background-color: rgb(245, 95, 25);
 }
 
+
+
+/*
+Universal Buttons
+If a button has different style it is specified by className
+*/
 button {
   padding: 10px;
   margin: 5px;
@@ -72,18 +98,49 @@ button:hover{
   color: #fff;
 }
 
+/*
+Leaderboard
+*/
+.LeaderBoard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*
+Universal List style
+*/
 ul {
   list-style-type: none;
   padding: 0;
   
 }
 
-.AuthenticationForm{
+/*
+Authentication form
+*/
+.inputForm{
   margin: 10px;
   width: 150px;
   height: 30px;
   border-radius: 4px;
   border-width: 1px;
+}
+
+.ParentFormHolder{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.FormsContainer{
+  width: fit-content;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 /*
@@ -112,13 +169,16 @@ Quiz container and elements
 }
 
 .Quiz-main, .CompletedRound{
-  width: 400px;
+  width: 340px;
   border: 2px solid black;
   border-radius: 4px;
   box-shadow: 10px 10px 10px black;
   height: 500px;
 }
 
+/*
+Diffferent paragraphs, could be simplified!!?
+*/
 .p1{
   margin-top: 40px;
   font-size: 30px;
@@ -160,11 +220,16 @@ Quiz container and elements
   font-size: 30px;
 }
 /*-------------------*/
+
+/*
+Information component
+*/
 .Info{
   display: flex;
-  flex-direction: column;
-  align-self: center;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   
 }
 
@@ -192,26 +257,19 @@ Quiz container and elements
   color: #fff;
 }
 
-ul {
-  list-style: none; /* Remove default list styling */
-  padding: 0;
-  margin: 0;
-}
+/*
+Sign out button
+*/
 
 .SignOutButton{
   width: 100px;
 }
 
-.ParentFormHolder{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
-}
+@media screen and (max-width:500px
+) {
 
-.FormsContainer{
-  width: fit-content;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  .NavigationLinks{
+
+  }
 }

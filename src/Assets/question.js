@@ -31,7 +31,7 @@ const questions = [
     text: "What is the term for the faint glow that surrounds the sun's disk during a total solar eclipse?",
     options: ["Corona", "Flare", "Halo", "Aureole"],
     correctOption: "Corona",
-  }
+  },
   // {
   //   id: 6,
   //   text: "True or False: Solar eclipses can occur only during the day.",

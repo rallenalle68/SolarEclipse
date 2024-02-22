@@ -2,10 +2,17 @@ import React from 'react';
 import './App.css';
 
 function Leaderboard() {
-    return(
-      <div>
-        <h2>Leaderboard</h2>
 
+
+  
+
+
+
+
+
+    return(
+      <div className='LeaderBoard'>
+        <h2>Leaderboard</h2>
         <div>
           <ol>
             <li></li>
@@ -13,7 +20,6 @@ function Leaderboard() {
             <li></li>
             <li></li>
             <li></li>
-
             <li></li>
           </ol>
         </div>  

@@ -1,66 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import questions from '../Assets/question';
-import { db } from '../Assets/firebase-config';
-// Import necessary Firestore functions
-import { collection, doc, updateDoc, getDoc } from "firebase/firestore";
+import { db, realtimeDb } from '../Assets/firebase-config';
+import { collection, doc, updateDoc, getDoc, getFirestore } from "firebase/firestore";
+import { ref, set } from 'firebase/database';
 
 function Quiz({ score, setScore, user }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timer, setTimer] = useState(10); // Initial timer value is 10 seconds
+  const [timer, setTimer] = useState(10);
   const currentQuestion = questions[currentQuestionIndex];
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
 
-
-  // useEffect(() => {
-  //   if(!allQuestionsAnswered){
-  //     const interval = setInterval(() => {
-  //       setTimer((prevTimer) => {
-  //         if (prevTimer === 1) {
-  //           // If timer reaches 1, move to the next question
-  //           nextQuestion();
-  //           return 10; // Reset timer for the next question
-  //         }
-  //         return prevTimer - 1;
-  //       });
-  //     }, 1000);
-  //     // Cleanup the interval on component unmount or when moving to the next question
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [currentQuestionIndex, allQuestionsAnswered]);
-
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const usersCollection = collection(db, 'users');
+        const userId = user.uid;
+        const userDocRef = doc(usersCollection, userId);
+        const userDocSnapshot = await getDoc(userDocRef);
   
-  async function updateScoreInFirestore(score) {
+        if (userDocSnapshot.exists()) {
+          const userData = userDocSnapshot.data();
+          if (userData) {
+            setAllQuestionsAnswered(userData.allQuestionsAnswered);
+            setScore(userData.score || 0);
+            setCorrectAnswers(userData.totalCorrect || 0);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data from Firestore:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, [user]);
+
+  useEffect(() => {
+    let interval;
+
+    if (!allQuestionsAnswered) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 1) {
+            nextQuestion();
+            return 10;
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [currentQuestionIndex, allQuestionsAnswered]);
+
+  async function updateScoreInFirestoreAndRealtimeDB(score,correctAnswers) {
+    // Update in Firestore
     const usersCollection = collection(db, 'users');
     const userId = user.uid;
     const userDocRef = doc(usersCollection, userId);
-    
+
     if ((await getDoc(userDocRef)).exists()) {
-      updateDoc(userDocRef, { score: score })
+      updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers })
+        .then(() => {
+          console.log('Score successfully updated in Firestore');
+        })
+        .catch((error) => {
+          console.error('Error updating score in Firestore:', error);
+        });
+    } else {
+      console.error('Document does not exist. Cannot update score in Firestore.');
+    }
+
+    // Update in Realtime Database
+    const realtimeDbRef = ref(realtimeDb, 'users/' + userId);
+    set(realtimeDbRef, { score: score })
       .then(() => {
-        console.log('Score successfully updated in Firestore');
+        console.log('Score successfully updated in Realtime Database');
       })
       .catch((error) => {
-        console.error('Error updating score in Firestore:', error);
+        console.error('Error updating score in Realtime Database:', error);
       });
-    } else {
-      console.error('Document does not exist. Cannot update score.');
-    }
   }
 
   function scoreUpdate(selectedOption) {
     const isCorrect = selectedOption === currentQuestion.correctOption;
-
-    setScore((prevScore) => {
-      const calculatedScore = timer;
-      return prevScore + (isCorrect ? calculatedScore : 0);
-    });
-
+  
+    const calculatedScore = isCorrect ? timer : 0;
+  
+    setScore((prevScore) => prevScore + calculatedScore);
     setCorrectAnswers((prevCorrectAnswers) => (isCorrect ? prevCorrectAnswers + 1 : prevCorrectAnswers));
-
+  
     if (currentQuestionIndex === questions.length - 1) {
       setAllQuestionsAnswered(true);
+      updateScoreInFirestoreAndRealtimeDB(score + calculatedScore); // Update with the correct score
       clearInterval(); // Stop the timer when all questions are answered
     } else {
       nextQuestion();
@@ -71,7 +104,6 @@ function Quiz({ score, setScore, user }) {
     setCurrentQuestionIndex((prevIndex) => {
       if (prevIndex >= questions.length - 1) {
         setAllQuestionsAnswered(true);
-        updateScoreInFirestore(score);
         return 0;
       }
       return prevIndex + 1;
@@ -79,7 +111,6 @@ function Quiz({ score, setScore, user }) {
     setTimer(10);
   }
 
-  
   return (
     <div className='Quiz'>
       <div>
@@ -106,10 +137,9 @@ function Quiz({ score, setScore, user }) {
             <p className='score'>Score: {score}</p>
           </div>
         )}
-        </div>
       </div>
+    </div>
   );
-  
 }
 
 export default Quiz;
