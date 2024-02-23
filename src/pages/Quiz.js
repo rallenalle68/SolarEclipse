@@ -54,13 +54,14 @@ function Quiz({ score, setScore, user }) {
     return () => clearInterval(interval);
   }, [currentQuestionIndex, allQuestionsAnswered]);
 
-  async function updateScoreInFirestoreAndRealtimeDB(score,correctAnswers) {
+  async function updateScoreInFirestoreAndRealtimeDB(score, correctAnswers) {
     // Update in Firestore
     const usersCollection = collection(db, 'users');
     const userId = user.uid;
     const userDocRef = doc(usersCollection, userId);
-
+  
     if ((await getDoc(userDocRef)).exists()) {
+      console.log(correctAnswers)
       updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers })
         .then(() => {
           console.log('Score successfully updated in Firestore');
@@ -71,7 +72,7 @@ function Quiz({ score, setScore, user }) {
     } else {
       console.error('Document does not exist. Cannot update score in Firestore.');
     }
-
+  
     // Update in Realtime Database
     const realtimeDbRef = ref(realtimeDb, 'users/' + userId);
     set(realtimeDbRef, { score: score })
@@ -82,18 +83,19 @@ function Quiz({ score, setScore, user }) {
         console.error('Error updating score in Realtime Database:', error);
       });
   }
+  
 
   function scoreUpdate(selectedOption) {
     const isCorrect = selectedOption === currentQuestion.correctOption;
-  
     const calculatedScore = isCorrect ? timer : 0;
   
     setScore((prevScore) => prevScore + calculatedScore);
-    setCorrectAnswers((prevCorrectAnswers) => (isCorrect ? prevCorrectAnswers + 1 : prevCorrectAnswers));
+    const updatedCorrectAnswers = isCorrect ? correctAnswers + 1 : correctAnswers;
+    setCorrectAnswers(updatedCorrectAnswers);
   
     if (currentQuestionIndex === questions.length - 1) {
       setAllQuestionsAnswered(true);
-      updateScoreInFirestoreAndRealtimeDB(score + calculatedScore); // Update with the correct score
+      updateScoreInFirestoreAndRealtimeDB(score + calculatedScore, updatedCorrectAnswers);
       clearInterval(); // Stop the timer when all questions are answered
     } else {
       nextQuestion();
