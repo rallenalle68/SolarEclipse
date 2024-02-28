@@ -24,6 +24,7 @@ body{
   text-align: center;
   height: fit-content;
   object-fit:contain;
+  
 }
 .Header{
   color: #fff;
@@ -108,6 +109,53 @@ Leaderboard
   justify-content: center;
 }
 
+.LeaderboardHeader{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  width: 340px;
+  border-bottom: #000 1px solid;
+  padding: 4px 14px;
+}
+
+.LeaderboardHeader > span{
+  font-size: 24px;
+  color: whitesmoke;
+}
+
+.LeaderboardList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  padding: 4px 14px;
+}
+
+.playerlist, .highlighted{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  width: 340px;
+  padding: 4px 14px;
+}
+
+
+.highlighted {
+  color: whitesmoke;
+  border-radius: 8px;
+  background-color: rgb(231, 149, 41); /* Change this to your desired highlight color */
+  font-weight: bold; /* Optionally make the text bold */
+  /* Add any other styles you want for highlighting */
+}
+
+li{
+  list-style: none;
+}
 
 /*
 Universal List style

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 // Pages
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 // Auth Functionality
 import { auth, db } from "../Assets/firebase-config";
 import {
@@ -133,7 +133,7 @@ function Authentication() {
       )}
 
       {user && (
-        <HomePage handleSignOut={handleSignOut} user={user} />
+        <HomePage handleSignOut={handleSignOut} user={user} username={username} />
       )}
     </div>
   );

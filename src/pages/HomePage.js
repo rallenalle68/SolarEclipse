@@ -7,8 +7,13 @@ import Information from "./Information";
 import Leaderboard from './Leaderboard';
 import SolarEclipse from './SolarEclipse';
 
-function HomePage({ handleSignOut, user }){
+function HomePage({ handleSignOut, user, username }){
     const [score, setScore] = useState(0);  
+
+    if (!user) {
+      // User is not authenticated yet, you might want to show a loading spinner or redirect to the login page.
+      return <div>Loading...</div>;
+    }
 
     return(
       <Router>
@@ -28,7 +33,7 @@ function HomePage({ handleSignOut, user }){
               </div>
 
               <Routes>
-                <Route path="/Leaderboard" element={<Leaderboard />} />
+                <Route path="/Leaderboard" element={<Leaderboard user={user} username={username} />} />
                 <Route path="/Quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
                 <Route path="/Information" element={<Information />} />
                 <Route path="/SolarEclipse" element={<SolarEclipse />} />
@@ -39,6 +44,6 @@ function HomePage({ handleSignOut, user }){
             </div>
           </Router>
     );
-  }
+}
 
-  export default HomePage;
+export default HomePage;
