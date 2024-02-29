@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import InfoModal from './InfoModal';
 import infoData from '../Assets/info.json';
 
-const Information = () => {
+const Information = (handleSignOut) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState({ title: '', content: '' });
@@ -35,11 +35,18 @@ const Information = () => {
     </div>
 
 
-      <div className='Sources'>
+      <div className='Credits'>
         <div>
-          <p>By: Rasmus Seppänen</p>
-          
+          <h1>Credits</h1>
+          <h3>This project was made possible by the people below</h3>
+          <p>Rasmus Seppänen</p>
+          {/* <p>Matthew Gentry</p>
+          <p>Phou</p>
+          <p>Dr. Wang</p>
+          <p>Dr. Horne</p>
+          <a>Nicholas Hubert</a> */}
         </div>
+        <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
       </div>
     </div>
   );

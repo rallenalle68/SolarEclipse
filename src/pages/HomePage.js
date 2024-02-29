@@ -35,12 +35,11 @@ function HomePage({ handleSignOut, user, username }){
               <Routes>
                 <Route path="/Leaderboard" element={<Leaderboard user={user} username={username} />} />
                 <Route path="/Quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
-                <Route path="/Information" element={<Information />} />
+                <Route path="/Information" element={<Information handleSignOut={handleSignOut}/>} />
                 <Route path="/SolarEclipse" element={<SolarEclipse />} />
               </Routes>
       
               
-              <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
             </div>
           </Router>
     );

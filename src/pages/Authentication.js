@@ -19,13 +19,17 @@ function Authentication() {
   const [username, setUsername] = useState("");
   const [mode, setMode] = useState("initial"); // Added state for mode
   const [user, setUser] = useState(null);
-
+  const [errorMessage, seterrorMessage] = useState("")
+  
   const handleSignUp = async () => {
     try {
       if(!email.includes("@gannon.edu")){
+        seterrorMessage("Invalid email. Must be a gannon email!")
         console.log("Invalid Email!")
+
       }
       else{
+        seterrorMessage("")
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         setUser(userCredential.user);
         const userId = userCredential.user.uid; // Get the user ID
@@ -38,6 +42,11 @@ function Authentication() {
         console.log("Document written with ID: ", userId);
       }
     } catch (error) {
+      if(error.message.includes("email-already-in-use")){
+        seterrorMessage("Email already in use")
+      } else{
+        seterrorMessage(error.message)
+      }
       console.error(error.message);
     }
 
@@ -50,9 +59,15 @@ function Authentication() {
 
   const handleSignIn = async () => {
     try {
+      seterrorMessage("")
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user);
     } catch (error) {
+      if(error.message.includes("invalid-credential")){
+        seterrorMessage("Invalid email or password")
+      } else{
+        seterrorMessage(error.message)
+      }
       console.error(error.message);
     }
   };
@@ -99,7 +114,7 @@ function Authentication() {
 
           <div className="FormsContainer">
             
-              <button onClick={() => setMode("initial")}>Back</button>
+              <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
             
 
             {mode === "createAccount" && (
@@ -128,13 +143,22 @@ function Authentication() {
             <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
               {mode === "createAccount" ? "Create Account" : "Sign In"}
             </button>
+              {errorMessage && (
+                <div className="error-message">
+                  <span>{errorMessage}</span>
+                </div>
+              )}
           </div>
+          
         </div>
       )}
+
+      
 
       {user && (
         <HomePage handleSignOut={handleSignOut} user={user} username={username} />
       )}
+
     </div>
   );
 }

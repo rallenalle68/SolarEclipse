@@ -31,11 +31,25 @@ const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
 
 return(
     <div className='SolarEclipse'>
-        <h2>Solar Eclipse Countdown</h2>
-            <p>
-                {timeRemaining.days} days, {timeRemaining.hours} hours, {timeRemaining.minutes} minutes,{' '}
-                {timeRemaining.seconds}
-            </p>
+        <h2>Countdown</h2>
+            <div className='SolarTimer'>
+              <div>
+                <p className='SolarTime'>{timeRemaining.days}</p>
+                <p>days</p>
+              </div>
+              <div>
+                <p className='SolarTime'>{timeRemaining.hours}</p>
+                <p>Hours</p>
+              </div>
+              <div>
+                <p className='SolarTime'>{timeRemaining.minutes}</p>
+                <p>Minutes</p>
+              </div>
+              <div>
+                <p className='SolarTime'>{timeRemaining.seconds}</p>
+                <p>seconds</p>
+              </div>
+            </div>
         <div className='Phases'>
             <div className='Phase 1'>
                 <h2>Phase 1</h2>
