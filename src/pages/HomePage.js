@@ -7,7 +7,7 @@ import Information from "./Information";
 import Leaderboard from './Leaderboard';
 import SolarEclipse from './SolarEclipse';
 
-function HomePage({ handleSignOut, user, username }){
+function HomePage({ user, username }){
     const [score, setScore] = useState(0);  
 
     if (!user) {
@@ -35,7 +35,7 @@ function HomePage({ handleSignOut, user, username }){
               <Routes>
                 <Route path="/Leaderboard" element={<Leaderboard user={user} username={username} />} />
                 <Route path="/Quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
-                <Route path="/Information" element={<Information handleSignOut={handleSignOut}/>} />
+                <Route path="/Information" element={<Information/>} />
                 <Route path="/SolarEclipse" element={<SolarEclipse />} />
               </Routes>
       

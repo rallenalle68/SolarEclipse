@@ -302,7 +302,32 @@ Solar eclipse component
 .SolarTimerparag{
   font-size: 12px;
 }
+/*
+Sun
+*/
+.SunContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.Sun {
+  background-image: url('../Assets/Sun.png');
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+  /* Ensure that the element has some content or dimensions to show the background */
+  border-radius: 50%; /* Example: Make it a circle */
+}
+.Moon{
+  background-image: url('../Assets/Moon.png');
+  background-size: 120px 120px;
+  width: 120px;
+  height: 120px;
+  /* Ensure that the element has some content or dimensions to show the background */
+  border-radius: 50%; /* Example: Make it a circle */
+}
 /*
 Information component
 */
@@ -352,7 +377,6 @@ Sign out button
 
 @media screen and (max-width:500px
 ) {
-
   .NavigationLinks{
 
   }
@@ -360,16 +384,12 @@ Sign out button
 
 .Credits {
   background-color: #0d5d0d;
-  border-radius: 24px;
+  border-radius: 12px 12px 0px 0px;
   width: 100%;
-  bottom: 0;
+  bottom: -200px;
   position: absolute;
 }
 
 .Credits > div{
   color: white;
-}
-
-.Credits{
-
 }

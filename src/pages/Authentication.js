@@ -12,6 +12,7 @@ import {
   signOut,
 } from "firebase/auth";
 import HomePage from "./HomePage";
+import { collection, query, getDocs, where } from 'firebase/firestore';
 
 function Authentication() {
   const [email, setEmail] = useState("");
@@ -21,39 +22,50 @@ function Authentication() {
   const [user, setUser] = useState(null);
   const [errorMessage, seterrorMessage] = useState("")
   
+  const checkUsernameAvailability = async (username) => {
+    const usersRef = collection(db, "users");
+    const querySnapshot = await getDocs(query(usersRef, where("username", "==", username)));
+  
+    return querySnapshot.empty; // Returns true if the username is available, false otherwise
+  };
+  
   const handleSignUp = async () => {
     try {
-      if(!email.includes("@gannon.edu")){
-        seterrorMessage("Invalid email. Must be a gannon email!")
-        console.log("Invalid Email!")
-
-      }
-      else{
-        seterrorMessage("")
+      if (!email.includes("@gannon.edu")) {
+        seterrorMessage("Invalid email. Must be a Gannon email!");
+        console.log("Invalid Email!");
+      } else {
+        
+        // Check if the username is available
+        const isUsernameAvailable = await checkUsernameAvailability(username);
+  
+        if (!isUsernameAvailable) {
+          seterrorMessage("Username is already taken. Please choose a different one.");
+          return; // Exit function if the username is not available
+        }
+  
+        // Continue with user registration since the username is available
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         setUser(userCredential.user);
-        const userId = userCredential.user.uid; // Get the user ID
-
+        const userId = userCredential.user.uid;
+        seterrorMessage("");
+  
+        // Save user data to Firestore
         await setDoc(doc(db, "users", userId), {
           username: username,
           score: 0
         });
-
+  
         console.log("Document written with ID: ", userId);
       }
     } catch (error) {
-      if(error.message.includes("email-already-in-use")){
-        seterrorMessage("Email already in use")
-      } else{
-        seterrorMessage(error.message)
+      if(error.message.includes("weak")){
+        seterrorMessage("Weak password, must be at least 6 characters");
+      }
+      else if(error.message.includes("taken")){
+        seterrorMessage("Username already taken");
       }
       console.error(error.message);
-    }
-
-    // Writing to the database:
-    try {
-    } catch (e) {
-      console.error("Error adding document: ", e);
     }
   };
 
@@ -68,15 +80,6 @@ function Authentication() {
       } else{
         seterrorMessage(error.message)
       }
-      console.error(error.message);
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-    } catch (error) {
       console.error(error.message);
     }
   };
@@ -156,7 +159,7 @@ function Authentication() {
       
 
       {user && (
-        <HomePage handleSignOut={handleSignOut} user={user} username={username} />
+        <HomePage auth={auth} user={user} username={username} />
       )}
 
     </div>

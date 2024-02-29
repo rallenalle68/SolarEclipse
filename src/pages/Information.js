@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import InfoModal from './InfoModal';
 import infoData from '../Assets/info.json';
+import { signOut } from "firebase/auth";
+import {auth} from '../Assets/firebase-config'
 
-const Information = (handleSignOut) => {
-
+const Information = () => {
+  const [user, setUser] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState({ title: '', content: '' });
 
@@ -16,6 +18,16 @@ const Information = (handleSignOut) => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
 
   return (
     <div>       
@@ -36,16 +48,34 @@ const Information = (handleSignOut) => {
 
 
       <div className='Credits'>
-        <div>
-          <h1>Credits</h1>
-          <h3>This project was made possible by the people below</h3>
-          <p>Rasmus Seppänen</p>
-          {/* <p>Matthew Gentry</p>
-          <p>Phou</p>
-          <p>Dr. Wang</p>
-          <p>Dr. Horne</p>
-          <a>Nicholas Hubert</a> */}
-        </div>
+          <div>
+            <h1>Credits</h1>
+            <h3 style={{ borderBottom: '1px solid #000' }}>This project was made possible by the people below</h3>
+            <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Author</p>
+              <p>Rasmus Seppänen</p>
+            </div>
+            <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Sources</p>
+              <p>Dr. David Horne</p>
+            </div>
+            <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Special thanks</p>
+              <p>Dr. Kefei Wang</p>
+              <p>Nicholas Hubert</p>
+            </div>
+            <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Other Contributors</p>
+              <p>Matthew Gentry</p>
+              <p>Phou</p>
+            </div>
+            <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Sponsors</p>
+              <p>Comp Sci department</p>
+              <p>Gannon Bookstore</p>
+            </div>
+          </div>
+
         <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
       </div>
     </div>
