@@ -12,8 +12,8 @@ Leaderboard ui ✅
 Leaderboard sorting ✅
 Username validation ✅
 Credits ✅
+Error handling in all places ✅
 Sun animation ❌
-Error handling in all places ❌
 Rounds for questions ❌
 Clean up database and set it ready for users ❌
 Winner anouncment ❌
