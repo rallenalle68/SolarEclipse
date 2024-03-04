@@ -103,24 +103,52 @@ function Quiz({ score, setScore, user }) {
   }
   
 
-  function scoreUpdate(selectedOption) {
-    const isCorrect = selectedOption === currentQuestion.correctOption;
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  function scoreUpdate(option) {
+    const isCorrect = option === currentQuestion.correctOption;
     const calculatedScore = isCorrect ? timer : 0;
-  
+
     setScore((prevScore) => prevScore + calculatedScore);
     const updatedCorrectAnswers = isCorrect ? correctAnswers + 1 : correctAnswers;
     setCorrectAnswers(updatedCorrectAnswers);
-  
+
+    setSelectedOption(option);
+
+    // Disable the options after the user answers
+    document.querySelectorAll('.question-box button').forEach(btn => {
+      btn.disabled = true;
+    });
+
+    // Display the correct option in green and the selected option in red
+    document.querySelectorAll('.question-box button').forEach(btn => {
+      const optionText = btn.textContent;
+      if (isCorrect && optionText === currentQuestion.correctOption) {
+        btn.style.backgroundColor = 'green';
+      } else if (!isCorrect && optionText === option) {
+        btn.style.backgroundColor = 'red';
+      }
+    });
+
     if (currentQuestionIndex === questions.length - 1) {
       setAllQuestionsAnswered(true);
       updateFirestore(score + calculatedScore, updatedCorrectAnswers);
-      clearInterval(); // Stop the timer when all questions are answered
     } else {
-      nextQuestion();
+      // Show "Next Question" button after a delay
+      setTimeout(() => {
+        document.querySelector('.next-question-btn').style.display = 'block';
+      }, 1000);
     }
   }
 
   function nextQuestion() {
+    // Enable the options for the next question
+    document.querySelectorAll('.question-box button').forEach(btn => {
+      btn.disabled = false;
+      btn.style.backgroundColor = ''; // Reset background color
+    });
+
+    setSelectedOption(null); // Reset selected option
     setCurrentQuestionIndex((prevIndex) => {
       if (prevIndex >= questions.length - 1) {
         setAllQuestionsAnswered(true);
@@ -129,6 +157,7 @@ function Quiz({ score, setScore, user }) {
       return prevIndex + 1;
     });
     setTimer(10);
+    document.querySelector('.next-question-btn').style.display = 'none'; // Hide "Next Question" button
   }
 
   return (
@@ -136,11 +165,11 @@ function Quiz({ score, setScore, user }) {
       <div>
         {allQuestionsAnswered ? (
           <div className='CompletedRound'>
-            <p className='p1'>Round 1 Completed</p>
-            <p className='p2'>Total correct answers: {correctAnswers}</p>
-            <p className='p3'>Your score: {score}</p>
-            <p className='p4'>Next round will start at 12 pm!</p>
-          </div>
+          <p className='p1'>Round 1 Completed</p>
+          <p className='p2'>Total correct answers: {correctAnswers}</p>
+          <p className='p3'>Your score: {score}</p>
+          <p className='p4'>Next round will start at 12 pm!</p>
+        </div>
         ) : (
           <div className='Quiz-main'>
             <p>{currentQuestion.text}</p>
@@ -149,12 +178,20 @@ function Quiz({ score, setScore, user }) {
               <ul>
                 {currentQuestion.options.map((option, index) => (
                   <li key={index} className='question-box'>
-                    <button onClick={() => scoreUpdate(option)}>{option}</button>
+                    <button
+                      onClick={() => scoreUpdate(option)}
+                      className={selectedOption === option ? 'selected' : ''}
+                    >
+                      {option}
+                    </button>
                   </li>
                 ))}
               </ul>
             </div>
             <p className='score'>Score: {score}</p>
+            <button className='next-question-btn' onClick={nextQuestion} style={{ display: 'none' }}>
+              Next Question
+            </button>
           </div>
         )}
       </div>

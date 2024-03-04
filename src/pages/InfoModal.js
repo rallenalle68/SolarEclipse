@@ -23,7 +23,7 @@ const InfoModal = ({ isOpen, closeModal, title, content }) => {
       >
         <h2>{title}</h2>
         <p>{content}</p>
-        <button onClick={closeModal}>Close Modal</button>
+        <button onClick={closeModal}>Close</button>
       </Modal>
     );
   };

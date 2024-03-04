@@ -1,5 +1,4 @@
-import React from "react";
-import './pages/App.css';
+import React, { useEffect } from "react";
 import './pages/App.css';
 /* 
 TODO LIST:
@@ -13,6 +12,7 @@ Leaderboard sorting ✅
 Username validation ✅
 Credits ✅
 Error handling in all places ✅
+Next Question and user feedback after each question ❌
 Sun animation ❌
 Rounds for questions ❌
 Clean up database and set it ready for users ❌
@@ -37,6 +37,14 @@ Image by <a href="https://www.freepik.com/free-vector/background-pixel-rain-abst
 import Authentication from './pages/Authentication';
 
 function App() {
+
+  useEffect(() => {
+    document.title = 'Eclipse';
+    // Optionally, reset the title when the component unmounts
+    return () => {
+      document.title = 'Eclipse';
+    };
+  }, []);
   
   //Production Mode
   return (

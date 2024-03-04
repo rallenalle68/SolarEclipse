@@ -32,12 +32,10 @@ const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
 return(
     <div className='SolarEclipse'>
 
-        <div className='SunContainer'>
+        {/* <div className='SunContainer'>
           <div className='Sun'></div>
           <div className='Moon'></div>
-        </div>
-
-
+        </div> */}
 
         <h2>Countdown</h2>
             <div className='SolarTimer'>

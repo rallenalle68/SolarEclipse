@@ -10,11 +10,6 @@ import SolarEclipse from './SolarEclipse';
 function HomePage({ user, username }){
     const [score, setScore] = useState(0);  
 
-    if (!user) {
-      // User is not authenticated yet, you might want to show a loading spinner or redirect to the login page.
-      return <div>Loading...</div>;
-    }
-
     return(
       <Router>
             <div className="App">
