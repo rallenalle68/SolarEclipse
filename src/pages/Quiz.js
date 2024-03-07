@@ -57,7 +57,7 @@ function Quiz({ score, setScore, user }) {
     }
 
     return () => clearInterval(interval); // Pass the interval ID to clearInterval
-  }, [currentQuestionIndex, allQuestionsAnswered, timerRunning]);
+  }, [currentQuestionIndex, allQuestionsAnswered, timerRunning, setScore]);
 
   async function updateFirestore(score, correctAnswers) {
     const usersCollection = collection(db, 'users');
