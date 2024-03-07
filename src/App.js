@@ -17,7 +17,7 @@ Sun animation ❌
 Rounds for questions ❌
 Clean up database and set it ready for users ❌
 Winner anouncment ❌
-
+Forgotten password ❌
 
 credits
 Image by <a href="https://www.freepik.com/free-vector/background-pixel-rain-abstract_6072178.htm#query=pixel%20space&position=14&from_view=keyword&track=ais&uuid=352fae14-941a-4068-80b6-2a1acc65273c">Freepik</a>

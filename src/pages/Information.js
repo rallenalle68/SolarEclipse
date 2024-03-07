@@ -67,7 +67,7 @@ const Information = () => {
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Other Contributors</p>
               <p>Matthew Gentry</p>
-              <p>Phou</p>
+              <p>Phu</p>
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Sponsors</p>
