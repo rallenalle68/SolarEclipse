@@ -19,7 +19,6 @@ function Leaderboard({ user }) {
   
   useEffect(() => {
     if (userName !== "") {
-      console.log(userName)
       fetchLeaderboardData(userName);
     }
   }, [userName]);
@@ -33,9 +32,7 @@ function Leaderboard({ user }) {
 
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
-        console.log("userdata is retrieved like this: ", userData)
         if (userData) {
-
           setUserName(userData.username);
         }
         if(userName !== ""){
@@ -71,7 +68,6 @@ function Leaderboard({ user }) {
       } else {
         // If the user is not in the top 10, find their rank using data
         const userData = data.find(entry => entry.username === userName);
-        console.log("UserData: ",userData)
         if (userData) {
           setUserRank(data.indexOf(userData) + 1);
           setUserScore(userData.score);

@@ -14,7 +14,7 @@ function Quiz({ score, setScore, user }) {
   const [quizStarted, setQuizStarted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
-
+  const [countdown, setCountdown] = useState('');
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -66,7 +66,7 @@ function Quiz({ score, setScore, user }) {
 
     try {
       if ((await getDoc(userDocRef)).exists()) {
-        await updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers, quizStarted: false, });
+        await updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers});
         console.log('Score successfully updated in Firestore');
       } else {
         console.error('Document does not exist. Cannot update score in Firestore.');
@@ -98,10 +98,7 @@ function Quiz({ score, setScore, user }) {
         // Add a new entry to the leaderboard
         await addDoc(leaderboardCollection, newLeaderboardEntry);
       }
-
-      console.log('Leaderboard successfully updated in Firestore');
     } catch (error) {
-      console.error('Error updating leaderboard in Firestore:', error);
     }
   }
 
@@ -184,6 +181,42 @@ function Quiz({ score, setScore, user }) {
     }
     
   }
+  useEffect(() => {
+    // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
+    function calculateCountdown() {
+      // Target time: April 8, 2024, 13:00:00
+      const targetTime = new Date('April 8, 2024 13:00:00');
+  
+      // Current date and time
+      const now = new Date();
+  
+      // Calculate the time difference in milliseconds
+      const timeDiff = targetTime.getTime() - now.getTime();
+  
+      // Convert time difference to hours, minutes, and seconds
+      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+      // Format the remaining time as a string
+      const formattedCountdown = `${hours.toString().padStart(2, '0')}:
+        ${minutes.toString().padStart(2, '0')}:
+        ${seconds.toString().padStart(2, '0')}`;
+  
+      // Update the countdown state
+      setCountdown(formattedCountdown);
+  
+      // Update the countdown every second
+      setTimeout(calculateCountdown, 1000);
+    }
+  
+    // Start the countdown
+    calculateCountdown();
+  
+    // Clean up the setTimeout when component unmounts
+    return () => clearTimeout(calculateCountdown);
+  }, []);
+  
 
   return (
     <div className='Quiz'>
@@ -201,7 +234,7 @@ function Quiz({ score, setScore, user }) {
             <p className='p1'>Round 1 Completed</p>
             <p className='p2'>Total correct answers: {correctAnswers}</p>
             <p className='p3'>Your score: {score}</p>
-            <p className='p4'>Next round will start at 12 pm!</p>
+            <p className='p4'>Next round will start in {countdown} hours </p>
           </div>
         ) : (
           <div className='Quiz-main'>

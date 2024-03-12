@@ -12,7 +12,9 @@ Leaderboard sorting ✅
 Username validation ✅
 Credits ✅
 Error handling in all places ✅
-Next Question and user feedback after each question ❌
+Next Question and user feedback after each question ✅
+
+Count down for the rounds ❌
 Sun animation ❌
 Rounds for questions ❌
 Clean up database and set it ready for users ❌

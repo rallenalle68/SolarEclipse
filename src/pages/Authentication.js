@@ -1,4 +1,3 @@
-// Authentication.js
 import React, { useState, useEffect } from "react";
 import './App.css';
 // Pages
@@ -15,75 +14,86 @@ import HomePage from "./HomePage";
 import { collection, query, getDocs, where } from 'firebase/firestore';
 
 function Authentication() {
+  // State variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [mode, setMode] = useState("initial"); // Added state for mode
-  const [user, setUser] = useState(null);
-  const [errorMessage, seterrorMessage] = useState("")
-  
+  const [mode, setMode] = useState("initial"); // State to manage different modes
+  const [user, setUser] = useState(null); // State to manage user authentication status
+  const [errorMessage, seterrorMessage] = useState(""); // State to handle error messages
+
+  // Function to check if a username is available
   const checkUsernameAvailability = async (username) => {
     const usersRef = collection(db, "users");
     const querySnapshot = await getDocs(query(usersRef, where("username", "==", username)));
-  
     return querySnapshot.empty; // Returns true if the username is available, false otherwise
   };
   
+  // Function to handle user sign up
   const handleSignUp = async () => {
     try {
+      // Check if the email is a Gannon email
       if (!email.includes("@gannon.edu")) {
         seterrorMessage("Invalid email. Must be a Gannon email!");
         console.log("Invalid Email!");
-      } else {
-        
+      } else if(username ==""){
+        seterrorMessage("No username given!");
+      }
+      else {
         // Check if the username is available
         const isUsernameAvailable = await checkUsernameAvailability(username);
-  
         if (!isUsernameAvailable) {
           seterrorMessage("Username is already taken. Please choose a different one.");
           return; // Exit function if the username is not available
         }
-  
+
         // Continue with user registration since the username is available
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         setUser(userCredential.user);
         const userId = userCredential.user.uid;
         seterrorMessage("");
-  
+
         // Save user data to Firestore
         await setDoc(doc(db, "users", userId), {
           username: username,
           score: 0
         });
-  
-        console.log("Document written with ID: ", userId);
+
       }
     } catch (error) {
+      // Handle different types of errors
       if(error.message.includes("weak")){
         seterrorMessage("Weak password, must be at least 6 characters");
       }
       else if(error.message.includes("taken")){
-        seterrorMessage("Username already taken");
+        seterrorMessage("Username already taken!");
       }
-      console.error(error.message);
+       else if(error.message.includes("in-use")){
+        seterrorMessage("Email already in use!")
+      } else if(error.message.includes("missing-password")){
+        seterrorMessage("Missing password!")
+      }
+      
     }
   };
 
+  // Function to handle user sign in
   const handleSignIn = async () => {
     try {
-      seterrorMessage("")
+      seterrorMessage(""); // Clear any previous error message
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user);
     } catch (error) {
-      if(error.message.includes("invalid-credential")){
+      // Handle different types of errors
+      if(error.message.includes("invalid")){
         seterrorMessage("Invalid email or password")
       } else{
         seterrorMessage(error.message)
       }
-      console.error(error.message);
     }
   };
 
+  // Effect hook to listen for changes in authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -121,12 +131,16 @@ function Authentication() {
             
 
             {mode === "createAccount" && (
-              <input
-                className="inputForm"
-                type="username"
-                placeholder="Username..."
-                onChange={(event) => setUsername(event.target.value)}
-              />
+              
+              // ADD username usage info
+              <>
+                
+                <span style={{marginTop:4}}>Username will be displayed in the leaderboard</span>
+                <input
+                  className="inputForm"
+                  type="username"
+                  placeholder="Username..."
+                  onChange={(event) => setUsername(event.target.value)} /></>
             )}
 
             <input

@@ -2,36 +2,66 @@
 const questions = [
   {
     id: 1,
-    text: "What is a solar eclipse?",
-    options: ["When the moon passes between the Earth and the sun", "When the Earth passes between the moon and the sun", "When the sun passes between the Earth and the moon"],
-    correctOption: "When the moon passes between the Earth and the sun",
+    text: "What is the capital city of Canada?",
+    options: ["Toronto", "Ottawa", "Montreal", "Vancouver"],
+    correctOption: "Ottawa",
   },
   {
     id: 2,
-    text: "How often do solar eclipses occur?",
-    options: ["Once a year", "Once every six months", "It varies", "Once a month"],
-    correctOption: "It varies",
+    text: "What is the largest planet in our solar system?",
+    options: ["Earth", "Mars", "Jupiter", "Saturn"],
+    correctOption: "Jupiter",
   },
-  // Add more questions as needed
-
   {
     id: 3,
-    text: "True or False: A lunar eclipse can only occur during a full moon.",
-    options: ["True", "False"],
-    correctOption: "True",
+    text: "Who wrote the play 'Romeo and Juliet'?",
+    options: ["William Shakespeare", "Jane Austen", "Charles Dickens", "Mark Twain"],
+    correctOption: "William Shakespeare",
   },
   {
     id: 4,
-    text: "What is the name of the point where the sun is directly overhead during a solar eclipse?",
-    options: ["Zenith", "Nadir", "Apex", "Nadir"],
-    correctOption: "Zenith",
+    text: "What is the chemical symbol for water?",
+    options: ["H2O", "CO2", "NaCl", "O2"],
+    correctOption: "H2O",
   },
   {
     id: 5,
-    text: "What is the term for the faint glow that surrounds the sun's disk during a total solar eclipse?",
-    options: ["Corona", "Flare", "Halo", "Aureole"],
-    correctOption: "Corona",
+    text: "Which element has the atomic number 6?",
+    options: ["Oxygen", "Carbon", "Nitrogen", "Hydrogen"],
+    correctOption: "Carbon",
   },
+  // {
+  //   id: 1,
+  //   text: "What is a solar eclipse?",
+  //   options: ["When the moon passes between the Earth and the sun", "When the Earth passes between the moon and the sun", "When the sun passes between the Earth and the moon"],
+  //   correctOption: "When the moon passes between the Earth and the sun",
+  // },
+  // {
+  //   id: 2,
+  //   text: "How often do solar eclipses occur?",
+  //   options: ["Once a year", "Once every six months", "It varies", "Once a month"],
+  //   correctOption: "It varies",
+  // },
+  // // Add more questions as needed
+
+  // {
+  //   id: 3,
+  //   text: "True or False: A lunar eclipse can only occur during a full moon.",
+  //   options: ["True", "False"],
+  //   correctOption: "True",
+  // },
+  // {
+  //   id: 4,
+  //   text: "What is the name of the point where the sun is directly overhead during a solar eclipse?",
+  //   options: ["Zenith", "Nadir", "Apex", "Nadir"],
+  //   correctOption: "Zenith",
+  // },
+  // {
+  //   id: 5,
+  //   text: "What is the term for the faint glow that surrounds the sun's disk during a total solar eclipse?",
+  //   options: ["Corona", "Flare", "Halo", "Aureole"],
+  //   correctOption: "Corona",
+  // },
   // {
   //   id: 6,
   //   text: "True or False: Solar eclipses can occur only during the day.",
