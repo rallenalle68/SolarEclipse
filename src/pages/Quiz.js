@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import questions from '../Assets/question';
+import questions from '../Assets/questions.json'; // Import the JSON file
 import { db } from '../Assets/firebase-config';
-import { collection, doc, getDocs, getDoc, updateDoc, addDoc, orderBy, query, limit } from 'firebase/firestore';
+import { collection, doc,getDocs, getDoc, updateDoc, addDoc, orderBy, query, limit } from 'firebase/firestore';
 
 function Quiz({ score, setScore, user }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timer, setTimer] = useState(10);
-  const currentQuestion = questions[currentQuestionIndex];
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
   const [userName, setUsername] = useState("");
   const [quizStarted, setQuizStarted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0); // Set currentRoundIndex to 0 to access Round 1
+  const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex]; // Access Round 1 questions
+  const [roundFinished, setRoundFinished] = useState(false);
+  const [countdown, setCountdown] = useState(5); // Countdown time in seconds
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -32,6 +35,7 @@ function Quiz({ score, setScore, user }) {
             setScore(userData.score || 0);
             setCorrectAnswers(userData.totalCorrect || 0);
             setUsername(userData.username || "");
+            setCurrentRoundIndex(userData.currentRound || 0);
           }
         }
       } catch (error) {
@@ -41,6 +45,7 @@ function Quiz({ score, setScore, user }) {
 
     fetchUserData();
   }, [user]);
+
   useEffect(() => {
     let interval;
 
@@ -59,14 +64,24 @@ function Quiz({ score, setScore, user }) {
     return () => clearInterval(interval); // Pass the interval ID to clearInterval
   }, [currentQuestionIndex, allQuestionsAnswered, timerRunning]);
 
+  useEffect(() => {
+    if (roundFinished) {
+      const countdownInterval = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      return () => clearInterval(countdownInterval);
+    }
+  }, [roundFinished]);
+
   async function updateFirestore(score, correctAnswers) {
     const usersCollection = collection(db, 'users');
     const userId = user.uid;
     const userDocRef = doc(usersCollection, userId);
-
+  
     try {
       if ((await getDoc(userDocRef)).exists()) {
-        await updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers, quizStarted: false, });
+        await updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers, currentRound: currentRoundIndex});
         console.log('Score successfully updated in Firestore');
       } else {
         console.error('Document does not exist. Cannot update score in Firestore.');
@@ -74,22 +89,22 @@ function Quiz({ score, setScore, user }) {
     } catch (error) {
       console.error('Error updating score in Firestore:', error);
     }
-
+  
     // Update leaderboard collection
     const leaderboardCollection = collection(db, 'leaderboard');
     const newLeaderboardEntry = { username: userName, score: score };
-
+  
     try {
       // Fetch the current leaderboard data
       const leaderboardQuery = query(leaderboardCollection, orderBy('score', 'desc'), limit(10));
       const leaderboardSnapshot = await getDocs(leaderboardQuery);
-
+  
       // Convert the query snapshot into an array of documents
       const leaderboardData = leaderboardSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
+  
       // Check if the user already has an entry in the leaderboard
       const userEntryIndex = leaderboardData.findIndex(entry => entry.username === userName);
-
+  
       if (userEntryIndex !== -1) {
         // Update existing entry in the leaderboard
         const userLeaderboardDocRef = doc(leaderboardCollection, leaderboardData[userEntryIndex].id);
@@ -98,81 +113,93 @@ function Quiz({ score, setScore, user }) {
         // Add a new entry to the leaderboard
         await addDoc(leaderboardCollection, newLeaderboardEntry);
       }
-
+  
       console.log('Leaderboard successfully updated in Firestore');
     } catch (error) {
       console.error('Error updating leaderboard in Firestore:', error);
     }
   }
 
-
   function scoreUpdate(option) {
+    const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex];
     const isCorrect = option === currentQuestion.correctOption;
     const calculatedScore = isCorrect ? timer : 0;
   
-    setScore((prevScore) => prevScore + calculatedScore);
+    setScore(prevScore => prevScore + calculatedScore);
     const updatedCorrectAnswers = isCorrect ? correctAnswers + 1 : correctAnswers;
     setCorrectAnswers(updatedCorrectAnswers);
   
     setSelectedOption(option);
     setTimerRunning(false);
   
-    // Disable the options after the user answers
-    document.querySelectorAll('.question-box button').forEach(btn => {
+    // Disable all option buttons after an option has been selected
+    document.querySelectorAll('.option-box button').forEach(btn => {
       btn.disabled = true;
     });
   
-    // Display the correct option in green and the selected option in red
-    document.querySelectorAll('.question-box button').forEach(btn => {
+    // Display the correct option in green and the selected option in red if incorrect
+    document.querySelectorAll('.option-box button').forEach(btn => {
       const optionText = btn.textContent;
       if (optionText === currentQuestion.correctOption) {
-        btn.style.backgroundColor = 'green';
-      } else if (optionText === option) {
-        btn.style.backgroundColor = 'red';
+        btn.style.backgroundColor = 'green'; // Highlight correct option green
+      } else if (optionText === option && !isCorrect) {
+        btn.style.backgroundColor = 'red'; // Highlight selected incorrect option red
       }
     });
   
-    if (currentQuestionIndex === questions.length - 1) {
-      setAllQuestionsAnswered(true);
+    // Show "Next Question" button after user has answered
+    document.querySelector('.next-question-btn').style.display = 'block';
+  
+    if (currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1) {
+      setRoundFinished(true);
       updateFirestore(score + calculatedScore, updatedCorrectAnswers);
-    } else {
-      // Show "Next Question" button after a delay
-      setTimeout(() => {
-        document.querySelector('.next-question-btn').style.display = 'block';
-      }, 1000);
     }
   }
+  
+  
+ // Modify nextQuestion function
+function nextQuestion() {
+  // Reset button styles and enable options for the next question
+  document.querySelectorAll('.option-box button').forEach(btn => {
+    btn.disabled = false;
+    btn.style.backgroundColor = '';
+  });
 
-  function nextQuestion() {
-    // Enable the options for the next question
-    document.querySelectorAll('.question-box button').forEach(btn => {
-      btn.disabled = false;
-      btn.style.backgroundColor = ''; // Reset background color
-    });
+  setSelectedOption(null); // Reset selected option
+  // Hide "Next Question" button
+  document.querySelector('.next-question-btn').style.display = 'none';
 
-    setSelectedOption(null); // Reset selected option
-    setCurrentQuestionIndex((prevIndex) => {
-      if (prevIndex >= questions.length - 1) {
-        setAllQuestionsAnswered(true);
-        return 0;
-      }
-      return prevIndex + 1;
-    });
+  // Check if it's the last question in the round
+  if (currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1) {
+    // Hide "Next Question" button after it's clicked
+    document.querySelector('.next-question-btn').style.display = 'none';
+
+    // Check if the round is finished
+    if (roundFinished) {
+      // All questions in the round have been answered
+      setAllQuestionsAnswered(true);
+    } else {
+      // Show "Finish Round" button
+      document.querySelector('.finish-round-btn').style.display = 'block';
+    }
+  } else {
+    // Proceed to the next question
+    setCurrentQuestionIndex(prevIndex => prevIndex + 1);
     setTimer(10);
-    setTimerRunning(true); // Start the timer for the next question
-    document.querySelector('.next-question-btn').style.display = 'none'; // Hide "Next Question" button
+    setTimerRunning(true);
   }
+}
 
   // Function to start the quiz
   async function startQuiz() {
     try {
       const usersCollection = collection(db, 'users');
-      const userId = user.uid;
+      const userId  = user.uid;
       const userDocRef = doc(usersCollection, userId);
       if ((await getDoc(userDocRef)).exists()) {
         await updateDoc(userDocRef, {
           quizStarted: true,
-          currentQuestionIndex: 0,
+          currentRound: 0
         });
         setTimerRunning(true)
         setQuizStarted(true);
@@ -182,7 +209,31 @@ function Quiz({ score, setScore, user }) {
     } catch (error) {
       console.error('Error updating score in Firestore:', error);
     }
-    
+  }
+
+  async function startNextRound() {
+    try {
+      const usersCollection = collection(db, 'users');
+      const userId  = user.uid;
+      const userDocRef = doc(usersCollection, userId);
+      if ((await getDoc(userDocRef)).exists()) {
+        await updateDoc(userDocRef, {
+          currentRound: currentRoundIndex +1,
+          allQuestionsAnswered: false
+        });
+        setAllQuestionsAnswered(false)
+        setCurrentRoundIndex(prevRoundIndex => prevRoundIndex + 1);
+        setCurrentQuestionIndex(0);
+        setRoundFinished(false);
+        setTimer(10);
+        setCountdown(5);
+        setTimerRunning(true);
+      } else {
+        console.error('Document does not exist. Cannot update score in Firestore.');
+      }
+    } catch (error) {
+      console.error('Error updating score in Firestore:', error);
+    }
   }
 
   return (
@@ -196,34 +247,43 @@ function Quiz({ score, setScore, user }) {
               Start
             </button>
           </div>
-        ) : allQuestionsAnswered ? (
+        ) :allQuestionsAnswered ? (
           <div className='CompletedRound'>
-            <p className='p1'>Round 1 Completed</p>
+            <p className='p1'>Round {currentRoundIndex + 1} completed</p>
             <p className='p2'>Total correct answers: {correctAnswers}</p>
             <p className='p3'>Your score: {score}</p>
-            <p className='p4'>Next round will start at 12 pm!</p>
+            {currentRoundIndex === questions.rounds.length - 1 ? (
+              <p className='p4'>Thank you for playing. View your final score in the leaderboard.</p>
+            ) : (
+              <>
+                {allQuestionsAnswered && <p>{countdown > 0 ? `Next Round starts in: ${countdown}` : ''}</p>}
+                {allQuestionsAnswered && countdown < 1 && <button onClick={startNextRound}>Start Round {currentRoundIndex + 2}</button>}
+              </>
+            )}
           </div>
         ) : (
+          
           <div className='Quiz-main'>
             <p>{currentQuestion.text}</p>
             <p className='Timer'>{timer}</p>
             <div className='quiz-container'>
               <ul>
-                {currentQuestion.options.map((option, index) => (
-                  <li key={index} className='question-box'>
+                {questions.rounds[currentRoundIndex].questions[currentQuestionIndex].options.map((option, index) => (
+                  <li key={index} className='option-box'>
                     <button
                       onClick={() => scoreUpdate(option)}
                       className={selectedOption === option ? 'selected' : ''}
-                      >
+                    >
                       {option}
                     </button>
                   </li>
                 ))}
               </ul>
             </div>
+
             <p className='score'>Score: {score}</p>
             <button className='next-question-btn' onClick={nextQuestion} style={{ display: 'none' }}>
-              {currentQuestionIndex === questions.length - 1 ? 'Finish Round' : 'Next Question'}
+              {currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1 ? 'Finish Round' : 'Next Question'}
             </button>
           </div>
         )}

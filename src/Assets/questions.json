@@ -1,0 +1,125 @@
+{
+    "rounds": [
+      {
+        "name": "Round 1",
+        "questions": [
+          {
+            "text": "What is 2 + 2?",
+            "options": ["3", "4", "5", "6"],
+            "correctOption": "4"
+          },
+          {
+            "text": "What is the capital of Japan?",
+            "options": ["Tokyo", "Beijing", "Seoul", "Bangkok"],
+            "correctOption": "Tokyo"
+          },
+          {
+            "text": "Who wrote 'Romeo and Juliet'?",
+            "options": ["William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"],
+            "correctOption": "William Shakespeare"
+          },
+          {
+            "text": "What is the chemical symbol for gold?",
+            "options": ["Au", "Ag", "Fe", "Cu"],
+            "correctOption": "Au"
+          },
+          {
+            "text": "Who painted the Mona Lisa?",
+            "options": ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"],
+            "correctOption": "Leonardo da Vinci"
+          }
+        ]
+      },
+      {
+        "name": "Round 2",
+        "questions": [
+          {
+            "text": "What is the largest mammal on Earth?",
+            "options": ["Elephant", "Whale", "Giraffe", "Hippopotamus"],
+            "correctOption": "Whale"
+          },
+          {
+            "text": "What is the capital of Australia?",
+            "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+            "correctOption": "Canberra"
+          },
+          {
+            "text": "Who discovered penicillin?",
+            "options": ["Alexander Fleming", "Marie Curie", "Louis Pasteur", "Robert Koch"],
+            "correctOption": "Alexander Fleming"
+          },
+          {
+            "text": "What is the chemical symbol for water?",
+            "options": ["H2O", "CO2", "NaCl", "O2"],
+            "correctOption": "H2O"
+          },
+          {
+            "text": "Who wrote 'To Kill a Mockingbird'?",
+            "options": ["Harper Lee", "John Steinbeck", "F. Scott Fitzgerald", "Ernest Hemingway"],
+            "correctOption": "Harper Lee"
+          }
+        ]
+      },
+      {
+        "name": "Round 3",
+        "questions": [
+          {
+            "text": "What is the square root of 81?",
+            "options": ["7", "8", "9", "10"],
+            "correctOption": "9"
+          },
+          {
+            "text": "What is the capital of Brazil?",
+            "options": ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"],
+            "correctOption": "Brasília"
+          },
+          {
+            "text": "Who painted 'The Starry Night'?",
+            "options": ["Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Edvard Munch"],
+            "correctOption": "Vincent van Gogh"
+          },
+          {
+            "text": "What is the chemical symbol for silver?",
+            "options": ["Ag", "Au", "Fe", "Cu"],
+            "correctOption": "Ag"
+          },
+          {
+            "text": "Who is known as the 'Father of Computers'?",
+            "options": ["Charles Babbage", "Alan Turing", "Bill Gates", "Steve Jobs"],
+            "correctOption": "Charles Babbage"
+          }
+        ]
+      },
+      {
+        "name": "Round 4",
+        "questions": [
+          {
+            "text": "What is the largest planet in our solar system?",
+            "options": ["Earth", "Mars", "Jupiter", "Venus"],
+            "correctOption": "Jupiter"
+          },
+          {
+            "text": "Who wrote '1984'?",
+            "options": ["George Orwell", "Aldous Huxley", "Ray Bradbury", "H.G. Wells"],
+            "correctOption": "George Orwell"
+          },
+          {
+            "text": "What is the chemical symbol for carbon?",
+            "options": ["C", "Ca", "Co", "Cu"],
+            "correctOption": "C"
+          },
+          {
+            "text": "Who directed the movie 'Inception'?",
+            "options": ["Christopher Nolan", "Steven Spielberg", "Quentin Tarantino", "Martin Scorsese"],
+            "correctOption": "Christopher Nolan"
+          },
+          {
+            "text": "What is the boiling point of water in Celsius?",
+            "options": ["100", "0", "50", "200"],
+            "correctOption": "100"
+          }
+        ]
+      }
+    ]
+  }
+  
