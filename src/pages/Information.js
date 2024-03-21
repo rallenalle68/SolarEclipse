@@ -30,7 +30,9 @@ const Information = () => {
 
 
   return (
-    <div>       
+    <div>
+      <p style={{marginTop:24}}>To be able to answere the questions in the quiz.</p> 
+      <p>We recommend to read the information boxes.</p> 
       <div className='Info'>
       {infoData.map((info, index) => (
         <div key={index} className='infoBox' onClick={() => openModal(info.title, info.content)}>
