@@ -73,7 +73,7 @@ const Information = () => {
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Sponsors</p>
-              <p>Comp Sci department</p>
+              <p>Computer & Information Science department</p>
               <p>Gannon Bookstore</p>
             </div>
           </div>

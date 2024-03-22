@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import questions from '../Assets/questions.json'; // Import the JSON file
-import { db } from '../Assets/firebase-config';
-import { collection, doc,getDocs, getDoc, updateDoc, addDoc, orderBy, query, limit } from 'firebase/firestore';
+import { db, realtimeDb } from '../Assets/firebase-config';
+import { collection, doc, getDoc, setDoc, updateDoc, query, orderBy, limit, getDocs, addDoc } from 'firebase/firestore';
+
+import { ref, onValue, off, update } from 'firebase/database'; // Import Realtime Database functions
 
 function Quiz({ score, setScore, user }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -13,110 +15,222 @@ function Quiz({ score, setScore, user }) {
   const [quizStarted, setQuizStarted] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [currentRoundIndex, setCurrentRoundIndex] = useState(0); // Set currentRoundIndex to 0 to access Round 1
-  const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex]; // Access Round 1 questions
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
+  const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex];
   const [roundFinished, setRoundFinished] = useState(false);
-  const [countdown, setCountdown] = useState(5); // Countdown time in seconds
-
+  const [countdown, setCountdown] = useState(5);
+  
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const usersCollection = collection(db, 'users');
-        const userId = user.uid;
-        const userDocRef = doc(usersCollection, userId);
-        const userDocSnapshot = await getDoc(userDocRef);
-
-        if (userDocSnapshot.exists()) {
-          const userData = userDocSnapshot.data();
-          if (userData) {
-            setQuizStarted(userData.quizStarted || false);
-            setCurrentQuestionIndex(userData.currentQuestionIndex || 0);
-            setAllQuestionsAnswered(userData.allQuestionsAnswered);
-            setScore(userData.score || 0);
-            setCorrectAnswers(userData.totalCorrect || 0);
-            setUsername(userData.username || "");
-            setCurrentRoundIndex(userData.currentRound || 0);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching user data from Firestore:', error);
+    const quizStateRef = ref(realtimeDb, `users/${user.uid}`);
+  
+    onValue(quizStateRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setTimer(data.timer || 10);
+        setCurrentQuestionIndex(data.currentQuestion || 0);
+        setCorrectAnswers(data.correctAnswers || 0);
+        setAllQuestionsAnswered(data.allQuestionsAnswered || false);
+        setUsername(data.username || "");
+        console.log(userName)
+        setQuizStarted(data.quizStarted || false);
+        setTimerRunning(data.timerRunning || false);
+        setCurrentRoundIndex(data.currentRound || 0);
+        setRoundFinished(data.roundFinished || false);
+        setCountdown(data.countdown || 5);
+        setScore(data.score || 0);
+        setSelectedOption(data.selectedOption || null); // Fetch selected option
+        console.log('Selected Option:', data.selectedOption);
+        console.log('Timer Running:', data.timerRunning);
       }
-    };
+    });
 
-    fetchUserData();
-  }, [user]);
+    // Clean up the listener when component unmounts
+    return () => {
+      off(quizStateRef);
+    };
+  }, [user, setScore]);
 
   useEffect(() => {
-    let interval;
+    // Call the function to disable other options after the component mounts
+    if (selectedOption !== null) {
+      disableOtherOptions(selectedOption);
+    }
+  }, [selectedOption, currentQuestion.correctOption]);
 
-    if (!allQuestionsAnswered && timerRunning) {
-      interval = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer === 1) {
-            nextQuestion();
-            return 10;
+  function disableOtherOptions(selectedOption) {
+    let allOptionsDisabled = true; // Flag to track if all options are disabled
+    document.querySelectorAll('.option-box button').forEach(btn => {
+      if (btn) { // Check if btn is not null
+        btn.disabled = true;
+        const optionText = btn.textContent;
+        if (optionText === currentQuestion.correctOption) {
+          btn.style.backgroundColor = 'green'; // Highlight correct option green
+        } else if (optionText === selectedOption && optionText !== currentQuestion.correctOption) {
+          btn.style.backgroundColor = 'red'; // Highlight selected incorrect option red
+        } else {
+          btn.style.backgroundColor = ''; // Clear background color for other options
+        }
+  
+        // Check if any option is still enabled
+        if (!btn.disabled) {
+          allOptionsDisabled = false;
+        }
+      }
+    });
+  
+    // Show "Next Question" button if all options are disabled
+    if (allOptionsDisabled) {
+      const nextQuestionButton = document.querySelector('.next-question-btn');
+      if (nextQuestionButton) {
+        nextQuestionButton.style.display = 'block';
+      }
+    }
+  }
+  
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timerRunning && timer > 0) {
+        setTimer(prevTimer => prevTimer - 1);
+      } else if (timer === 0) {
+        // Handle timer reaching 0, for example, move to the next question or finish the quiz
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timerRunning, timer]);
+
+
+  useEffect(() => {
+    let intervalId;
+  
+    function startCountdown() {
+      intervalId = setInterval(() => {
+        setCountdown(prevCountdown => {
+          if (prevCountdown <= 1) {
+            clearInterval(intervalId); // Clear the interval when countdown reaches 0
+            return 0;
+          } else {
+            return prevCountdown - 1;
           }
-          return prevTimer - 1;
         });
       }, 1000);
     }
-
-    return () => clearInterval(interval); // Pass the interval ID to clearInterval
-  }, [currentQuestionIndex, allQuestionsAnswered, timerRunning, setScore]);
-
-  useEffect(() => {
-    if (roundFinished) {
-      const countdownInterval = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
-
-      return () => clearInterval(countdownInterval);
-    }
-  }, [roundFinished]);
-
-  async function updateFirestore(score, correctAnswers) {
-    const usersCollection = collection(db, 'users');
-    const userId = user.uid;
-    const userDocRef = doc(usersCollection, userId);
   
-    try {
-      if ((await getDoc(userDocRef)).exists()) {
-        await updateDoc(userDocRef, { score: score, allQuestionsAnswered: true, totalCorrect: correctAnswers, currentRound: currentRoundIndex});
-        console.log('Score successfully updated in Firestore');
-      } else {
-        console.error('Document does not exist. Cannot update score in Firestore.');
-      }
-    } catch (error) {
-      console.error('Error updating score in Firestore:', error);
+    if (allQuestionsAnswered) {
+      startCountdown(); // Start the countdown if all questions are answered and countdown is not already in progress
     }
   
-    // Update leaderboard collection
-    const leaderboardCollection = collection(db, 'leaderboard');
-    const newLeaderboardEntry = { username: userName, score: score };
-  
-    try {
-      // Fetch the current leaderboard data
-      const leaderboardQuery = query(leaderboardCollection, orderBy('score', 'desc'), limit(10));
-      const leaderboardSnapshot = await getDocs(leaderboardQuery);
-  
-      // Convert the query snapshot into an array of documents
-      const leaderboardData = leaderboardSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  
-      // Check if the user already has an entry in the leaderboard
-      const userEntryIndex = leaderboardData.findIndex(entry => entry.username === userName);
-  
-      if (userEntryIndex !== -1) {
-        // Update existing entry in the leaderboard
-        const userLeaderboardDocRef = doc(leaderboardCollection, leaderboardData[userEntryIndex].id);
-        await updateDoc(userLeaderboardDocRef, { score: score });
-      } else {
-        // Add a new entry to the leaderboard
-        await addDoc(leaderboardCollection, newLeaderboardEntry);
+    // Clean up the interval when component unmounts or countdown is reset
+    return () => clearInterval(intervalId);
+  }, [allQuestionsAnswered, countdown]);
+
+
+  async function updateRealtimeDB(option, score, correctAnswers) {
+    if (option == 1){
+      try {
+        const userRef = ref(realtimeDb, `users/${user.uid}`);
+        await update(userRef, {
+          timerRunning: false,
+          timer: timer,
+          score: score,
+          correctAnswers: correctAnswers
+        });
+      } catch (error) {
+        console.error('Error updating quiz state in Realtime Database:', error);
       }
-    } catch (error) {
+    } else if (option === 2){
+      try {
+        const userRef = ref(realtimeDb, `users/${user.uid}`);
+        await update(userRef, {
+          timerRunning: true,
+          currentQuestion: currentQuestionIndex +1,
+          timer: 10,
+          selectedOption: null,
+        });
+      } catch (error) {
+        console.error('Error updating quiz state in Realtime Database:', error);
+      }
+    } else if (option === 3){
+      try {
+        const userRef = ref(realtimeDb, `users/${user.uid}`);
+        await update(userRef, {
+          timerRunning: false,
+          currentQuestion: 0,
+          currentRound: currentRoundIndex +1,
+          allQuestionsAnswered: true,
+          timer: 10,
+          selectedOption: null
+        });
+      } catch (error) {
+        console.error('Error updating quiz state in Realtime Database:', error);
+      }
     }
   }
+  
 
+  async function updateLeaderBoard(score) {
+    try {
+        // Get the user document reference
+        const userDocRef = doc(collection(db, 'leaderboard'), user.uid);
+        
+        // Check if the user already has an entry in the leaderboard
+        const userDocSnapshot = await getDoc(userDocRef);
+        
+        if (userDocSnapshot.exists()) {
+            // Update existing entry in the leaderboard
+            await updateDoc(userDocRef, { username: userName, score: score });
+        } else {
+          console.log(userName)
+            // Add a new entry to the leaderboard
+            await setDoc(userDocRef, { username: userName, score: score });
+        }
+    } catch (error) {
+        console.error('Error updating leaderboard:', error);
+    }
+}
+
+
+  function nextQuestion() {
+    // Reset selected option and button styles
+    setSelectedOption(null);
+    document.querySelectorAll('.option-box button').forEach(btn => {
+      btn.disabled = false;
+      btn.style.backgroundColor = '';
+    });
+  
+    // Check if it's the last question in the round
+    const isLastQuestion = currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1;
+  
+    if (isLastQuestion) {
+      // Hide "Next Question" button after it's clicked
+      const nextQuestionButton = document.querySelector('.next-question-btn');
+      if (nextQuestionButton) {
+        nextQuestionButton.style.display = 'none';
+      }
+  
+      // Hide "Finish Round" button after it's clicked
+      const finishRoundButton = document.querySelector('.finish-round-btn');
+      if (finishRoundButton) {
+        finishRoundButton.style.display = 'none';
+      }
+  
+      // Set allQuestionsAnswered to true and update the realtime database
+      setAllQuestionsAnswered(true);
+      updateRealtimeDB(3, score, correctAnswers); // Update realtime database
+      updateLeaderBoard(score);
+    } else {
+      // Proceed to the next question
+      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      setTimer(10); // Reset timer to 10 seconds
+      setTimerRunning(true);
+      setSelectedOption(null);
+      updateRealtimeDB(2, 0, 0); // Update realtime database
+    }
+  }
+  
+  
+  
   function scoreUpdate(option) {
     const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex];
     const isCorrect = option === currentQuestion.correctOption;
@@ -127,12 +241,17 @@ function Quiz({ score, setScore, user }) {
     setCorrectAnswers(updatedCorrectAnswers);
   
     setSelectedOption(option);
-    setTimerRunning(false);
+    updateRealtimeDB(1, score +calculatedScore, updatedCorrectAnswers);
   
-    // Disable all option buttons after an option has been selected
-    document.querySelectorAll('.option-box button').forEach(btn => {
-      btn.disabled = true;
-    });
+    const userRef = ref(realtimeDb, `users/${user.uid}`);
+    update(userRef, { selectedOption: option });
+  
+    // Disable all option buttons if the timer is not running
+    if (!timerRunning) {
+      document.querySelectorAll('.option-box button').forEach(btn => {
+        btn.disabled = true;
+      });
+    }
   
     // Display the correct option in green and the selected option in red if incorrect
     document.querySelectorAll('.option-box button').forEach(btn => {
@@ -141,132 +260,112 @@ function Quiz({ score, setScore, user }) {
         btn.style.backgroundColor = 'green'; // Highlight correct option green
       } else if (optionText === option && !isCorrect) {
         btn.style.backgroundColor = 'red'; // Highlight selected incorrect option red
+      } else {
+        btn.style.backgroundColor = ''; // Clear background color for other options
       }
     });
   
-    // Show "Next Question" button after user has answered
-    document.querySelector('.next-question-btn').style.display = 'block';
+    // Check if it's the last question in the round
+    const isLastQuestion = currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1;
   
-    if (currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1) {
-      setRoundFinished(true);
-      updateFirestore(score + calculatedScore, updatedCorrectAnswers);
-    }
-  }
-  
-  
- // Modify nextQuestion function
-function nextQuestion() {
-  // Reset button styles and enable options for the next question
-  document.querySelectorAll('.option-box button').forEach(btn => {
-    btn.disabled = false;
-    btn.style.backgroundColor = '';
-  });
-
-  setSelectedOption(null); // Reset selected option
-  // Hide "Next Question" button
-  document.querySelector('.next-question-btn').style.display = 'none';
-
-  // Check if it's the last question in the round
-  if (currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1) {
-    // Hide "Next Question" button after it's clicked
-    document.querySelector('.next-question-btn').style.display = 'none';
-
-    // Check if the round is finished
-    if (roundFinished) {
-      // All questions in the round have been answered
-      setAllQuestionsAnswered(true);
+    if (isLastQuestion) {
+      // Show "Finish Round" button after user has answered the last question
+      const finishRoundButton = document.querySelector('.finish-round-btn');
+      if (finishRoundButton) {
+        finishRoundButton.style.display = 'block';
+      }
     } else {
-      // Show "Finish Round" button
-      document.querySelector('.finish-round-btn').style.display = 'block';
+      // Show "Next Question" button after user has answered the question
+      const nextQuestionButton = document.querySelector('.next-question-btn');
+      if (nextQuestionButton) {
+        nextQuestionButton.textContent = 'Next Question';
+        nextQuestionButton.style.display = 'block';
+      }
     }
-  } else {
-    // Proceed to the next question
-    setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-    setTimer(10);
-    setTimerRunning(true);
   }
-}
+  
+  
+  
+  
+  
 
   // Function to start the quiz
   async function startQuiz() {
     try {
-      const usersCollection = collection(db, 'users');
-      const userId  = user.uid;
-      const userDocRef = doc(usersCollection, userId);
-      if ((await getDoc(userDocRef)).exists()) {
-        await updateDoc(userDocRef, {
-          quizStarted: true,
-          currentRound: 0
-        });
-        setTimerRunning(true)
-        setQuizStarted(true);
-      } else {
-        console.error('Document does not exist. Cannot update score in Firestore.');
-      }
+      const userRef = ref(realtimeDb, `users/${user.uid}`);
+      await update(userRef, {
+        quizStarted: true,
+        timerRunning: true,
+        currentRound: 0,
+        currentQuestion: 0,
+        timer: 10, // Starting timer value
+      });
+      setCurrentRoundIndex(0);
+      setCurrentQuestionIndex(0);
+      setTimer(10);
+      setTimerRunning(true);
+      setQuizStarted(true);
     } catch (error) {
-      console.error('Error updating score in Firestore:', error);
+      console.error('Error updating quiz state in Realtime Database:', error);
     }
   }
 
   async function startNextRound() {
+    console.log(currentRoundIndex)
     try {
-      const usersCollection = collection(db, 'users');
-      const userId  = user.uid;
-      const userDocRef = doc(usersCollection, userId);
-      if ((await getDoc(userDocRef)).exists()) {
-        await updateDoc(userDocRef, {
-          currentRound: currentRoundIndex +1,
-          allQuestionsAnswered: false
-        });
-        setAllQuestionsAnswered(false)
-        setCurrentRoundIndex(prevRoundIndex => prevRoundIndex + 1);
-        setCurrentQuestionIndex(0);
-        setRoundFinished(false);
-        setTimer(10);
-        setCountdown(5);
-        setTimerRunning(true);
-      } else {
-        console.error('Document does not exist. Cannot update score in Firestore.');
-      }
+      const userRef = ref(realtimeDb, `users/${user.uid}`);
+      await update(userRef, {
+        currentRound: currentRoundIndex,
+        allQuestionsAnswered: false,
+        timerRunning:true,
+        currentQuestion: 0,
+      });
+      setAllQuestionsAnswered(false);
+      setCurrentRoundIndex(currentRoundIndex);
+      setCurrentQuestionIndex(0);
+      setRoundFinished(false);
+      setTimer(10);
+      setCountdown(5);
+      setTimerRunning(true);
     } catch (error) {
-      console.error('Error updating score in Firestore:', error);
+      console.error('Error updating quiz state in Realtime Database:', error);
     }
   }
-  useEffect(() => {
-    // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
-    function calculateCountdown() {
-      // Target time: April 8, 2024, 13:00:00
-      const targetTime = new Date('April 8, 2024 13:00:00');
+  // useEffect(() => {
+  //   // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
+  //   function calculateCountdown() {
+  //     // Target time: April 8, 2024, 13:00:00
+  //     const targetTime = new Date('April 8, 2024 13:00:00');
   
-      // Current date and time
-      const now = new Date();
+  //     // Current date and time
+  //     const now = new Date();
   
-      // Calculate the time difference in milliseconds
-      const timeDiff = targetTime.getTime() - now.getTime();
+  //     // Calculate the time difference in milliseconds
+  //     const timeDiff = targetTime.getTime() - now.getTime();
   
-      // Convert time difference to hours, minutes, and seconds
-      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  //     // Convert time difference to hours, minutes, and seconds
+  //     const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+  //     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  //     const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
   
-      // Format the remaining time as a string
-      const formattedCountdown = `${hours.toString().padStart(2, '0')}:
-        ${minutes.toString().padStart(2, '0')}:
-        ${seconds.toString().padStart(2, '0')}`;
+  //     // Format the remaining time as a string
+  //     const formattedCountdown = `${hours.toString().padStart(2, '0')}:
+  //       ${minutes.toString().padStart(2, '0')}:
+  //       ${seconds.toString().padStart(2, '0')}`;
   
-      // Update the countdown state
-      setCountdown(formattedCountdown);
+  //     // Update the countdown state
+  //     setCountdown(formattedCountdown);
   
-      // Update the countdown every second
-      setTimeout(calculateCountdown, 1000);
-    }
+  //     // Update the countdown every second
+  //     setTimeout(calculateCountdown, 1000);
+  //   }
   
-    // Start the countdown
-    calculateCountdown();
+  //   // Start the countdown
+  //   calculateCountdown();
   
-    // Clean up the setTimeout when component unmounts
-    return () => clearTimeout(calculateCountdown);
-  }, []);
+  //   // Clean up the setTimeout when component unmounts
+  //   return () => clearTimeout(calculateCountdown);
+  // }, []);
   
 
   return (
@@ -282,15 +381,15 @@ function nextQuestion() {
           </div>
         ) :allQuestionsAnswered ? (
           <div className='CompletedRound'>
-            <p className='p1'>Round {currentRoundIndex + 1} completed</p>
+            <p className='p1'>Round {currentRoundIndex} completed</p>
             <p className='p2'>Total correct answers: {correctAnswers}</p>
             <p className='p3'>Your score: {score}</p>
-            {currentRoundIndex === questions.rounds.length - 1 ? (
+            {currentRoundIndex === questions.rounds.length-1 ? (
               <p className='p4'>Thank you for playing. View your final score in the leaderboard.</p>
             ) : (
               <>
                 {allQuestionsAnswered && <p>{countdown > 0 ? `Next Round starts in: ${countdown}` : ''}</p>}
-                {allQuestionsAnswered && countdown < 1 && <button onClick={startNextRound}>Start Round {currentRoundIndex + 2}</button>}
+                {allQuestionsAnswered && countdown < 1 && <button onClick={startNextRound}>Start Round {currentRoundIndex + 1}</button>}
               </>
             )}
           </div>

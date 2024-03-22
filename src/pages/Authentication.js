@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-// Pages
-import { doc, setDoc } from "firebase/firestore";
 // Auth Functionality
-import { auth, db } from "../Assets/firebase-config";
+import { auth, realtimeDb, db } from "../Assets/firebase-config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
 } from "firebase/auth";
 import HomePage from "./HomePage";
 import { collection, query, getDocs, where } from 'firebase/firestore';
+import { ref, set } from 'firebase/database';
 
 function Authentication() {
   // State variables
@@ -36,7 +34,7 @@ function Authentication() {
       if (!email.includes("@gannon.edu")) {
         seterrorMessage("Invalid email. Must be a Gannon email!");
         console.log("Invalid Email!");
-      } else if(username ==""){
+      } else if(username === ""){
         seterrorMessage("No username given!");
       }
       else {
@@ -54,10 +52,20 @@ function Authentication() {
         seterrorMessage("");
 
         // Save user data to Firestore
-        await setDoc(doc(db, "users", userId), {
-          username: username,
-          score: 0
-        });
+        const userRef = ref(realtimeDb, `users/${userId}`);
+          set(userRef, {
+            allQuestionsAnswered: false,
+            correctAnswers: 0, // Correct typo here
+            quizStarted: false,
+            currentRound:0,
+            username: username,
+            score: 0,
+          }).then(() => {
+            console.log("User data successfully written to the Realtime Database.");
+          }).catch((error) => {
+            console.error("Error writing user data to the Realtime Database:", error);
+            seterrorMessage("Error occurred while saving user data.");
+          });
 
       }
     } catch (error) {
