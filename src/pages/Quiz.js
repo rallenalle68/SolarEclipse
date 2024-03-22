@@ -374,9 +374,16 @@ function Quiz({ score, setScore, user }) {
         {!quizStarted ? (
           // Initial screen before quiz starts
           <div className='StartScreen'>
-            <p className='p1'>Round 1</p>
+            <div className='InfoParagraphs'>
+              <p className='p1'>Welcome to the quiz!</p>
+              <p style={{marginTop:24, fontSize:20}}>Be ready for 4 rounds.</p>
+              <p style={{marginTop:24, fontSize:20}}>Each question has a countdown.</p>
+              <p style={{fontSize:20}}>The faster you answere, the more points you get.</p>
+              <p style={{marginTop:24, fontSize:16}}>To be able to answere the questions in the quiz.</p> 
+              <p style={{fontSize:16}}>We recommend to read the information boxes.</p> 
+            </div>
             <button className='start-btn' onClick={startQuiz}>
-              Start
+              Start round 1
             </button>
           </div>
         ) :allQuestionsAnswered ? (

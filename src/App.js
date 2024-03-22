@@ -13,11 +13,11 @@ Username validation ✅
 Credits ✅
 Error handling in all places ✅
 Next Question and user feedback after each question ✅
+Rounds for questions ✅
+Clean up database and set it ready for users ✅
+Count down for the rounds ✅
 
-Count down for the rounds ❌
 Sun animation ❌
-Rounds for questions ❌
-Clean up database and set it ready for users ❌
 Winner anouncment ❌
 Forgotten password ❌
 

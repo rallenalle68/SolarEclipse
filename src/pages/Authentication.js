@@ -10,6 +10,8 @@ import {
 import HomePage from "./HomePage";
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
+import { sendPasswordResetEmail } from "firebase/auth";
+
 
 function Authentication() {
   // State variables
@@ -19,6 +21,8 @@ function Authentication() {
   const [mode, setMode] = useState("initial"); // State to manage different modes
   const [user, setUser] = useState(null); // State to manage user authentication status
   const [errorMessage, seterrorMessage] = useState(""); // State to handle error messages
+  const [resetPassword, setResetPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   // Function to check if a username is available
   const checkUsernameAvailability = async (username) => {
@@ -67,6 +71,10 @@ function Authentication() {
             seterrorMessage("Error occurred while saving user data.");
           });
 
+          setEmail("");
+          setPassword("");
+          setUsername("");
+
       }
     } catch (error) {
       // Handle different types of errors
@@ -91,6 +99,8 @@ function Authentication() {
       seterrorMessage(""); // Clear any previous error message
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user);
+      setEmail("");
+      setPassword("");
     } catch (error) {
       // Handle different types of errors
       if(error.message.includes("invalid")){
@@ -109,6 +119,42 @@ function Authentication() {
 
     return () => unsubscribe();
   }, []);
+
+
+  const handlePasswordReset = async () => {
+    try {
+      // Validate email format (checking if it includes "@gannon.edu")
+      if (!resetEmail.includes("@gannon.edu")) {
+        throw new Error("Invalid email format. Must be a Gannon email (e.g., example@gannon.edu).");
+      }
+  
+      // Validate email existence (checking if it's not empty)
+      if (!resetEmail) {
+        throw new Error("Please enter your email address.");
+      }
+  
+      // Send password reset email
+      await sendPasswordResetEmail(auth, resetEmail);
+      
+      // Set success message and reset form fields
+      seterrorMessage("You will receive an email shortly, could take up to 2 min.");
+      setMode("initial");
+      setEmail("");
+      setPassword("");
+      setUsername("");
+      setResetEmail("");
+      setResetPassword(false);
+  
+      console.log("Password reset email sent successfully!");
+      
+      // Optionally, provide feedback to the user that the email has been sent
+    } catch (error) {
+      console.error("Error sending password reset email:", error.message);
+      // Handle the error, for example, display an error message to the user
+      seterrorMessage(error.message);
+    }
+  };
+  
 
   return (
     <div className="App">
@@ -133,63 +179,100 @@ function Authentication() {
         </div>
       )}
 
-      {!user && (mode === "createAccount" || mode === "signIn") && (
-        <div className="ParentFormHolder">
-          <div className='Header'>
-            <h1>Gannon's Eclipse</h1>
-          </div>
+    {!user && (mode === "createAccount" || mode === "signIn") && (
+      <div className="ParentFormHolder">
+        <div className='Header'>
+          <h1>Gannon's Eclipse</h1>
+        </div>
 
-          <div className="FormsContainer">
-            
-              <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
-            
-
-            {mode === "createAccount" && (
+        <div className="FormsContainer">
+          
+          <button onClick={() => {
+            setMode("initial");
+            seterrorMessage("");
+            setEmail("");
+            setPassword("");
+            setUsername("");
+            setResetEmail("");
+            setResetPassword(false);
+          }}>Back</button>
+          
+          {/* Render regular sign-in fields if resetPassword is false */}
+          {!resetPassword && (
+            <>
+              {mode === "createAccount" && (
+                <>
+                  <span style={{marginTop:4}}>Username will be displayed in the leaderboard</span>
+                  <input
+                    className="inputForm"
+                    type="username"
+                    placeholder="Username..."
+                    onChange={(event) => setUsername(event.target.value)}
+                    value={username}
+                  />
+                </>
+              )}
               
-              // ADD username usage info
-              <>
-                
-                <span style={{marginTop:4}}>Username will be displayed in the leaderboard</span>
-                <input
-                  className="inputForm"
-                  type="username"
-                  placeholder="Username..."
-                  onChange={(event) => setUsername(event.target.value)} /></>
-            )}
+              <input
+                className="inputForm"
+                type="email"
+                placeholder="Email..."
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
+              />
+              
+              <input
+                className="inputForm"
+                type="password"
+                placeholder="Password..."
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
+              />
+              
+              {/* Render reset password button */}
+              {mode === "signIn" && (
+                <button onClick={() => setResetPassword(true)} style={{background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer', boxShadow: 'none', color:'red'}}>forgot password?</button>
+              )}
+            </>
+          )}
 
-            <input
-              className="inputForm"
-              type="email"
-              placeholder="Email..."
-              onChange={(event) => setEmail(event.target.value)}
-            />
+          {/* Render additional input field and button for password reset if resetPassword is true */}
+          {resetPassword && (
+            <>
+              <input
+                className="inputForm"
+                type="email"
+                placeholder="Enter your email..."
+                onChange={(event) => setResetEmail(event.target.value)}
+                value={resetEmail}
+              />
+              
+              {/* Render reset password button */}
+              <button onClick={handlePasswordReset}>Reset Password</button>
+            </>
+          )}
 
-            <input
-              className="inputForm"
-              type="password"
-              placeholder="Password..."
-              onChange={(event) => setPassword(event.target.value)}
-            />
-
+          {/* Sign Up or Sign In Button */}
+          {!resetPassword && (
             <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
               {mode === "createAccount" ? "Create Account" : "Sign In"}
             </button>
-              {errorMessage && (
-                <div className="error-message">
-                  <span>{errorMessage}</span>
-                </div>
-              )}
-          </div>
-          
-        </div>
-      )}
+          )}
 
-      
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="error-message">
+              <span>{errorMessage}</span>
+            </div>
+          )}
+        </div>
+        
+      </div>
+    )}
 
       {user && (
         <HomePage auth={auth} user={user} username={username} />
       )}
-
     </div>
   );
 }
