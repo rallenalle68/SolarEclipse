@@ -94,6 +94,7 @@ function Quiz({ score, setScore, user }) {
         setTimer(prevTimer => prevTimer - 1);
       } else if (timer === 0) {
         // Handle timer reaching 0, for example, move to the next question or finish the quiz
+        nextQuestion();
       }
     }, 1000);
 
