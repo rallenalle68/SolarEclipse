@@ -165,8 +165,8 @@ function Authentication() {
           </div>
 
           <div className="FormsContainer">
-            <div style={{marginTop:14, marginBottom:14, fontSize:20}}>
-              <p>Welcome to the Gannon Solar eclipse Quiz!</p>
+            <div className="InfoParagraphs">
+              <p className='p1'>Welcome to the Gannon Solar eclipse Quiz!</p>
               <p>We hope you have been refining your astrophysics skills. </p>
               <p>Because if you have... You can compete against the brightest minds in Gannon!</p>
               <p>Create an account, and have the chance to win some exciting prices.</p>
