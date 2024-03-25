@@ -13,6 +13,12 @@ import {
 } from "firebase/auth";
 import HomePage from "./HomePage";
 import { collection, query, getDocs, where } from 'firebase/firestore';
+import sunImg from '../Assets/Sun.png';
+import moonImg from '../Assets/Moon.png'
+// import { render } from '@react-email/render';
+// import nodemailer from 'nodemailer';
+// import { SignUpEmail } from "../Email";
+
 
 function Authentication() {
   const [email, setEmail] = useState("");
@@ -28,6 +34,26 @@ function Authentication() {
   
     return querySnapshot.empty; // Returns true if the username is available, false otherwise
   };
+
+  /*==================== Set up for sending email ======================*/
+  // const transporter = nodemailer.createTransport({
+  //   host: 'smtp.forwardemail.net',
+  //   port: 465,
+  //   secure: true,
+  //   auth: {
+  //     user: 'solareclipse@gannon.edu',
+  //     pass: '',
+  //   },
+  // });
+  
+  // const emailHtml = render(<SignUpEmail />);
+
+  // const options = {
+  //   from: 'solareclipse@gannon.edu',
+  //   to: 'ly001@gannon.edu',
+  //   subject: 'Sign Up testing email',
+  //   html: emailHtml,
+  // };
   
   const handleSignUp = async () => {
     try {
@@ -57,6 +83,9 @@ function Authentication() {
         });
   
         console.log("Document written with ID: ", userId);
+
+        /*==================Sending email ====================*/
+        // await transporter.sendMail(options);
       }
     } catch (error) {
       if(error.message.includes("weak")){
@@ -93,75 +122,79 @@ function Authentication() {
   }, []);
 
   return (
-    <div className="App">
-      {!user && mode === "initial" && (
-        <div className="ParentFormHolder">
-          <div className='Header'>
-            <h1>Gannon's Eclipse</h1>
-          </div>
+    <div style={{display: 'relative'}}>
+      <div class="sun"><img src={sunImg} alt="" /></div>
+      <div class="moon"><img src={moonImg} alt="" /></div>
+      <div className="App">
+        {!user && mode === "initial" && (
+          <div className="ParentFormHolder">
+            <div className='Header'>
+              <h1>Gannon's Eclipse</h1>
+            </div>
 
-          <div className="FormsContainer">
-            <div>
-              <button onClick={()=>setMode("createAccount")}>Create Account</button>
-              <button onClick={()=>setMode("signIn")}>Sign In</button>
+            <div className="FormsContainer">
+              <div>
+                <button onClick={()=>setMode("createAccount")}>Create Account</button>
+                <button onClick={()=>setMode("signIn")}>Sign In</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {!user && (mode === "createAccount" || mode === "signIn") && (
-        <div className="ParentFormHolder">
-          <div className='Header'>
-            <h1>Gannon's Eclipse</h1>
-          </div>
+        {!user && (mode === "createAccount" || mode === "signIn") && (
+          <div className="ParentFormHolder">
+            <div className='Header'>
+              <h1>Gannon's Eclipse</h1>
+            </div>
 
-          <div className="FormsContainer">
-            
-              <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
-            
+            <div className="FormsContainer">
+              
+                <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
+              
 
-            {mode === "createAccount" && (
+              {mode === "createAccount" && (
+                <input
+                  className="inputForm"
+                  type="username"
+                  placeholder="Username..."
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              )}
+
               <input
                 className="inputForm"
-                type="username"
-                placeholder="Username..."
-                onChange={(event) => setUsername(event.target.value)}
+                type="email"
+                placeholder="Email..."
+                onChange={(event) => setEmail(event.target.value)}
               />
-            )}
 
-            <input
-              className="inputForm"
-              type="email"
-              placeholder="Email..."
-              onChange={(event) => setEmail(event.target.value)}
-            />
+              <input
+                className="inputForm"
+                type="password"
+                placeholder="Password..."
+                onChange={(event) => setPassword(event.target.value)}
+              />
 
-            <input
-              className="inputForm"
-              type="password"
-              placeholder="Password..."
-              onChange={(event) => setPassword(event.target.value)}
-            />
-
-            <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
-              {mode === "createAccount" ? "Create Account" : "Sign In"}
-            </button>
-              {errorMessage && (
-                <div className="error-message">
-                  <span>{errorMessage}</span>
-                </div>
-              )}
+              <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
+                {mode === "createAccount" ? "Create Account" : "Sign In"}
+              </button>
+                {errorMessage && (
+                  <div className="error-message">
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+            </div>
+            
           </div>
-          
-        </div>
-      )}
+        )}
 
-      
+        
 
-      {user && (
-        <HomePage auth={auth} user={user} username={username} />
-      )}
+        {user && (
+          <HomePage auth={auth} user={user} username={username} />
+        )}
 
+      </div>
     </div>
   );
 }

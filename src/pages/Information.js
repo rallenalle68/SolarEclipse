@@ -3,12 +3,22 @@ import React, { useState } from 'react';
 import InfoModal from './InfoModal';
 import infoData from '../Assets/info.json';
 import { signOut } from "firebase/auth";
-import {auth} from '../Assets/firebase-config'
+import {auth} from '../Assets/firebase-config';
+import { Map, Marker,ZoomControl } from 'pigeon-maps';
+import MapInfoModal from '../Component/MapInfoModel';
 
 const Information = () => {
   const [user, setUser] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState({ title: '', content: '' });
+  const [selectedMapInfo, setSelectedMapInfo] = useState(-1);
+  const [isMap, setIsMap] = useState(false);
+
+  /*================ Variables for maps config ====================*/
+  const [center, setCenter] = useState([42.125672535019156, -80.08600618194332])
+  const [zoom, setZoom] = useState(17)
+  const [hue, setHue] = useState(0)
+  const color = `hsl(${hue % 360}deg 39% 70%)`
 
   const openModal = (title, content) => {
     setSelectedInfo({ title, content });
@@ -17,6 +27,7 @@ const Information = () => {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    setIsMap(false);
   };
 
   const handleSignOut = async () => {
@@ -28,6 +39,12 @@ const Information = () => {
     }
   };
 
+  const openMapModel = (index) => {
+    setModalIsOpen(true);
+    setIsMap(true);
+    setSelectedMapInfo(index);
+  }
+
 
   return (
     <div>       
@@ -38,13 +55,62 @@ const Information = () => {
         </div>
       ))}
 
-      <InfoModal
+      {isMap === false && <InfoModal
         isOpen={modalIsOpen}
         closeModal={closeModal}
         title={selectedInfo.title}
         content={selectedInfo.content}
-      />
-    </div>
+      />}
+      </div>
+
+      {/*===================== Map =======================*/}
+      <div style={{position: 'relative', width: '70%', height: '90%', margin: '0px auto', border: '3px solid black'}}>
+        <Map
+          height={700}
+          center={center} 
+          defaultZoom={zoom}
+          zoom={zoom}
+          color={color} 
+          onClick={() => setHue(hue + 20)}  
+          onBoundsChanged={({ center, zoom }) => { 
+            setCenter(center) 
+            setZoom(zoom) 
+          }} 
+        >
+          <ZoomControl />
+          <Marker 
+              width={50}
+              anchor={[42.127786437446396, -80.08681813055236]} 
+              color={color} 
+              onClick={() => {setHue(hue + 20); openMapModel(1)}} 
+          />
+          <Marker 
+              width={50}
+              anchor={[42.127067329994716, -80.08709345332936]} 
+              color={color} 
+              onClick={() => {setHue(hue + 20); openMapModel(0)}} 
+          />
+          <Marker 
+              width={50}
+              anchor={[42.125222722951726, -80.08550214390186]} 
+              color={color} 
+              onClick={() => {setHue(hue + 20); openMapModel(2)}} 
+          />
+        </Map>
+        {(modalIsOpen&&isMap === true) && <MapInfoModal
+        index={selectedMapInfo}
+        isOpen={modalIsOpen}
+        closeModal={closeModal} />}
+        <button
+          style={{ position: 'absolute', top: '20px', right: '20px'}}
+          onClick={() => {
+            setCenter([42.125672535019156, -80.08600618194332]);
+            setZoom(17);
+          }}
+        >
+          Re-center
+        </button>
+      </div>
 
 
       <div className='Credits'>

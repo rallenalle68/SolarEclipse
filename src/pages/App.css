@@ -7,6 +7,7 @@ will inherit these styles and backgorunds
 *{
   font-family: 'Single Day', cursive;
   margin: 0px;
+  animation : 10s infinite linear;
 }
 
 body{
@@ -31,6 +32,11 @@ body{
   padding: 20px;
   text-shadow: 2px 2px 4px #a95528;
   margin: 0;
+  animation-name: animate-sky;
+}
+
+.Header h1 {
+  z-index: 99999999;
 }
 /*
 Universal List style
@@ -95,6 +101,7 @@ Navigation Styles
   flex-direction: row;
   height: auto; /* Adjusted to automatic height */
   width: 100%;
+  animation-name: animate-sky;
 }
 
 .NavigationLinks{
@@ -106,6 +113,7 @@ Navigation Styles
 
 .NavigationLinks a {
   color: #fff;
+  background-color: rgb(241, 123, 68);
   text-decoration: none;
   margin: 5px;
   font-size: 20px;
@@ -393,4 +401,50 @@ Sign out button
 
 .Credits > div{
   color: white;
+}
+
+/* ============= Solar Eclipse Effecct =================== */
+.sun img {
+  position:absolute;
+  top: 3%;
+  left: 5%;
+  z-index: 9999;
+  width: 5%;
+  min-width: 50px;
+  animation-name: animate-sun;
+}
+
+.moon img {
+  position:absolute;
+  top: 3%;
+  left: 5%;
+  z-index: 9999;
+  width: 5%;
+  min-width: 50px;
+  animation-name:animate-moon;
+  animation-duration: 20s;
+}
+
+@keyframes animate-sky {
+  50%
+  {
+  background-color: black;
+  }
+}
+@keyframes animate-sun {
+  50%
+  {
+  box-shadow:0 0 5em 1em white;
+  }
+}
+@keyframes animate-moon {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
