@@ -131,6 +131,7 @@ function Authentication() {
             <div className='Header'>
               <h1>Gannon's Eclipse</h1>
             </div>
+            
 
             <div className="FormsContainer">
               <div>
