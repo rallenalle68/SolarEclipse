@@ -32,7 +32,6 @@ body{
   padding: 20px;
   text-shadow: 2px 2px 4px #a95528;
   margin: 0;
-  animation-name: animate-sky;
 }
 
 .Header h1 {
@@ -101,7 +100,6 @@ Navigation Styles
   flex-direction: row;
   height: auto; /* Adjusted to automatic height */
   width: 100%;
-  animation-name: animate-sky;
 }
 
 .NavigationLinks{
@@ -404,25 +402,65 @@ Sign out button
 }
 
 /* ============= Solar Eclipse Effecct =================== */
-.sun img {
-  position:absolute;
-  top: 3%;
-  left: 5%;
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation-name: animate-sky;
+}
+
+.sunMoonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh; /* Set a height for the container, adjust as needed */
+  width: 100%;
+}
+
+.sunMoon {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.sun {
+  position: absolute;
+  top: 0;
+  left: 47.5%;
   z-index: 9999;
   width: 5%;
   min-width: 50px;
   animation-name: animate-sun;
 }
 
-.moon img {
-  position:absolute;
-  top: 3%;
-  left: 5%;
+.moon {
+  position: absolute;
+  top: 0;
+  left: 47.5%;
   z-index: 9999;
   width: 5%;
   min-width: 50px;
   animation-name:animate-moon;
   animation-duration: 20s;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+  .sunMoonContainer {
+    height: 10vh
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .sunMoonContainer {
+    height: 70px
+  }
+}
+
+@media screen and (max-width: 1018px) {
+  .sun, .moon {
+    left: calc(47.5% - 25px);
+  }
 }
 
 @keyframes animate-sky {
@@ -448,3 +486,4 @@ Sign out button
     transform: translateX(-100%);
   }
 }
+

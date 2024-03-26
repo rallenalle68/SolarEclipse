@@ -122,80 +122,76 @@ function Authentication() {
   }, []);
 
   return (
-    <div style={{display: 'relative'}}>
-      <div class="sun"><img src={sunImg} alt="" /></div>
-      <div class="moon"><img src={moonImg} alt="" /></div>
-      <div className="App">
-        {!user && mode === "initial" && (
-          <div className="ParentFormHolder">
-            <div className='Header'>
-              <h1>Gannon's Eclipse</h1>
-            </div>
-            
+    <div className="App">
+      {!user && mode === "initial" && (
+        <div className="ParentFormHolder">
+          <div className='Header'>
+            <h1>Gannon's Eclipse</h1>
+          </div>
+          
 
-            <div className="FormsContainer">
-              <div>
-                <button onClick={()=>setMode("createAccount")}>Create Account</button>
-                <button onClick={()=>setMode("signIn")}>Sign In</button>
-              </div>
+          <div className="FormsContainer">
+            <div>
+              <button onClick={()=>setMode("createAccount")}>Create Account</button>
+              <button onClick={()=>setMode("signIn")}>Sign In</button>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {!user && (mode === "createAccount" || mode === "signIn") && (
-          <div className="ParentFormHolder">
-            <div className='Header'>
-              <h1>Gannon's Eclipse</h1>
-            </div>
+      {!user && (mode === "createAccount" || mode === "signIn") && (
+        <div className="ParentFormHolder">
+          <div className='Header'>
+            <h1>Gannon's Eclipse</h1>
+          </div>
 
-            <div className="FormsContainer">
-              
-                <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
-              
+          <div className="FormsContainer">
+            
+              <button onClick={() => {setMode("initial"); seterrorMessage("")}}>Back</button>
+            
 
-              {mode === "createAccount" && (
-                <input
-                  className="inputForm"
-                  type="username"
-                  placeholder="Username..."
-                  onChange={(event) => setUsername(event.target.value)}
-                />
+            {mode === "createAccount" && (
+              <input
+                className="inputForm"
+                type="username"
+                placeholder="Username..."
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            )}
+
+            <input
+              className="inputForm"
+              type="email"
+              placeholder="Email..."
+              onChange={(event) => setEmail(event.target.value)}
+            />
+
+            <input
+              className="inputForm"
+              type="password"
+              placeholder="Password..."
+              onChange={(event) => setPassword(event.target.value)}
+            />
+
+            <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
+              {mode === "createAccount" ? "Create Account" : "Sign In"}
+            </button>
+              {errorMessage && (
+                <div className="error-message">
+                  <span>{errorMessage}</span>
+                </div>
               )}
-
-              <input
-                className="inputForm"
-                type="email"
-                placeholder="Email..."
-                onChange={(event) => setEmail(event.target.value)}
-              />
-
-              <input
-                className="inputForm"
-                type="password"
-                placeholder="Password..."
-                onChange={(event) => setPassword(event.target.value)}
-              />
-
-              <button onClick={mode === "createAccount" ? handleSignUp : handleSignIn}>
-                {mode === "createAccount" ? "Create Account" : "Sign In"}
-              </button>
-                {errorMessage && (
-                  <div className="error-message">
-                    <span>{errorMessage}</span>
-                  </div>
-                )}
-            </div>
-            
           </div>
-        )}
+          
+        </div>
+      )}
 
-        
+      
 
-        {user && (
-          <HomePage auth={auth} user={user} username={username} />
-        )}
+      {user && (
+        <HomePage auth={auth} user={user} username={username} />
+      )}
 
-      </div>
     </div>
   );
 }
