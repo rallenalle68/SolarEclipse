@@ -103,46 +103,29 @@ function Leaderboard({ user }) {
         <button id='round3' onClick={() => handleClickRound(3)} onMouseOver={() => handleHover(3)} onMouseOut={() => handleHoverOut(3)}>Round 3</button>
       </div>
 
-      <div className='LeaderboardList'>
-        {leaderboardData.map((entry, index) => (
-          <div key={entry.id} className={entry.username === userName ? 'highlighted' : 'playerlist'}>
-            <span>{index + 1}</span>
-            <span>{entry.username}</span>
-            <span>{entry.score}</span>
-          </div>
-        ))}
-
-        {/* Display user's entry beneath the top 10 if they are not in the top 10 */}
-        {userRank && userRank > 10 && (
-          <div className='highlighted'>
-            <span>{userRank}</span>
-            <span>{userName}</span>
-            <span>{userScore}</span>
-          </div>
-        )}
-        <div style={{ 
-          display: 'flex',
-          gap: '1rem', 
-          marginTop: '8px', 
-          justifyContent: 'center',
-          justifyItems: 'center',
-          placeContent: 'center',
-          contentAlign: 'end',
-          alignItems: 'end',
-          borderBottom: '2px solid black',
-          height: '250px', /* Adjust as needed */
-          width: '25rem',
-          margin: '0 auto'
-        }}>
-          {topThree.map((winner, index) => (
-          <Podium
-            key={winner.id}
-            podium={topThree}
-            winner={winner}
-            index={index}
-          />
-        ))}
-        </div>
+      <div style={{ 
+        display: 'flex',
+        gap: '1rem', 
+        marginTop: '8px', 
+        justifyContent: 'center',
+        justifyItems: 'center',
+        placeContent: 'center',
+        contentAlign: 'end',
+        alignItems: 'end',
+        borderBottom: '2px solid black',
+        height: '250px', /* Adjust as needed */
+        width: '25rem',
+        margin: '0 auto'
+      }}>
+        {topThree.map((winner, index) => (
+        <Podium
+          key={winner.id}
+          podium={topThree}
+          winner={winner}
+          index={index}
+        />
+      ))}
+      </div>
       
       <div className='LeaderBoard'>
         <div className='LeaderboardHeader'>
@@ -169,7 +152,6 @@ function Leaderboard({ user }) {
             </div>
           )}
         </div>
-      </div>
       </div>
     </>
   );
