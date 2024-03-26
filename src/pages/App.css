@@ -249,6 +249,7 @@ Quiz container and elements
 Diffferent paragraphs, could be simplified!!?
 */
 .p1{
+  margin-top: 40px;
   font-size: 30px;
   color: whitesmoke;
 
@@ -268,7 +269,7 @@ Diffferent paragraphs, could be simplified!!?
   height: 400px;
 }
 
-.option-box {
+.question-box {
   float: left;
   border: none;
   padding: 20px;
@@ -287,14 +288,6 @@ Diffferent paragraphs, could be simplified!!?
 .Timer{
   font-size: 30px;
 }
-.InfoParagraphs {
-  color: whitesmoke;
-  border-radius: 8px;
-  background-color: rgb(34, 120, 23); /* Change this to your desired highlight color */
-  font-weight: bold;
-  padding: 24px;
-}
-
 /*-------------------*/
 
 /*
@@ -435,7 +428,6 @@ Sign out button
   position: absolute;
   top: 0;
   left: 47.5%;
-  z-index: 9999;
   width: 5%;
   min-width: 50px;
   animation-name: animate-sun;
@@ -445,7 +437,6 @@ Sign out button
   position: absolute;
   top: 0;
   left: 47.5%;
-  z-index: 9999;
   width: 5%;
   min-width: 50px;
   animation-name:animate-moon;
