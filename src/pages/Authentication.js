@@ -30,6 +30,26 @@ function Authentication() {
     const querySnapshot = await getDocs(query(usersRef, where("username", "==", username)));
     return querySnapshot.empty; // Returns true if the username is available, false otherwise
   };
+
+  /*==================== Set up for sending email ======================*/
+  // const transporter = nodemailer.createTransport({
+  //   host: 'smtp.forwardemail.net',
+  //   port: 465,
+  //   secure: true,
+  //   auth: {
+  //     user: 'solareclipse@gannon.edu',
+  //     pass: '',
+  //   },
+  // });
+  
+  // const emailHtml = render(<SignUpEmail />);
+
+  // const options = {
+  //   from: 'solareclipse@gannon.edu',
+  //   to: 'ly001@gannon.edu',
+  //   subject: 'Sign Up testing email',
+  //   html: emailHtml,
+  // };
   
   // Function to handle user sign up
   const handleSignUp = async () => {
@@ -74,7 +94,6 @@ function Authentication() {
           setEmail("");
           setPassword("");
           setUsername("");
-
       }
     } catch (error) {
       // Handle different types of errors
@@ -163,6 +182,7 @@ function Authentication() {
           <div className='Header'>
             <h1>Gannon's Eclipse</h1>
           </div>
+          
 
           <div className="FormsContainer">
             <div className="InfoParagraphs">
