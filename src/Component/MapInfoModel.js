@@ -23,6 +23,7 @@ const MapInfoModal = ({ index, isOpen, closeModal }) => {
             width: '300px', // Adjust the width as needed
             height: '500px', // Adjust the height as needed
             margin: 'auto', // Center the modal in the viewport
+            border: '2px solid black'
           },
         }}
       >

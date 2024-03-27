@@ -15,7 +15,7 @@ const InfoModal = ({ isOpen, closeModal, title, content }) => {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            width: '400px', // Adjust the width as needed
+            width: '300px', // Adjust the width as needed
             height: '500px', // Adjust the height as needed
             margin: 'auto', // Center the modal in the viewport
             border: '2px solid black'

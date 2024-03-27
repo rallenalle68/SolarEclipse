@@ -82,6 +82,8 @@ function Leaderboard({ user }) {
     document.getElementById('round1').style.backgroundColor = '';
     document.getElementById('round2').style.backgroundColor = '';
     document.getElementById('round3').style.backgroundColor = '';
+    document.getElementById('round4').style.backgroundColor = '';
+    document.getElementById('round0').style.backgroundColor = '';
     document.getElementById(`round${round}`).style.backgroundColor = 'orange';
   };
   
@@ -101,6 +103,8 @@ function Leaderboard({ user }) {
         <button id='round1' onClick={() => handleClickRound(1)} onMouseOver={() => handleHover(1)} onMouseOut={() => handleHoverOut(1)}>Round 1</button>
         <button id='round2' onClick={() => handleClickRound(2)} onMouseOver={() => handleHover(2)} onMouseOut={() => handleHoverOut(2)}>Round 2</button>
         <button id='round3' onClick={() => handleClickRound(3)} onMouseOver={() => handleHover(3)} onMouseOut={() => handleHoverOut(3)}>Round 3</button>
+        <button id='round4' onClick={() => handleClickRound(4)} onMouseOver={() => handleHover(4)} onMouseOut={() => handleHoverOut(4)}>Round 4</button>
+        <button id='round0' onClick={() => handleClickRound(0)} onMouseOver={() => handleHover(0)} onMouseOut={() => handleHoverOut(0)}>Total</button>
       </div>
 
       <div style={{ 
@@ -127,7 +131,7 @@ function Leaderboard({ user }) {
       ))}
       </div>
       
-      <div className='LeaderBoard'>
+      <div className='LeaderBoard' style={{backgroundColor: 'white'}}>
         <div className='LeaderboardHeader'>
           <span>Rank</span>
           <span>Name</span>

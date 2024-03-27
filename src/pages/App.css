@@ -161,6 +161,11 @@ Leaderboard
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 270px;
+  border: 3px solid black;
+  padding: 5px 20px;
 }
 
 .LeaderboardHeader{
@@ -169,14 +174,25 @@ Leaderboard
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  width: 340px;
+  width: 100%;
   border-bottom: #000 1px solid;
   padding: 4px 14px;
 }
 
 .LeaderboardHeader > span{
   font-size: 24px;
-  color: whitesmoke;
+  color: black;
+  border-bottom: 4px solid orange;
+}
+
+@media screen and (max-width: 768px) {
+  .LeaderBoard{
+    padding: 5px 10px;
+  }
+  .LeaderboardHeader > span{
+    font-size: 20px;
+    color: black;
+  }
 }
 
 .LeaderboardList {
@@ -194,7 +210,7 @@ Leaderboard
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  width: 340px;
+  width: 100%;
   padding: 4px 14px;
 }
 
@@ -485,3 +501,36 @@ Sign out button
   }
 }
 
+/*========================For Solar Eclipse page ========================*/
+.Phases {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.Phase {
+  flex: 1 1 40%; /* Two columns layout for large screens */
+  background-color: #fff;
+  border: 2px solid black;
+  margin: 10px 20px;
+  width: 30%;
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+  .Phase {
+    flex: 1 1 80%; /* Single column layout for small screens */
+    margin: 10px;
+    width: 60%
+  }
+}
+
+.opening {
+  background-color: #fff;
+  border: 2px solid black;
+  margin-left: 0;
+  margin-right: 0;
+  margin: 15px;
+  width: 50%;
+  min-width: 300px;
+}

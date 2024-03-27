@@ -11,6 +11,8 @@ import HomePage from "./HomePage";
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
 import { sendPasswordResetEmail } from "firebase/auth";
+import { TypeAnimation } from 'react-type-animation';
+import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai';
 
 
 function Authentication() {
@@ -173,7 +175,16 @@ function Authentication() {
       seterrorMessage(error.message);
     }
   };
+
+  const [isOpenQuizInfo, setIsOpenQuizInfo] = useState(false);
+  const toggleAcordionQuizInfo = () => {
+      setIsOpenQuizInfo(!isOpenQuizInfo);
+  }
   
+  const [isOpenSafetyInfo, setIsOpenSafetyInfo] = useState(false);
+  const toggleAcordionSafetyInfo = () => {
+      setIsOpenSafetyInfo(!isOpenSafetyInfo);
+  }
 
   return (
     <div className="App">
@@ -186,7 +197,19 @@ function Authentication() {
 
           <div className="FormsContainer">
             <div className="InfoParagraphs">
-              <p className='p1'>Welcome to the Gannon Solar eclipse Quiz!</p>
+              <p className='p1' style={{backgroundColor: 'black'}}>
+                Welcome to the 
+                <TypeAnimation
+                  sequence={[
+                    `Gannon Solar eclipse Quiz!`,
+                    1000,
+                    "",
+                  ]}
+                  speed={30}
+                  style={{ whiteSpace: 'pre-line', fontSize: '2rem', paddingLeft: '1rem', backgroundColor:'orange' }}
+                  repeat={Infinity}
+                /> 
+              </p>
               <p>We hope you have been refining your astrophysics skills. </p>
               <p>Because if you have... You can compete against the brightest minds in Gannon!</p>
               <p>Create an account, and have the chance to win some exciting prices.</p>
@@ -195,6 +218,60 @@ function Authentication() {
               <button onClick={()=>setMode("createAccount")}>Create Account</button>
               <button onClick={()=>setMode("signIn")}>Sign In</button>
             </div>
+          </div>
+
+          <div className="opening" onClick={toggleAcordionQuizInfo} style={{position: 'relative'}}>
+            <div style={
+              {
+              backgroundColor: isOpenQuizInfo ? 'orange' : 'white',
+              color: isOpenQuizInfo ? 'white' : 'black',
+              width: '2rem',
+              height: '2rem',
+              border: '1px solid black',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              cursor: 'pointer',
+            }}>
+              {isOpenQuizInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
+            </div>
+            <h2>Quiz Information</h2>
+            {isOpenQuizInfo && 
+              <ul>
+                <li style={{listStyleType: 'circle'}}>Add Quiz Info 1</li>
+                <li style={{listStyleType: 'circle'}}>Add Quiz Info 2</li> 
+                <li style={{listStyleType: 'circle'}}>Add Quiz Info 3</li>
+              </ul>}
+          </div>
+
+          <div className="opening" onClick={toggleAcordionSafetyInfo} style={{position: 'relative'}}>
+            <div style={
+              {
+              backgroundColor: isOpenSafetyInfo ? 'orange' : 'white',
+              color: isOpenSafetyInfo ? 'white' : 'black',
+              width: '2rem',
+              height: '2rem',
+              border: '1px solid black',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              cursor: 'pointer',
+            }}>
+              {isOpenQuizInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
+            </div>
+            <h2>Some Safety Information</h2>
+            {isOpenSafetyInfo && 
+              <ul>
+                <li style={{listStyleType: 'circle'}}>Add Safety Info 1</li>
+                <li style={{listStyleType: 'circle'}}>Add Safety Info 2</li> 
+                <li style={{listStyleType: 'circle'}}>Add Safety Info 3</li>
+              </ul>}
           </div>
         </div>
       )}
