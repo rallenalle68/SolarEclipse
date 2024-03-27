@@ -1,8 +1,13 @@
 // Modal.js
 import React from 'react';
 import Modal from 'react-modal';
+import mapInfo from './mapInfo';
+import zurnImg from "../Assets/zurn.jpg"
+import GannonArchImg from "../Assets/GannonArch.jpg"
+import ihack from "../Assets/ihack.jpg"
 
-const InfoModal = ({ isOpen, closeModal, title, content }) => {
+const MapInfoModal = ({ index, isOpen, closeModal }) => {
+    const imageSource = [zurnImg, GannonArchImg, ihack]
     return (
       <Modal
         isOpen={isOpen}
@@ -22,18 +27,12 @@ const InfoModal = ({ isOpen, closeModal, title, content }) => {
           },
         }}
       >
-        <h2>{title}</h2>
-        <ul>
-          {content && Array.isArray(content) && content.map((data, index) => (
-            <React.Fragment key={index}>
-              <li style={{listStyleType: 'circle', marginTop: '15px'}}>{data}</li>
-              <hr style={{ width: '70%', margin: '5px auto', fontWeight: 'bold' }} />
-            </React.Fragment>
-          ))}
-        </ul>
+        <h2>{mapInfo[index].title}</h2>
+        <p>{mapInfo[index].address}</p>
+        <img src={imageSource[index]} alt='' style={{margin: '15px 0'}} />
         <button onClick={closeModal}>Close</button>
       </Modal>
     );
   };
 
-export default InfoModal;
+export default MapInfoModal;

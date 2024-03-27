@@ -1,32 +1,38 @@
 [
   {
     "title": "Safety",
-    "content": "When viewing a solar eclipse, it's crucial to prioritize safety to protect your eyes from potential damage. Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness. Instead, use certified solar viewing glasses or handheld solar filters to safely observe the eclipse. Additionally, consider using pinhole projectors or solar telescopes to indirectly view the eclipse. Remember to supervise children and ensure they also use appropriate eye protection when viewing the eclipse."
+    "content": [
+      "When viewing a solar eclipse, it's crucial to prioritize safety to protect your eyes from potential damage.",
+      "Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness.",
+      "Instead, use certified solar viewing glasses or handheld solar filters to safely observe the eclipse.",
+      "Remember to supervise children and ensure they also use appropriate eye protection when viewing the eclipse.",
+      "Additionally, consider using pinhole projectors or solar telescopes to indirectly view the eclipse."
+    ]
   }
   ,
    {
     "title":"Gannon's Goal",
-    "content":"As education professionals and scientists, we have a duty to promote the safe observation and science of the eclipse. Gannon University is committed to the provision of essential safe observing and scientific information to Erie schools, learning institutions and the local community."
+    "content":["As education professionals and scientists, we have a duty to promote the safe observation and science of the eclipse.", "Gannon University is committed to the provision of essential safe observing and scientific information to Erie schools, learning institutions and the local community."]
     },
     {
       "title": "Solar Eclipse Phenomenon",
-      "content": "During a solar eclipse, the intensity of sunlight decreases dramatically as the moon partially or completely blocks the sun's rays from reaching Earth's surface. This reduction in light intensity creates unique lighting conditions, with the sky darkening as if twilight has suddenly descended. Observers can witness remarkable phenomena, such as the appearance of stars and planets in the daytime sky, and the sudden emergence of the sun's corona, a glowing halo of plasma surrounding the obscured solar disk."
+      "content": ["During a solar eclipse, the intensity of sunlight decreases dramatically as the moon partially or completely blocks the sun's rays from reaching Earth's surface. This reduction in light intensity creates unique lighting conditions, with the sky darkening as if twilight has suddenly descended.", "Observers can witness remarkable phenomena, such as the appearance of stars and planets in the daytime sky, and the sudden emergence of the sun's corona, a glowing halo of plasma surrounding the obscured solar disk."]
     },
     {
       "title": "Distances",
-      "content": "Despite the sun being approximately 400 times larger than the moon, it is also about 400 times farther away. This unique relationship results in the moon appearing almost the same size as the sun in the sky. Consequently, during a total solar eclipse, the moon perfectly aligns with the sun, creating the mesmerizing spectacle of totality."
+      "content": ["Despite the sun being approximately 400 times larger than the moon, it is also about 400 times farther away. This unique relationship results in the moon appearing almost the same size as the sun in the sky.", "Consequently, during a total solar eclipse, the moon perfectly aligns with the sun, creating the mesmerizing spectacle of totality."]
     },
     {
       "title": "Temperatures",
-      "content": "During a solar eclipse, the temperature on Earth can experience noticeable changes. As the moon passes between the sun and Earth, casting its shadow on the planet, there can be a temporary drop in temperature. This decrease in warmth occurs because the moon blocks the sun's direct heat, resulting in a brief period of cooler conditions. However, the extent of temperature change during a solar eclipse depends on various factors, including geographical location, time of year, and local weather conditions."
+      "content": ["During a solar eclipse, the temperature on Earth can experience noticeable changes.", "As the moon passes between the sun and Earth, casting its shadow on the planet, there can be a temporary drop in temperature. This decrease in warmth occurs because the moon blocks the sun's direct heat, resulting in a brief period of cooler conditions.", "However, the extent of temperature change during a solar eclipse depends on various factors, including geographical location, time of year, and local weather conditions."]
     },
     {
       "title": "Diamond Ring Effect",
-      "content": "The Diamond Ring Effect is a phenomenon during a solar eclipse when the Sun appears as a bright diamond-like ring. It occurs just before the complete coverage of the Sun, creating a stunning visual effect."
+      "content": ["The Diamond Ring Effect is a phenomenon during a solar eclipse when the Sun appears as a bright diamond-like ring. It occurs just before the complete coverage of the Sun, creating a stunning visual effect."]
     },
     {
       "title": "Baileys Effect",
-      "content": "The Baileys Beads, also known as the Diamond Necklace, is another captivating occurrence during a solar eclipse. As the Moon covers the Sun, sunlight passes through the lunar valleys, creating a necklace-like appearance."
+      "content": ["The Baileys Beads, also known as the Diamond Necklace, is another captivating occurrence during a solar eclipse. As the Moon covers the Sun, sunlight passes through the lunar valleys, creating a necklace-like appearance."]
     }
   ]
   
