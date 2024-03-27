@@ -31,7 +31,6 @@ function Quiz({ score, setScore, user }) {
         setCorrectAnswers(data.correctAnswers || 0);
         setAllQuestionsAnswered(data.allQuestionsAnswered || false);
         setUsername(data.username || "");
-        console.log(userName)
         setQuizStarted(data.quizStarted || false);
         setTimerRunning(data.timerRunning || false);
         setCurrentRoundIndex(data.currentRound || 0);
@@ -39,8 +38,6 @@ function Quiz({ score, setScore, user }) {
         setCountdown(data.countdown || 5);
         setScore(data.score || 0);
         setSelectedOption(data.selectedOption || null); // Fetch selected option
-        console.log('Selected Option:', data.selectedOption);
-        console.log('Timer Running:', data.timerRunning);
       }
     });
 
@@ -138,7 +135,6 @@ function Quiz({ score, setScore, user }) {
           correctAnswers: correctAnswers
         });
       } catch (error) {
-        console.error('Error updating quiz state in Realtime Database:', error);
       }
     } else if (option === 2){
       try {
@@ -150,7 +146,7 @@ function Quiz({ score, setScore, user }) {
           selectedOption: null,
         });
       } catch (error) {
-        console.error('Error updating quiz state in Realtime Database:', error);
+        
       }
     } else if (option === 3){
       try {
@@ -164,16 +160,18 @@ function Quiz({ score, setScore, user }) {
           selectedOption: null
         });
       } catch (error) {
-        console.error('Error updating quiz state in Realtime Database:', error);
+        
       }
     }
   }
   
 
   async function updateLeaderBoard(score) {
+
     try {
         // Get the user document reference
         const userDocRef = doc(collection(db, 'leaderboard'), user.uid);
+        const round1DocRef = doc(collection(db, 'round1'), user.uid);
         
         // Check if the user already has an entry in the leaderboard
         const userDocSnapshot = await getDoc(userDocRef);
@@ -182,12 +180,11 @@ function Quiz({ score, setScore, user }) {
             // Update existing entry in the leaderboard
             await updateDoc(userDocRef, { username: userName, score: score });
         } else {
-          console.log(userName)
             // Add a new entry to the leaderboard
             await setDoc(userDocRef, { username: userName, score: score });
         }
     } catch (error) {
-        console.error('Error updating leaderboard:', error);
+        
     }
 }
 
@@ -307,12 +304,10 @@ function Quiz({ score, setScore, user }) {
       setTimerRunning(true);
       setQuizStarted(true);
     } catch (error) {
-      console.error('Error updating quiz state in Realtime Database:', error);
     }
   }
 
   async function startNextRound() {
-    console.log(currentRoundIndex)
     try {
       const userRef = ref(realtimeDb, `users/${user.uid}`);
       await update(userRef, {
@@ -329,7 +324,6 @@ function Quiz({ score, setScore, user }) {
       setCountdown(5);
       setTimerRunning(true);
     } catch (error) {
-      console.error('Error updating quiz state in Realtime Database:', error);
     }
   }
   // useEffect(() => {

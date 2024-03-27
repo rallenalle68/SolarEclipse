@@ -212,7 +212,7 @@ function Authentication() {
               </p>
               <p>We hope you have been refining your astrophysics skills. </p>
               <p>Because if you have... You can compete against the brightest minds in Gannon!</p>
-              <p>Create an account, and have the chance to win some exciting prices.</p>
+              <p>Create an account, and have the chance to win some exciting prizes.</p>
             </div>
             <div>
               <button onClick={()=>setMode("createAccount")}>Create Account</button>

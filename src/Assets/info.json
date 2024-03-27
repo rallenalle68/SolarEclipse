@@ -15,8 +15,13 @@
     "content":["As education professionals and scientists, we have a duty to promote the safe observation and science of the eclipse.", "Gannon University is committed to the provision of essential safe observing and scientific information to Erie schools, learning institutions and the local community."]
     },
     {
+<<<<<<< Updated upstream
       "title": "Solar Eclipse Phenomenon",
       "content": ["During a solar eclipse, the intensity of sunlight decreases dramatically as the moon partially or completely blocks the sun's rays from reaching Earth's surface. This reduction in light intensity creates unique lighting conditions, with the sky darkening as if twilight has suddenly descended.", "Observers can witness remarkable phenomena, such as the appearance of stars and planets in the daytime sky, and the sudden emergence of the sun's corona, a glowing halo of plasma surrounding the obscured solar disk."]
+=======
+      "title": "Light Intensity",
+      "content": "During a solar eclipse, the intensity of sunlight decreases dramatically as the moon partially or completely blocks the sun's rays from reaching Earth's surface. This reduction in light intensity creates unique lighting conditions, with the sky darkening as if twilight has suddenly descended. Observers can witness remarkable phenomena, such as the appearance of stars and planets in the daytime sky, and the sudden emergence of the sun's corona, a glowing halo of plasma surrounding the obscured solar disk."
+>>>>>>> Stashed changes
     },
     {
       "title": "Distances",

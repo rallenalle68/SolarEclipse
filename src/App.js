@@ -16,14 +16,19 @@ Next Question and user feedback after each question ✅
 Rounds for questions ✅
 Clean up database and set it ready for users ✅
 Count down for the rounds ✅
+Forgotten password ✅
 
-Sun animation ❌
+Phases design ❌
+Welcome box ❌
+Bullet points in information ❌
+leaderboard podium with prizez (potentially) ❌
+
+Cloud messaging ❌
+Each round and total leaderboard ❌
+Schedule rounds (node cron) ❌
+Seperate the frontend and backend
+
 Winner anouncment ❌
-Forgotten password ❌
-
-credits
-Image by <a href="https://www.freepik.com/free-vector/background-pixel-rain-abstract_6072178.htm#query=pixel%20space&position=14&from_view=keyword&track=ais&uuid=352fae14-941a-4068-80b6-2a1acc65273c">Freepik</a>
-
 
 */
 // App.js
