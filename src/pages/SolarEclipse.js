@@ -141,7 +141,7 @@ return(
                 </div>
                 {isOpen2 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>!Observe ONLY WITH eclipse glasses or solar filters!</li>
+                  <li style={{listStyleType: 'circle', fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
                 </ul>}
             </div>
             
@@ -172,7 +172,7 @@ return(
                 </div>
                 {isOpen3 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>Safe to observe without glasses!</li>
+                  <li style={{listStyleType: 'circle', fontSize: 22}}>Safe to observe without glasses!</li>
                 </ul>}
 
             </div>
@@ -201,7 +201,7 @@ return(
               </div>
                 {isOpen4 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>!Observe ONLY WITH eclipse glasses or solar filters!</li>
+                  <li style={{listStyleType: 'circle', fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
                 </ul>}
             </div>
         </div>

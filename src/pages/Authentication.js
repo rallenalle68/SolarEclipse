@@ -326,7 +326,7 @@ function Authentication() {
               
               {/* Render reset password button */}
               {mode === "signIn" && (
-                <button onClick={() => setResetPassword(true)} style={{background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer', boxShadow: 'none', color:'red'}}>forgot password?</button>
+                <button onClick={() => setResetPassword(true)} style={{background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer', boxShadow: 'none', color:'red', fontSize:18}}>forgot password?</button>
               )}
             </>
           )}

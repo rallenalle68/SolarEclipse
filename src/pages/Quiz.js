@@ -392,11 +392,9 @@ const [roundActive1, setRoundActive1] = useState(false);
           <div className='StartScreen'>
             <div className='InfoParagraphs'>
               <p className='p1'>Welcome to the quiz!</p>
-              <p style={{marginTop:24, fontSize:20}}>Be ready for 4 rounds.</p>
-              <p style={{marginTop:24, fontSize:20}}>Each question has a countdown.</p>
-              <p style={{fontSize:20}}>The faster you answere, the more points you get.</p>
-              <p style={{marginTop:24, fontSize:16}}>To be able to answere the questions in the quiz.</p> 
-              <p style={{fontSize:16}}>We recommend to read the information boxes.</p> 
+              <p className='p3'>A total of 4 rounds</p>
+              <p className='p3'>Make sure to answere quickly, </p>
+              <p className='p3'>but correct ofcourse.</p>
             </div>
             {roundActive1 ?(
               <button className='start-btn' onClick={startQuiz}>
@@ -404,10 +402,16 @@ const [roundActive1, setRoundActive1] = useState(false);
             </button>
             ): (
               <>
-              <p>Round 1 will start in:</p>
-              <p>{countdown.full}</p></>
+              <p className='p2'>Round 1 will start in:</p>
+              <p className='p2'>{countdown.full}</p>
+              </>
+              
             )
             }
+              <p className='p2'>Round 2: April 8th 13:00pm</p>
+              <p className='p2'>Round 3: April 8th 13:15pm</p>
+              <p className='p2'>Round 4: April 8th 13:30pm</p>
+              <p className='p1'>I hope you win!</p>
           </div>
         ) :allQuestionsAnswered ? (
           <div className='CompletedRound'>

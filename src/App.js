@@ -26,7 +26,7 @@ phases box ✅
 authentication page pluss sign bug ✅
 information boxes formatting ✅
 
-Welcome box ❌
+Welcome to quiz design box ✅
 Each round and total leaderboard ❌
 Leaderboard round buttons design ❌
 Rounds scoring ❌
@@ -35,6 +35,7 @@ Safety information on homepage ❌
 Error message more clear ❌
 Enable enter on authentication ❌ 
 More information about the places in map ❌
+
 
 
 Cloud messaging ❌
