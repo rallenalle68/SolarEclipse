@@ -5,6 +5,8 @@ import gold from '../Assets/gold.png'
 
 export default function Podium({ podium, winner, index }) {
     const medal = [gold, silver, copper];
+    const backgroundColors = ['#ffd700', '#c0c0c0', '#b87333']; // Gold, Silver, Copper
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <motion.div
@@ -24,7 +26,6 @@ export default function Podium({ podium, winner, index }) {
                 hidden: { opacity: 0, height: 0 }
                 }}
                 style={{
-                    backgroundColor: 'black', // Adjust background color as needed
                     display: 'flex',
                     flexDirection: 'column',
                     width: '5rem', // Adjust width as needed
@@ -34,6 +35,7 @@ export default function Podium({ podium, winner, index }) {
                     boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)', // Adjust shadow as needed
                     justifyContent: 'center',
                     alignItems: 'center',
+                    backgroundColor: backgroundColors[index], // Set background color based on index
                   }}
             >
                 <img src={medal[index]} alt='' style={{ marginBottom: '0.5rem' }} /> {/* Move medal image to top */}
@@ -43,4 +45,4 @@ export default function Podium({ podium, winner, index }) {
             </motion.div>
         </div>
     )
-  }
+}

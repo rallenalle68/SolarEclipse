@@ -5,21 +5,38 @@ import { db, realtimeDb } from '../Assets/firebase-config';
 import { collection, doc, getDoc, setDoc, updateDoc, query, orderBy, limit, getDocs, addDoc } from 'firebase/firestore';
 
 import { ref, onValue, off, update } from 'firebase/database'; // Import Realtime Database functions
+import LoadingScreen from './LoadingScreen';
 
 function Quiz({ score, setScore, user }) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [timer, setTimer] = useState(10);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
-  const [userName, setUsername] = useState("");
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [timerRunning, setTimerRunning] = useState(false);
-  const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
-  const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex];
-  const [roundFinished, setRoundFinished] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  
+// UI state
+const [loadingScreen, setLoading] = useState(true); 
+
+// User state
+const [userName, setUsername] = useState(""); 
+
+// Timer state
+const currentTime = new Date(); 
+const [timer, setTimer] = useState(10); 
+const [timerRunning, setTimerRunning] = useState(false); 
+
+// Countdown state
+const [targetTime, setTargetTime] = useState(new Date()); 
+const [countdown, setCountdown] = useState({ full: '', simple: '' }); 
+const [timeDiff, setTimeDiff] = useState(0); 
+
+// User progress state
+const [quizStarted, setQuizStarted] = useState(false);
+const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); 
+const [currentRoundIndex, setCurrentRoundIndex] = useState(0); 
+const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex]; 
+const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); 
+const [correctAnswers, setCorrectAnswers] = useState(0); 
+const [selectedOption, setSelectedOption] = useState(null); 
+
+// Round-specific state
+const [roundActive1, setRoundActive1] = useState(false); 
+
+
   useEffect(() => {
     const quizStateRef = ref(realtimeDb, `users/${user.uid}`);
   
@@ -34,10 +51,9 @@ function Quiz({ score, setScore, user }) {
         setQuizStarted(data.quizStarted || false);
         setTimerRunning(data.timerRunning || false);
         setCurrentRoundIndex(data.currentRound || 0);
-        setRoundFinished(data.roundFinished || false);
-        setCountdown(data.countdown || 5);
         setScore(data.score || 0);
         setSelectedOption(data.selectedOption || null); // Fetch selected option
+        setLoading(false)
       }
     });
 
@@ -62,10 +78,12 @@ function Quiz({ score, setScore, user }) {
         const optionText = btn.textContent;
         if (optionText === currentQuestion.correctOption) {
           btn.style.backgroundColor = 'green'; // Highlight correct option green
+          btn.style.color = 'white';
         } else if (optionText === selectedOption && optionText !== currentQuestion.correctOption) {
           btn.style.backgroundColor = 'red'; // Highlight selected incorrect option red
         } else {
           btn.style.backgroundColor = ''; // Clear background color for other options
+          btn.style.color = 'black';
         }
   
         // Check if any option is still enabled
@@ -97,31 +115,6 @@ function Quiz({ score, setScore, user }) {
 
     return () => clearInterval(interval);
   }, [timerRunning, timer]);
-
-
-  useEffect(() => {
-    let intervalId;
-  
-    function startCountdown() {
-      intervalId = setInterval(() => {
-        setCountdown(prevCountdown => {
-          if (prevCountdown <= 1) {
-            clearInterval(intervalId); // Clear the interval when countdown reaches 0
-            return 0;
-          } else {
-            return prevCountdown - 1;
-          }
-        });
-      }, 1000);
-    }
-  
-    if (allQuestionsAnswered) {
-      startCountdown(); // Start the countdown if all questions are answered and countdown is not already in progress
-    }
-  
-    // Clean up the interval when component unmounts or countdown is reset
-    return () => clearInterval(intervalId);
-  }, [allQuestionsAnswered, countdown]);
 
 
   async function updateRealtimeDB(option, score, correctAnswers) {
@@ -195,6 +188,7 @@ function Quiz({ score, setScore, user }) {
     document.querySelectorAll('.option-box button').forEach(btn => {
       btn.disabled = false;
       btn.style.backgroundColor = '';
+      btn.style.color = 'black';
     });
   
     // Check if it's the last question in the round
@@ -256,8 +250,10 @@ function Quiz({ score, setScore, user }) {
       const optionText = btn.textContent;
       if (optionText === currentQuestion.correctOption) {
         btn.style.backgroundColor = 'green'; // Highlight correct option green
+        btn.style.color = 'white';
       } else if (optionText === option && !isCorrect) {
         btn.style.backgroundColor = 'red'; // Highlight selected incorrect option red
+        btn.style.color = 'white';
       } else {
         btn.style.backgroundColor = ''; // Clear background color for other options
       }
@@ -290,19 +286,21 @@ function Quiz({ score, setScore, user }) {
   // Function to start the quiz
   async function startQuiz() {
     try {
-      const userRef = ref(realtimeDb, `users/${user.uid}`);
-      await update(userRef, {
+      
+        const userRef = ref(realtimeDb, `users/${user.uid}`);
+        await update(userRef, {
         quizStarted: true,
         timerRunning: true,
         currentRound: 0,
         currentQuestion: 0,
         timer: 10, // Starting timer value
-      });
-      setCurrentRoundIndex(0);
-      setCurrentQuestionIndex(0);
-      setTimer(10);
-      setTimerRunning(true);
-      setQuizStarted(true);
+        });
+        setCurrentRoundIndex(0);
+        setCurrentQuestionIndex(0);
+        setTimer(10);
+        setTimerRunning(true);
+        setQuizStarted(true);
+      
     } catch (error) {
     }
   }
@@ -319,54 +317,77 @@ function Quiz({ score, setScore, user }) {
       setAllQuestionsAnswered(false);
       setCurrentRoundIndex(currentRoundIndex);
       setCurrentQuestionIndex(0);
-      setRoundFinished(false);
       setTimer(10);
-      setCountdown(5);
       setTimerRunning(true);
     } catch (error) {
     }
   }
-  // useEffect(() => {
-  //   // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
-  //   function calculateCountdown() {
-  //     // Target time: April 8, 2024, 13:00:00
-  //     const targetTime = new Date('April 8, 2024 13:00:00');
+
+
+  useEffect(() => {
+    // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
+    function calculateCountdown(currentRoundIndex) {
+      // Define the start times for each round
+      switch (currentRoundIndex) {
+        case 0:
+          setTargetTime(new Date('April 8, 2024 12:45:00'));
+          if(targetTime.getTime() < currentTime.getTime()){
+            setRoundActive1(true)
+          }
+          break;
+        case 1:
+          setTargetTime(new Date('April 8, 2024 13:00:00'));
+          break;
+        case 2:
+          setTargetTime(new Date('April 8, 2024 13:15:00'));
+          break;
+        case 3:
+          setTargetTime(new Date('April 8, 2024 13:30:00'));
+          break;
+        default:
+          setTargetTime(new Date('April 8, 2024 12:32:00'));
+          // Set a default target time if currentRoundIndex is invalid
+      }
   
-  //     // Current date and time
-  //     const now = new Date();
+      // Calculate the time difference in milliseconds
+      let diff = targetTime.getTime() - new Date().getTime()
+      setTimeDiff(diff); // Update currentTime here
+      
+      // Convert time difference to days, hours, minutes, and seconds
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
   
-  //     // Calculate the time difference in milliseconds
-  //     const timeDiff = targetTime.getTime() - now.getTime();
+      // Format the remaining time as a string
+      // Format the remaining time as a string for the main countdown
+      const formattedCountdownFull = `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+
+      // Format the remaining time as a string for the simplified countdown (minutes and seconds only)
+      const formattedCountdownSimple = `${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+
+      // Update the countdown states
+      setCountdown({ full: formattedCountdownFull, simple: formattedCountdownSimple });
+    }
   
-  //     // Convert time difference to hours, minutes, and seconds
-  //     const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-  //     const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-  //     const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+    // Start the countdown initially
+    calculateCountdown(currentRoundIndex);
   
-  //     // Format the remaining time as a string
-  //     const formattedCountdown = `${hours.toString().padStart(2, '0')}:
-  //       ${minutes.toString().padStart(2, '0')}:
-  //       ${seconds.toString().padStart(2, '0')}`;
+    // Update the countdown every second
+    const countdownInterval = setInterval(() => calculateCountdown(currentRoundIndex), 1000);
   
-  //     // Update the countdown state
-  //     setCountdown(formattedCountdown);
+    // Clean up the setInterval when component unmounts
+    return () => clearInterval(countdownInterval);
+  }, [currentRoundIndex, timeDiff]); // Added currentRoundIndex as a dependency
   
-  //     // Update the countdown every second
-  //     setTimeout(calculateCountdown, 1000);
-  //   }
-  
-  //   // Start the countdown
-  //   calculateCountdown();
-  
-  //   // Clean up the setTimeout when component unmounts
-  //   return () => clearTimeout(calculateCountdown);
-  // }, []);
   
 
   return (
     <div className='Quiz'>
       <div>
-        {!quizStarted ? (
+        {loadingScreen ? (
+          <LoadingScreen/>
+        ) :!loadingScreen && !quizStarted ? (
           // Initial screen before quiz starts
           <div className='StartScreen'>
             <div className='InfoParagraphs'>
@@ -377,9 +398,16 @@ function Quiz({ score, setScore, user }) {
               <p style={{marginTop:24, fontSize:16}}>To be able to answere the questions in the quiz.</p> 
               <p style={{fontSize:16}}>We recommend to read the information boxes.</p> 
             </div>
-            <button className='start-btn' onClick={startQuiz}>
+            {roundActive1 ?(
+              <button className='start-btn' onClick={startQuiz}>
               Start round 1
             </button>
+            ): (
+              <>
+              <p>Round 1 will start in:</p>
+              <p>{countdown.full}</p></>
+            )
+            }
           </div>
         ) :allQuestionsAnswered ? (
           <div className='CompletedRound'>
@@ -390,8 +418,8 @@ function Quiz({ score, setScore, user }) {
               <p className='p4'>Thank you for playing. View your final score in the leaderboard.</p>
             ) : (
               <>
-                {allQuestionsAnswered && <p>{countdown > 0 ? `Next Round starts in: ${countdown}` : ''}</p>}
-                {allQuestionsAnswered && countdown < 1 && <button onClick={startNextRound}>Start Round {currentRoundIndex + 1}</button>}
+                {allQuestionsAnswered && <p>{timeDiff > 0 ? `Next Round starts in: ${countdown.simple}` : ''}</p>}
+                {allQuestionsAnswered && timeDiff < 1 && <button onClick={startNextRound}>Start Round {currentRoundIndex + 1}</button>}
               </>
             )}
           </div>

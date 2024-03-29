@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import './pages/App.css';
+
 /* 
 TODO LIST:
 Set up Navigation to information page and leaderboard ✅
@@ -18,17 +17,22 @@ Clean up database and set it ready for users ✅
 Count down for the rounds ✅
 Forgotten password ✅
 
-Phases design ❌
 Welcome box ❌
-Bullet points in information ❌
+Bullet points in information ✅
 leaderboard podium with prizez (potentially) ❌
 
-Cloud messaging ❌
+color of podium ✅
+color of phases ✅
+phases box ✅
+information boxes formatting ✅
+Rounds scoring ❌
 Each round and total leaderboard ❌
-Schedule rounds (node cron) ❌
-Seperate the frontend and backend
+Leaderboard round buttons design ❌
+authentication page pluss sign bug ✅
 
-Winner anouncment ❌
+
+Cloud messaging ❌
+Schedule rounds (node cron) ❌
 
 */
 // App.js
@@ -41,24 +45,37 @@ Winner anouncment ❌
 // Angles
 // Moon Size to sun
 
-import Authentication from './pages/Authentication';
+import React, { useState, useEffect } from "react";
+import './pages/App.css';
+import { auth } from "./Assets/firebase-config";
+import Authentication from "./pages/Authentication";
+import HomePage from "./pages/HomePage";
+import LoadingScreen from "./pages/LoadingScreen";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    document.title = 'Eclipse';
-    // Optionally, reset the title when the component unmounts
-    return () => {
-      document.title = 'Eclipse';
-    };
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setUser(user);
+      setLoading(false); // Set loading to false once authentication state is resolved
+    });
+    return () => unsubscribe();
   }, []);
-  
-  //Production Mode
+
   return (
-    <div className='App'>
-       <Authentication /> 
+    <div className="App">
+      {loading ? (
+        // Show loading indicator or splash screen while app is loading
+        <LoadingScreen/>
+      ) : (
+        // Conditional rendering based on authentication state
+        user ? <HomePage user={user} /> : <Authentication />
+      )}
     </div>
   );
 }
 
 export default App;
+

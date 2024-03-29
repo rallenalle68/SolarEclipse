@@ -116,7 +116,6 @@ function Leaderboard({ user }) {
         placeContent: 'center',
         contentAlign: 'end',
         alignItems: 'end',
-        borderBottom: '2px solid black',
         height: '250px', /* Adjust as needed */
         width: '25rem',
         margin: '0 auto'
@@ -131,7 +130,7 @@ function Leaderboard({ user }) {
       ))}
       </div>
       
-      <div className='LeaderBoard' style={{backgroundColor: 'white'}}>
+      <div className='LeaderBoard' style={{backgroundColor: 'rgb(34, 120, 23)'}}>
         <div className='LeaderboardHeader'>
           <span>Rank</span>
           <span>Name</span>

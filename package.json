@@ -9,7 +9,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^10.8.1",
-    "framer-motion": "^11.0.18",
+    "framer-motion": "^11.0.22",
     "nodemailer": "^6.9.13",
     "pigeon-maps": "^0.21.4",
     "pigeon-marker": "^0.3.4",

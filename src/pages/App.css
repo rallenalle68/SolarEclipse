@@ -162,10 +162,11 @@ Leaderboard
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 40%;
-  min-width: 270px;
+  width: 340px;
+  min-width: fit-content;
   border: 3px solid black;
   padding: 5px 20px;
+  border-radius: 8px;
 }
 
 .LeaderboardHeader{
@@ -181,18 +182,7 @@ Leaderboard
 
 .LeaderboardHeader > span{
   font-size: 24px;
-  color: black;
-  border-bottom: 4px solid orange;
-}
-
-@media screen and (max-width: 768px) {
-  .LeaderBoard{
-    padding: 5px 10px;
-  }
-  .LeaderboardHeader > span{
-    font-size: 20px;
-    color: black;
-  }
+  color: whitesmoke;
 }
 
 .LeaderboardList {
@@ -202,6 +192,7 @@ Leaderboard
   justify-content: center;
   justify-content: space-between;
   padding: 4px 14px;
+  
 }
 
 .playerlist, .highlighted{
@@ -210,15 +201,16 @@ Leaderboard
   align-items: center;
   justify-content: center;
   justify-content: space-between;
-  width: 100%;
   padding: 4px 14px;
+  width: 340px;
+  color: whitesmoke;
 }
 
 
 .highlighted {
   color: whitesmoke;
   border-radius: 8px;
-  background-color: rgb(34, 120, 23); /* Change this to your desired highlight color */
+  background-color: rgb(255, 166, 0); /* Change this to your desired highlight color */
   font-weight: bold; /* Optionally make the text bold */
   /* Add any other styles you want for highlighting */
 }
@@ -253,12 +245,13 @@ Quiz container and elements
   font-size: 34px;
 }
 
-.Quiz-main, .CompletedRound{
+.Quiz-main, .CompletedRound, .StartScreen{
   width: 340px;
   border: 2px solid black;
   border-radius: 4px;
   box-shadow: 10px 10px 10px black;
   height: 500px;
+  background-color: rgb(18, 133, 18);
 }
 
 /*
@@ -268,8 +261,9 @@ Diffferent paragraphs, could be simplified!!?
   margin-top: 40px;
   font-size: 30px;
   color: whitesmoke;
-
 }
+
+
 
 .p4{
   margin-top: 30px;
@@ -285,7 +279,7 @@ Diffferent paragraphs, could be simplified!!?
   height: 400px;
 }
 
-.question-box {
+.option-box {
   float: left;
   border: none;
   padding: 20px;
@@ -360,6 +354,25 @@ Information component
   align-items: center;
   flex-wrap: wrap;
 }
+.Information-Modal {
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Corrected 'cente' to 'center' */
+  background-color: rgb(18, 133, 18);
+  text-align: center;
+  width: 300px;
+  min-height: 500px;
+  max-height: min-content;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 12px; /* Corrected syntax */
+  position: fixed; /* or 'absolute' depending on your layout */
+  top: 50%; /* Move the element 50% down from the top */
+  left: 50%; /* Move the element 50% from the left */
+  transform: translate(-50%, -50%); /* Translate the element back -50% of its own width and height */
+}
 
 .infoBox {
   display: flex;
@@ -409,7 +422,6 @@ Sign out button
   background-color: #0d5d0d;
   border-radius: 12px 12px 0px 0px;
   width: 100%;
-  bottom: -200px;
   position: absolute;
 }
 
@@ -418,6 +430,15 @@ Sign out button
 }
 
 /* ============= Solar Eclipse Effecct =================== */
+.Phases > div{
+  background-color: rgb(18, 133, 18);
+  color: whitesmoke;
+  border-radius: 8px;
+}
+.Phases > div:hover{
+  cursor: pointer;
+}
+
 .top {
   display: flex;
   flex-direction: column;
@@ -446,6 +467,7 @@ Sign out button
   left: 47.5%;
   width: 5%;
   min-width: 50px;
+  border-radius: 100%;
   animation-name: animate-sun;
 }
 
@@ -455,7 +477,9 @@ Sign out button
   left: 47.5%;
   width: 5%;
   min-width: 50px;
-  animation-name:animate-moon;
+  background-color: transparent; /* Set background color to transparent */
+  background-blend-mode: darken; /* Blend the moon with the background */
+  animation-name: animate-moon;
   animation-duration: 20s;
 }
 
@@ -484,9 +508,22 @@ Sign out button
   }
 }
 @keyframes animate-sun {
+  25%{
+    background-color: rgba(255, 255, 255, 0.297);  
+  }
+  40%{
+    background-color: rgba(255, 255, 255, 0.390);
+  }
   50%
   {
+  background-color: rgba(255, 255, 255, 0.468);
   box-shadow:0 0 5em 1em white;
+  }
+  60%{
+    background-color: rgba(255, 255, 255, 0.390);
+  }
+  75%{
+    background-color: rgba(255, 255, 255, 0.297);  
   }
 }
 @keyframes animate-moon {

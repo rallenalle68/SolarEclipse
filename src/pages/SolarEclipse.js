@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai';
 
 const SolarEclipse = () =>{
-  const phase1 = new Date('April 8, 2024 13:00:00');
-  const phase2 = new Date('April 8, 2024 13:15:00');
-  const phase3 = new Date('April 8, 2024 13:30:00');
-  const phase4 = new Date('April 8, 2024 13:45:00');
+  const phase1 = new Date('April 8, 2024 14:02:00');
+  const phase2 = new Date('April 8, 2024 15:16:23');
+  const phase3 = new Date('April 8, 2024 15:20:05');
+  const phase4 = new Date('April 8, 2024 16:43:57');
 
   const [timeRemaining1, setTimeRemaining1] = useState(calculateTimeRemaining(1));
   useEffect(() => {
@@ -37,7 +37,7 @@ const [timeRemaining3, setTimeRemaining3] = useState(calculateTimeRemaining(3));
 const [timeRemaining4, setTimeRemaining4] = useState(calculateTimeRemaining(4));
 useEffect(() => {
   const interval = setInterval(() => {
-    setTimeRemaining3(calculateTimeRemaining(4));
+    setTimeRemaining4(calculateTimeRemaining(4));
   }, 1000);
 
   return () => clearInterval(interval);
@@ -68,11 +68,6 @@ useEffect(() => {
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
     return ({ days, hours, minutes, seconds });
-  }
-
-  const [isOpen1, setIsOpen1] = useState(false);
-  const toggleAcordion1 = () => {
-      setIsOpen1(!isOpen1);
   }
 
   const [isOpen2, setIsOpen2] = useState(false);
@@ -118,76 +113,10 @@ useEffect(() => {
 return(
     <div className='SolarEclipse'>
 
-        {/* <div className='SunContainer'>
-          <div className='Sun'></div>
-          <div className='Moon'></div>
-        </div> */}
-
-        <h2 style={{fontSize: '2rem'}}>Countdown for Solar Eclipse Phases</h2>
+        <h2 style={{fontSize: '2rem'}}>Eclipse timeline</h2>
             
         <div className='Phases'>
-            <div className='Phase 1' onClick={toggleAcordion1} style={{position: 'relative', opacity: (currentPhase === 1 || currentPhase === 0 || isOpen1) ? 1 : 0.5,}}>
-              <div style={
-                {
-                backgroundColor: isOpen1 ? 'orange' : 'white',
-                color: isOpen1 ? 'white' : 'black',
-                width: '2rem',
-                height: '2rem',
-                border: '1px solid black',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                cursor: 'pointer',
-              }}>
-                {isOpen1 ? <AiOutlineMinus /> : <AiOutlinePlus />}
-              </div>
-              <div className='SolarTimer'>
-                <div>
-                  <p className='SolarTime'>{timeRemaining1.days}</p>
-                  <p>days</p>
-                </div>
-                <div>
-                  <p className='SolarTime'>{timeRemaining1.hours}</p>
-                  <p>Hours</p>
-                </div>
-                <div>
-                  <p className='SolarTime'>{timeRemaining1.minutes}</p>
-                  <p>Minutes</p>
-                </div>
-                <div>
-                  <p className='SolarTime'>{timeRemaining1.seconds}</p>
-                  <p>seconds</p>
-                </div>
-              </div>
-              <h2>Phase 1</h2>
-              <h4 style={{fontSize: '1.2rem'}}>Safety Instruction</h4>
-              {isOpen1 && 
-              <ul>
-                <li style={{listStyleType: 'circle'}}>Safety instruction 1</li>
-                <li style={{listStyleType: 'circle'}}>Safety instruction 2</li> 
-                <li style={{listStyleType: 'circle'}}>Safety instruction 3</li>
-              </ul>}
-            </div>
-            <div className='Phase 2' onClick={toggleAcordion2} style={{position: 'relative', opacity: (currentPhase === 2 || currentPhase === 0 || isOpen2) ? 1 : 0.5,}}>
-              <div style={{
-                  backgroundColor: isOpen2 ? 'orange' : 'white',
-                  color: isOpen2 ? 'white' : 'black',
-                  width: '2rem',
-                  height: '2rem',
-                  border: '1px solid black',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  cursor: 'pointer',
-                }}>
-                  {isOpen2 ? <AiOutlineMinus /> : <AiOutlinePlus />}
-              </div>
+            <div className='Phase 2' onClick={toggleAcordion2} style={{position: 'relative', opacity: (currentPhase === 2 || currentPhase === 0 || isOpen2) ? 1 : 0.7,}}>
               <div className='SolarTimer'>
                   <div>
                     <p className='SolarTime'>{timeRemaining2.days}</p>
@@ -206,32 +135,18 @@ return(
                     <p>seconds</p>
                   </div>
                 </div>
-                <h2>Phase 2</h2>
-                <h4 style={{fontSize: '1.2rem'}}>Safety Instruction</h4>
+                <h2>First contact</h2>
+                <div>
+                  {isOpen2 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                </div>
                 {isOpen2 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 1</li>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 2</li> 
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 3</li>
+                  <li style={{listStyleType: 'circle'}}>!Observe ONLY WITH eclipse glasses or solar filters!</li>
                 </ul>}
             </div>
             
-            <div className='Phase 3' onClick={toggleAcordion3} style={{position: 'relative', opacity: (currentPhase === 3 || currentPhase === 0 || isOpen3) ? 1 : 0.5,}}>
-              <div style={{
-                  backgroundColor: isOpen3 ? 'orange' : 'white',
-                  color: isOpen3 ? 'white' : 'black',
-                  width: '2rem',
-                  height: '2rem',
-                  border: '1px solid black',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  cursor: 'pointer',
-                }}>
-                  {isOpen3 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+            <div className='Phase 3' onClick={toggleAcordion3} style={{opacity: (currentPhase === 3 || currentPhase === 0 || isOpen3) ? 1 : 0.7,}}>
+              <div>
               </div>
               <div className='SolarTimer'>
                   <div>
@@ -251,33 +166,17 @@ return(
                     <p>seconds</p>
                   </div>
                 </div>
-                <h2>Phase 3</h2>
-                <h4 style={{fontSize: '1.2rem'}}>Safety Instruction</h4>
+                <h2>TOTALITY!</h2>
+                <div>
+                  {isOpen3 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                </div>
                 {isOpen3 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 1</li>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 2</li> 
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 3</li>
+                  <li style={{listStyleType: 'circle'}}>Safe to observe without glasses!</li>
                 </ul>}
 
             </div>
-            <div className='Phase 4' onClick={toggleAcordion4} style={{position: 'relative', opacity: (currentPhase === 4 || currentPhase === 0 || isOpen4) ? 1 : 0.5,}}>
-              <div style={{
-                  backgroundColor: isOpen4 ? 'orange' : 'white',
-                  color: isOpen4 ? 'white' : 'black',
-                  width: '2rem',
-                  height: '2rem',
-                  border: '1px solid black',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  cursor: 'pointer',
-                }}>
-                  {isOpen4 ? <AiOutlineMinus /> : <AiOutlinePlus />}
-              </div>
+            <div className='Phase 4' onClick={toggleAcordion4} style={{position: 'relative', opacity: (currentPhase === 4 || currentPhase === 0 || isOpen4) ? 1 : 0.7,}}>
               <div className='SolarTimer'>
                   <div>
                     <p className='SolarTime'>{timeRemaining4.days}</p>
@@ -296,13 +195,13 @@ return(
                     <p>seconds</p>
                   </div>
                 </div>
-                <h2>Phase 4</h2>
-                <h4 style={{fontSize: '1.2rem'}}>Safety Instruction</h4>
+                <h2>Last Contact</h2>
+                <div>
+                  {isOpen4 ? <AiOutlineMinus /> : <AiOutlinePlus />}
+              </div>
                 {isOpen4 && 
                 <ul>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 1</li>
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 2</li> 
-                  <li style={{listStyleType: 'circle'}}>Safety instruction 3</li>
+                  <li style={{listStyleType: 'circle'}}>!Observe ONLY WITH eclipse glasses or solar filters!</li>
                 </ul>}
             </div>
         </div>
