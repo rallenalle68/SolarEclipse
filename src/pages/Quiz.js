@@ -345,7 +345,7 @@ const [roundActive1, setRoundActive1] = useState(false);
           setTargetTime(new Date('April 8, 2024 13:30:00'));
           break;
         default:
-          setTargetTime(new Date('April 8, 2024 12:32:00'));
+          setTargetTime(new Date('April 8, 2024 12:45:00'));
           // Set a default target time if currentRoundIndex is invalid
       }
   

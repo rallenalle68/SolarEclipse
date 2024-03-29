@@ -8,12 +8,11 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import HomePage from "./HomePage";
-import { collection, query, getDocs, where } from 'firebase/firestore';
-import { ref, set } from 'firebase/database';
+import { collection, query, getDocs, where, doc, getDoc } from 'firebase/firestore';
+import { ref, set, get } from 'firebase/database';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { TypeAnimation } from 'react-type-animation';
 import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai';
-
 
 function Authentication() {
   // State variables
@@ -117,20 +116,49 @@ function Authentication() {
   // Function to handle user sign in
   const handleSignIn = async () => {
     try {
-      seterrorMessage(""); // Clear any previous error message
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userCredential.user);
-      setEmail("");
-      setPassword("");
+        seterrorMessage(""); // Clear any previous error message
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        setUser(userCredential.user);
+        const userId = userCredential.user.uid;
+        setEmail("");
+        setPassword("");
+        // Check if the user exists in the leaderboard collection in Firestore
+        const userDocumentRef = doc(db, 'leaderboard', userId);
+        const userDocumentSnapshot = await getDoc(userDocumentRef);
+
+        if (!userDocumentSnapshot.exists()) {
+            // If the user doesn't exist in the leaderboard collection, fetch the username from the Realtime Database
+            const userRef = ref(realtimeDb, `users/${userId}`);
+            const userSnapshot = await get(userRef);
+            const userData = userSnapshot.val();
+
+            if (userData) {
+                const { username } = userData;
+                // Reset the Realtime Database with initial values for the user
+                await set(userRef, {
+                    allQuestionsAnswered: false,
+                    correctAnswers: 0,
+                    quizStarted: false,
+                    currentRound: 0,
+                    username: username || "", // Use username from the Realtime Database
+                    score: 0,
+                });
+            } else {
+                console.error("User data not found in the Realtime Database.");
+            }
+        }
     } catch (error) {
-      // Handle different types of errors
-      if(error.message.includes("invalid")){
-        seterrorMessage("Invalid email or password")
-      } else{
-        seterrorMessage(error.message)
-      }
+        // Handle errors
+        console.error("Error signing in:", error);
+        if (error.message.includes("invalid")) {
+            seterrorMessage("Invalid email or password");
+        } else {
+            seterrorMessage("An error occurred while signing in. Please try again later.");
+        }
     }
-  };
+};
+
+  
 
   // Effect hook to listen for changes in authentication state
   useEffect(() => {

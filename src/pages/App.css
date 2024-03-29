@@ -512,15 +512,15 @@ Sign out button
     background-color: rgba(255, 255, 255, 0.297);  
   }
   40%{
-    background-color: rgba(255, 255, 255, 0.390);
+    background-color: rgba(255, 255, 255, 0.335);
   }
   50%
   {
-  background-color: rgba(255, 255, 255, 0.468);
+  background-color: rgba(255, 255, 255, 0.421);
   box-shadow:0 0 5em 1em white;
   }
   60%{
-    background-color: rgba(255, 255, 255, 0.390);
+    background-color: rgba(255, 255, 255, 0.335);
   }
   75%{
     background-color: rgba(255, 255, 255, 0.297);  

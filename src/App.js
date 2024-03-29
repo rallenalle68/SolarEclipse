@@ -17,22 +17,27 @@ Clean up database and set it ready for users ✅
 Count down for the rounds ✅
 Forgotten password ✅
 
-Welcome box ❌
 Bullet points in information ✅
-leaderboard podium with prizez (potentially) ❌
 
+Schedule rounds ✅
 color of podium ✅
 color of phases ✅
 phases box ✅
+authentication page pluss sign bug ✅
 information boxes formatting ✅
-Rounds scoring ❌
+
+Welcome box ❌
 Each round and total leaderboard ❌
 Leaderboard round buttons design ❌
-authentication page pluss sign bug ✅
+Rounds scoring ❌
+leaderboard podium with prizez (potentially) ❌
+Safety information on homepage ❌
+Error message more clear ❌
+Enable enter on authentication ❌ 
+More information about the places in map ❌
 
 
 Cloud messaging ❌
-Schedule rounds (node cron) ❌
 
 */
 // App.js

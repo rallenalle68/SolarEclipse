@@ -23,7 +23,7 @@ function HomePage({ user, username }){
                 </div>
 
                 <div className="sunMoonContainer">
-                  <div class="sunMoon">
+                  <div className="sunMoon">
                     <img src={sunImg} alt="" className="sun" />
                     <img src={moonImg} alt="" className="moon" />
                   </div>
