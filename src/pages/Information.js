@@ -64,6 +64,8 @@ const Information = () => {
       </div>
 
       {/*===================== Map =======================*/}
+      <p className='p1' style={{backgroundColor:'green'}}>Campus events</p>
+      <p className='p2' style={{backgroundColor:'green', padding:30}}>The Gannon Students, faculty, staff and community are invited to view the solar eclipse on Friendship Green and The McConnell Family Stadium. Weather permitting, Gannon staff/faculty will be providing a safe, educational viewing experience. Solar eclipse glasses will be provided as well as the opportunity to view the eclipse through high powered telescopes and a specially designed large format viewing window.</p>
       <div style={{position: 'relative', width: '70%', height: '90%', margin: '0px auto', border: '3px solid black'}}>
         <Map
           height={700}
@@ -84,7 +86,12 @@ const Information = () => {
               color={color} 
               onClick={() => {setHue(hue + 20); openMapModel(0)}} 
           />
-          
+          <Marker 
+              width={50}
+              anchor={[42.127744903761894, -80.08712566175154]} 
+              color={color} 
+              onClick={() => {setHue(hue + 20); openMapModel(1)}} 
+          />
         </Map>
         {(modalIsOpen&&isMap === true) && <MapInfoModal
         index={selectedMapInfo}
@@ -93,8 +100,8 @@ const Information = () => {
         <button
           style={{ position: 'absolute', top: '20px', right: '20px'}}
           onClick={() => {
-            setCenter([42.125672535019156, -80.08600618194332]);
-            setZoom(17);
+            setCenter([42.12841284953883, -80.08891550873273]);
+            setZoom(16);
           }}
         >
           Re-center
@@ -118,7 +125,7 @@ const Information = () => {
               <p style={{ textDecoration: 'underline' }}>Special thanks</p>
               <p>Dr. Kefei Wang</p>
               <p>Nicholas Hubert</p>
-              <p>Alia Scotca</p>
+              <p>Alia Scotka</p>
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Other Contributors</p>

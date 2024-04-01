@@ -318,6 +318,7 @@ const [roundscore, setRoundScore] = useState(0);
         allQuestionsAnswered: false,
         timerRunning:true,
         currentQuestion: 0,
+        correctAnswers:0
       });
       setAllQuestionsAnswered(false);
       setCurrentRoundIndex(currentRoundIndex);

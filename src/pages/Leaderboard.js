@@ -83,7 +83,7 @@ function Leaderboard({ user }) {
     document.getElementById('round3').style.backgroundColor = '';
     document.getElementById('round4').style.backgroundColor = '';
     document.getElementById('round5').style.backgroundColor = '';
-    document.getElementById(`round${round}`).style.backgroundColor = 'orange';
+    document.getElementById(`round${round}`).style.backgroundColor = 'rgb(245, 130, 25)';
     
     // Fetch leaderboard data for the selected round
     fetchLeaderboardData(userName, round);

@@ -18,7 +18,7 @@ function HomePage({ user, username }){
   
               <div className="top">
                 <div className='Header'>
-                    <h1>Gannon's Eclipse Quiz</h1>
+                    <h1>Gannon Solar Eclipse Quiz</h1>
                 </div>
 
                 <div className="sunMoonContainer">

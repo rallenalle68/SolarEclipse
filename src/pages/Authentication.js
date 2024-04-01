@@ -220,7 +220,7 @@ function Authentication() {
                 Welcome to the 
                 <TypeAnimation
                   sequence={[
-                    `Gannon Solar eclipse Quiz!`,
+                    `Gannon Solar Eclipse Quiz!`,
                     1000,
                     "",
                   ]}
@@ -245,11 +245,12 @@ function Authentication() {
             <h2>Safety Information</h2>
             {isOpenSafetyInfo && 
               <ul>
-                <li style={{listStyleType: 'disc'}}>Solar observing presents a risk of eye damage. With basic Knowledge and care, the risks can be easily avoided.</li>
-                <li style={{listStyleType: 'disc'}}>Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness.</li> 
-                <li style={{listStyleType: 'disc'}}>A safe pair of solar eclipse glasses will be labled ISO 12312-2 (or ISO 12312-2:2015).</li>
-                <li style={{listStyleType: 'disc'}}>Remember to supervise children and ensure they also use appropriate eye protection when viewing the eclipse.</li>
-
+                <li style={{ listStyleType: 'disc' }}>Solar observing presents a risk of eye damage. With basic Knowledge and care, the risks can be easily avoided.</li>
+                <li style={{ listStyleType: 'disc' }}>Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness.</li>
+                <li style={{ listStyleType: 'disc' }}>A safe pair of solar eclipse glasses will be labeled ISO 12312-2 (or ISO 12312-2:2015).</li>
+                <li style={{ listStyleType: 'disc' }}>Remember to supervise children and ensure they also use appropriate eye protection when viewing the eclipse.</li>
+                <li style={{ listStyleType: 'disc' }}>For more information:</li>
+                <li><a style={{color:"orange"}}href="https://www.gannon.edu/about-gannon/2024-solar-eclipse" target="_blank" rel="noopener noreferrer">2024 Solar Eclipse</a></li>
               </ul>}
               <div>
               {isOpenSafetyInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
@@ -261,7 +262,7 @@ function Authentication() {
     {!user && (mode === "createAccount" || mode === "signIn") && (
       <div className="ParentFormHolder">
         <div className='Header'>
-          <h1>Gannon's Eclipse</h1>
+          <h1>Gannon Solar Eclipse Quiz</h1>
         </div>
 
         <div className="FormsContainer">
