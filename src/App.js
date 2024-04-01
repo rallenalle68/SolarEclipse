@@ -32,12 +32,9 @@ Leaderboard round buttons design ✅
 Rounds scoring ✅
 Safety information on homepage ✅
 Error message more clear ✅
-leaderboard podium with prizez (potentially) ❌
+More information about the places in map ✅
+
 Enable enter on authentication ❌ 
-More information about the places in map ❌
-
-
-
 Cloud messaging ❌
 
 */

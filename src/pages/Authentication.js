@@ -51,6 +51,17 @@ function Authentication() {
   //   subject: 'Sign Up testing email',
   //   html: emailHtml,
   // };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default form submission behavior
+      if (mode === "createAccount") {
+        handleSignUp(); // Trigger handleSignUp function if in create account mode
+      } else if (mode === "signIn") {
+        handleSignIn(); // Trigger handleSignIn function if in sign-in mode
+      }
+    }
+  };
   
   // Function to handle user sign up
   const handleSignUp = async () => {
@@ -152,9 +163,9 @@ function Authentication() {
         console.error("Error signing in:", error);
         if (error.message.includes("invalid")) {
             seterrorMessage("Invalid email or password");
-        } else {
-            seterrorMessage("An error occurred while signing in. Please try again later.");
-        }
+        } else{
+            seterrorMessage("Invalid email or password.");
+          }
     }
 };
 
@@ -287,6 +298,7 @@ function Authentication() {
                     className="inputForm"
                     type="username"
                     placeholder="Username..."
+                    onKeyUp={handleKeyPress}
                     onChange={(event) => setUsername(event.target.value)}
                     value={username}
                   />
@@ -297,6 +309,7 @@ function Authentication() {
                 className="inputForm"
                 type="email"
                 placeholder="Email..."
+                onKeyUp={handleKeyPress}
                 onChange={(event) => setEmail(event.target.value)}
                 value={email}
               />
@@ -305,6 +318,7 @@ function Authentication() {
                 className="inputForm"
                 type="password"
                 placeholder="Password..."
+                onKeyUp={handleKeyPress}
                 onChange={(event) => setPassword(event.target.value)}
                 value={password}
               />
@@ -323,6 +337,7 @@ function Authentication() {
                 className="inputForm"
                 type="email"
                 placeholder="Enter your email..."
+                onKeyUp={handleKeyPress}
                 onChange={(event) => setResetEmail(event.target.value)}
                 value={resetEmail}
               />

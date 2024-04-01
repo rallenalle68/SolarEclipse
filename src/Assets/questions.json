@@ -14,6 +14,16 @@
           "correctOption": "Using certified solar viewing glasses"
         },
         {
+          "text": "During a total solar eclipse, what phenomenon occurs when the Sun's corona becomes visible around the Moon?",
+          "options": [
+            "Baileys Beads",
+            "Diamond Ring Effect",
+            "Solar Flare",
+            "Coronal Mass Ejection"
+          ],
+          "correctOption": "Coronal Mass Ejection"
+        },
+        {
           "text": "What does Gannon University aim to promote regarding solar eclipse observation?",
           "options": [
             "Indoor activities",
@@ -22,16 +32,6 @@
             "Ignoring the event"
           ],
           "correctOption": "Safe observing and scientific information"
-        },
-        {
-          "text": "What happens during a solar eclipse when the Moon passes between the Earth and the Sun?",
-          "options": [
-            "The Moon disappears",
-            "The Earth disappears",
-            "The Sun disappears",
-            "The Moon partially or completely blocks the Sun"
-          ],
-          "correctOption": "The Moon partially or completely blocks the Sun"
         },
         {
           "text": "What changes occur in light intensity during a solar eclipse?",
@@ -109,54 +109,44 @@
       "name": "Round 2",
       "questions": [
         {
-          "text": "What is important to prioritize when viewing a solar eclipse to protect your eyes?",
+          "text": "What term describes the path where a total solar eclipse is visible?",
           "options": [
-            "Wearing sunglasses",
-            "Looking directly at the sun",
-            "Using certified solar viewing glasses",
-            "Closing your eyes"
+            "Eclipse Zone",
+            "Umbra Path",
+            "Totality Track",
+            "Solar Shadow Corridor"
           ],
-          "correctOption": "Using certified solar viewing glasses"
+          "correctOption": "Totality Track"
         },
         {
-          "text": "What does Gannon University aim to promote regarding solar eclipse observation?",
+          "text": "During a solar eclipse, which celestial bodies are aligned?",
           "options": [
-            "Indoor activities",
-            "Unsafe viewing practices",
-            "Safe observing and scientific information",
-            "Ignoring the event"
+            "Sun, Earth, and Moon",
+            "Sun, Moon, and Mars",
+            "Sun, Mercury, and Venus",
+            "Sun, Jupiter, and Saturn"
           ],
-          "correctOption": "Safe observing and scientific information"
+          "correctOption": "Sun, Earth, and Moon"
         },
         {
-          "text": "What happens during a solar eclipse when the Moon passes between the Earth and the Sun?",
+          "text": "What is the maximum duration of totality for a solar eclipse?",
           "options": [
-            "The Moon disappears",
-            "The Earth disappears",
-            "The Sun disappears",
-            "The Moon partially or completely blocks the Sun"
+            "7 minutes and 31 seconds",
+            "12 minutes and 22 seconds",
+            "5 minutes and 20 seconds",
+            "2 minutes and 40 seconds"
           ],
-          "correctOption": "The Moon partially or completely blocks the Sun"
+          "correctOption": "7 minutes and 31 seconds"
         },
         {
-          "text": "What changes occur in light intensity during a solar eclipse?",
+          "text": "What is the term for the moment during a solar eclipse when the Sun appears as a thin ring around the Moon?",
           "options": [
-            "No change",
-            "Increase in light intensity",
-            "Decrease in light intensity",
-            "Complete darkness"
+            "Solar corona",
+            "Solar flare",
+            "Solar prominence",
+            "Diamond ring effect"
           ],
-          "correctOption": "Decrease in light intensity"
-        },
-        {
-          "text": "What is unique about the alignment of the sun and moon during a total solar eclipse?",
-          "options": [
-            "They never align",
-            "Partial alignment",
-            "Perfect alignment",
-            "Opposite alignment"
-          ],
-          "correctOption": "Perfect alignment"
+          "correctOption": "Diamond ring effect"
         },
         {
           "text": "What phenomenon creates a ring of sunlight known as the 'ring of fire'?",
@@ -169,14 +159,14 @@
           "correctOption": "Annular solar eclipse"
         },
         {
-          "text": "What is the darkest part of the moon's shadow during a solar eclipse?",
+          "text": "How often do total solar eclipses occur on average?",
           "options": [
-            "Penumbra",
-            "Umbra",
-            "Corona",
-            "Solar flare"
+            "Every 1-2 years",
+            "Every 3-4 years",
+            "Every 5-6 years",
+            "Every 7-8 years"
           ],
-          "correctOption": "Umbra"
+          "correctOption": "Every 1-2 years"
         },
         {
           "text": "Which type of solar eclipse occurs when the Sun is completely obscured by the Moon?",
@@ -189,24 +179,34 @@
           "correctOption": "Total solar eclipse"
         },
         {
-          "text": "What are the three main types of solar eclipses?",
+          "text": "What is the term for the alignment of the Earth, Moon, and Sun in a straight line during a solar eclipse?",
           "options": [
-            "Partial, full, total",
-            "Partial, annular, total",
-            "Partial, lunar, total",
-            "Partial, solar, total"
+            "Ecliptic",
+            "Syzygy",
+            "Conjunction",
+            "Opposition"
           ],
-          "correctOption": "Partial, annular, total"
+          "correctOption": "Syzygy"
         },
         {
-          "text": "What is the name of the glowing halo of plasma surrounding the obscured solar disk during a total solar eclipse?",
+          "text": "What is the approximate speed at which the shadow of a solar eclipse moves across the Earth's surface?",
           "options": [
-            "Solar flare",
-            "Corona",
-            "Penumbra",
-            "Umbra"
+            "1000 km/h",
+            "1500 km/h",
+            "2000 km/h",
+            "2500 km/h"
           ],
-          "correctOption": "Corona"
+          "correctOption": "1500 km/h"
+        },
+        {
+          "text": "What is the phenomenon that occurs when the Moon only partially covers the Sun during a solar eclipse?",
+          "options": [
+            "Total solar eclipse",
+            "Partial solar eclipse",
+            "Annular solar eclipse",
+            "Hybrid solar eclipse"
+          ],
+          "correctOption": "Partial solar eclipse"
         }
       ]
     },
@@ -214,25 +214,16 @@
       "name": "Round 3",
       "questions": [
         {
-          "text": "What is important to prioritize when viewing a solar eclipse to protect your eyes?",
+          "text": "What is the name of the orbit in which the Moon crosses the plane of the Earth's orbit during a solar eclipse?",
           "options": [
-            "Wearing sunglasses",
-            "Looking directly at the sun",
-            "Using certified solar viewing glasses",
-            "Closing your eyes"
+            "Ecliptic orbit",
+            "Lunar orbit",
+            "Nodal orbit",
+            "Solar orbit"
           ],
-          "correctOption": "Using certified solar viewing glasses"
+          "correctOption": "Nodal orbit"
         },
-        {
-          "text": "What does Gannon University aim to promote regarding solar eclipse observation?",
-          "options": [
-            "Indoor activities",
-            "Unsafe viewing practices",
-            "Safe observing and scientific information",
-            "Ignoring the event"
-          ],
-          "correctOption": "Safe observing and scientific information"
-        },
+
         {
           "text": "What happens during a solar eclipse when the Moon passes between the Earth and the Sun?",
           "options": [
@@ -244,25 +235,27 @@
           "correctOption": "The Moon partially or completely blocks the Sun"
         },
         {
-          "text": "What changes occur in light intensity during a solar eclipse?",
+          "text": "What scientific principle explains the alignment necessary for a solar eclipse to occur?",
           "options": [
-            "No change",
-            "Increase in light intensity",
-            "Decrease in light intensity",
-            "Complete darkness"
+            "Principle of gravitational attraction",
+            "Principle of celestial mechanics",
+            "Principle of electromagnetic induction",
+            "Principle of conservation of energy"
           ],
-          "correctOption": "Decrease in light intensity"
+          "correctOption": "Principle of celestial mechanics"
         },
         {
-          "text": "What is unique about the alignment of the sun and moon during a total solar eclipse?",
+          "text": "Which part of the world is least likely to observe a solar eclipse?",
           "options": [
-            "They never align",
-            "Partial alignment",
-            "Perfect alignment",
-            "Opposite alignment"
+            "Arctic regions",
+            "Equatorial regions",
+            "Polar regions",
+            "Temperate regions"
           ],
-          "correctOption": "Perfect alignment"
+          "correctOption": "Arctic regions"
         },
+
+        
         {
           "text": "What phenomenon creates a ring of sunlight known as the 'ring of fire'?",
           "options": [
@@ -327,16 +320,6 @@
             "Closing your eyes"
           ],
           "correctOption": "Using certified solar viewing glasses"
-        },
-        {
-          "text": "What does Gannon University aim to promote regarding solar eclipse observation?",
-          "options": [
-            "Indoor activities",
-            "Unsafe viewing practices",
-            "Safe observing and scientific information",
-            "Ignoring the event"
-          ],
-          "correctOption": "Safe observing and scientific information"
         },
         {
           "text": "What is unique about the alignment of the sun and moon during a total solar eclipse?",

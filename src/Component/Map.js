@@ -51,7 +51,7 @@ const MyMap = ({ openMapModel }) => {
             {/* Add a marker for "McConnell Family Stadium" */}
             <Marker
                 width={50}
-                anchor={[42.125222722951736, -80.08550214390186]}
+                anchor={[42.12841284953883, -80.08891550873273]}
                 color={color}
                 onClick={() => {
                     setHue(hue + 20);

@@ -15,8 +15,8 @@ const Information = () => {
   const [isMap, setIsMap] = useState(false);
 
   /*================ Variables for maps config ====================*/
-  const [center, setCenter] = useState([42.125672535019156, -80.08600618194332])
-  const [zoom, setZoom] = useState(17)
+  const [center, setCenter] = useState([42.12841284953883, -80.08891550873273])
+  const [zoom, setZoom] = useState(16)
   const [hue, setHue] = useState(0)
   const color = `hsl(${hue % 360}deg 39% 70%)`
 
