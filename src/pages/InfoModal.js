@@ -14,7 +14,7 @@ const InfoModal = ({ isOpen, closeModal, title, content }) => {
         <ul>
           {content && Array.isArray(content) && content.map((data, index) => (
             <React.Fragment key={index}>
-              <li style={{listStyleType: 'circle', marginTop: '15px', fontSize: 18, color:'white'}}>{data}</li>
+              <li style={{listStyleType: 'circle', marginTop: '15px', fontSize: 22, color:'white'}}>{data}</li>
               <hr style={{ width: '70%', margin: '5px auto', fontWeight: 'bold' }} />
             </React.Fragment>
           ))}

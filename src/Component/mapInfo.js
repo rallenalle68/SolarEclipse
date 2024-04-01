@@ -1,18 +1,8 @@
 const mapInfo = [
     {
-        title: "Zurn Science Center",
-        address: "143 W 7th St, Erie, PA 16501",
-        img: "../Assets/zurn.jpg"
-    },
-    {
-        title: "Gannon Arch",
-        address: "W 7th St, Erie, PA 16501",
-        img: "../Assets/GannonArch.jpg"
-    },
-    {
-        title: "I-Hack Center",
-        address: "131 W 9th St, Erie, PA 16501",
-        img: "../Assets/ihack.jpg"
+        title: "McConnell Family Stadium",
+        address: "Sassafras St &, W 5th St, Erie, PA 16507",
+        description:"The Gannon Students, Faculty & Staff are invited to view the solar eclipse at the McConnell Family Stadium. Weather permitting, Gannon Staff/Faculty will be providing a safe, educational viewing experience. Solar eclipse glasses will be provided as well as the opportunity to view the eclipse through high powered telescopes and specially designed large format viewing window"
     },
 ]
 

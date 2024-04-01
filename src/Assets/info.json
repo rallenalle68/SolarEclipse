@@ -20,8 +20,6 @@
           "A solar eclipse occurs when the Moon passes between the Earth and the Sun, obscuring the Sun partially or completely from view.",
           "There are three main types of solar eclipses: total, partial, and annular.",
           "During a total solar eclipse, the Sun is completely obscured by the Moon, revealing the Sun's corona and creating a dark shadow known as the umbra on Earth's surface.",
-          "Partial solar eclipses occur when only a portion of the Sun is covered by the Moon.",
-          "Annular solar eclipses happen when the Moon is too far from the Earth to completely cover the Sun, resulting in a ring of sunlight known as the 'ring of fire' around the Moon.",
           "Solar eclipses are rare events that captivate observers worldwide and provide valuable opportunities for scientific research and public education about astronomy."
         ]
       },
@@ -60,6 +58,15 @@
         "content": [
           "The Baileys Beads, or Diamond Necklace, is another captivating occurrence during a solar eclipse.",
           "Sunlight passes through lunar valleys, creating a necklace-like appearance as the Moon covers the Sun."
+      ]
+    },
+    {
+      "title": "Animals",
+      "content": [
+        "During a solar eclipse, some animals may exhibit unusual behaviors due to the sudden changes in light and temperature.",
+        "Birds may become silent, thinking it's nighttime, while nocturnal animals might become active.",
+        "Some animals may seek shelter or hide, while others may appear confused or disoriented.",
+        "Observers have reported seeing animals behaving strangely during total solar eclipses, adding to the mystique of these celestial events."
       ]
     }
 ]

@@ -11,7 +11,6 @@ import sunImg from '../Assets/Sun.png';
 import moonImg from '../Assets/Moon.png'
 
 function HomePage({ user, username }){
-    const [score, setScore] = useState(0);  
 
     return(
       <Router>
@@ -19,7 +18,7 @@ function HomePage({ user, username }){
   
               <div className="top">
                 <div className='Header'>
-                    <h1>Gannon's Eclipse</h1>
+                    <h1>Gannon's Eclipse Quiz</h1>
                 </div>
 
                 <div className="sunMoonContainer">
@@ -41,7 +40,7 @@ function HomePage({ user, username }){
 
               <Routes>
                 <Route path="/Leaderboard" element={<Leaderboard user={user} username={username} />} />
-                <Route path="/Quiz" element={<Quiz user={user} score={score} setScore={setScore} />} />
+                <Route path="/Quiz" element={<Quiz user={user}/>} />
                 <Route path="/Information" element={<Information/>} />
                 <Route path="/SolarEclipse" element={<SolarEclipse />} />
               </Routes>

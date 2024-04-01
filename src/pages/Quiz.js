@@ -7,10 +7,10 @@ import { collection, doc, getDoc, setDoc, updateDoc, query, orderBy, limit, getD
 import { ref, onValue, off, update } from 'firebase/database'; // Import Realtime Database functions
 import LoadingScreen from './LoadingScreen';
 
-function Quiz({ score, setScore, user }) {
+function Quiz({ user }) {
 // UI state
 const [loadingScreen, setLoading] = useState(true); 
-
+const [quizClosed, setQuizClosed] = useState(true);
 // User state
 const [userName, setUsername] = useState(""); 
 
@@ -31,10 +31,11 @@ const [currentRoundIndex, setCurrentRoundIndex] = useState(0);
 const currentQuestion = questions.rounds[currentRoundIndex].questions[currentQuestionIndex]; 
 const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); 
 const [correctAnswers, setCorrectAnswers] = useState(0); 
-const [selectedOption, setSelectedOption] = useState(null); 
-
+const [selectedOption, setSelectedOption] = useState(null);
 // Round-specific state
 const [roundActive1, setRoundActive1] = useState(false); 
+const [score, setScore] = useState(0);  
+const [roundscore, setRoundScore] = useState(0);
 
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const [roundActive1, setRoundActive1] = useState(false);
         setQuizStarted(data.quizStarted || false);
         setTimerRunning(data.timerRunning || false);
         setCurrentRoundIndex(data.currentRound || 0);
+        setRoundScore(data[`round${data.currentRound+1}score`] || 0);
         setScore(data.score || 0);
         setSelectedOption(data.selectedOption || null); // Fetch selected option
         setLoading(false)
@@ -117,14 +119,17 @@ const [roundActive1, setRoundActive1] = useState(false);
   }, [timerRunning, timer]);
 
 
-  async function updateRealtimeDB(option, score, correctAnswers) {
+  async function updateRealtimeDB(option, calculatedScore, correctAnswers) {
+    console.log(roundscore)
+    console.log(currentRoundIndex +1)
     if (option == 1){
       try {
         const userRef = ref(realtimeDb, `users/${user.uid}`);
         await update(userRef, {
           timerRunning: false,
           timer: timer,
-          score: score,
+          [`round${currentRoundIndex+1}score`]: roundscore + calculatedScore,
+          score: score + calculatedScore,
           correctAnswers: correctAnswers
         });
       } catch (error) {
@@ -157,29 +162,33 @@ const [roundActive1, setRoundActive1] = useState(false);
       }
     }
   }
-  
 
-  async function updateLeaderBoard(score) {
-
+  async function updateLeaderBoard(roundscore) {
     try {
-        // Get the user document reference
-        const userDocRef = doc(collection(db, 'leaderboard'), user.uid);
-        const round1DocRef = doc(collection(db, 'round1'), user.uid);
-        
-        // Check if the user already has an entry in the leaderboard
-        const userDocSnapshot = await getDoc(userDocRef);
-        
-        if (userDocSnapshot.exists()) {
-            // Update existing entry in the leaderboard
-            await updateDoc(userDocRef, { username: userName, score: score });
-        } else {
-            // Add a new entry to the leaderboard
-            await setDoc(userDocRef, { username: userName, score: score });
-        }
+      const userDocRef = doc(collection(db, `Round${currentRoundIndex + 1}`), user.uid);
+      
+      // Check if the user already has an entry in the round's collection
+      const userDocSnapshot = await getDoc(userDocRef);
+      
+      if (userDocSnapshot.exists()) {
+        // Update existing entry in the round's collection
+        await updateDoc(userDocRef, { score: roundscore, username:userName });
+      } else {
+        // Add a new entry to the round's collection
+        await setDoc(userDocRef, { score: roundscore, username:userName });
+      }
     } catch (error) {
-        
+      console.error('Error updating leaderboard:', error);
     }
-}
+    try {
+      // Always update the document in the Round5 collection
+      const totalDocRef = doc(collection(db, `Round5`), user.uid);
+      // Update the document with the score
+      await setDoc(totalDocRef, { score: score, username:userName });
+    } catch (error) {
+      console.error('Error updating leaderboard:', error);
+    }
+  }
 
 
   function nextQuestion() {
@@ -209,8 +218,8 @@ const [roundActive1, setRoundActive1] = useState(false);
   
       // Set allQuestionsAnswered to true and update the realtime database
       setAllQuestionsAnswered(true);
-      updateRealtimeDB(3, score, correctAnswers); // Update realtime database
-      updateLeaderBoard(score);
+      updateRealtimeDB(3, 0, correctAnswers); // Update realtime database
+      updateLeaderBoard(roundscore);
     } else {
       // Proceed to the next question
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
@@ -233,7 +242,7 @@ const [roundActive1, setRoundActive1] = useState(false);
     setCorrectAnswers(updatedCorrectAnswers);
   
     setSelectedOption(option);
-    updateRealtimeDB(1, score +calculatedScore, updatedCorrectAnswers);
+    updateRealtimeDB(1, calculatedScore, updatedCorrectAnswers);
   
     const userRef = ref(realtimeDb, `users/${user.uid}`);
     update(userRef, { selectedOption: option });
@@ -279,10 +288,6 @@ const [roundActive1, setRoundActive1] = useState(false);
   }
   
   
-  
-  
-  
-
   // Function to start the quiz
   async function startQuiz() {
     try {
@@ -330,20 +335,25 @@ const [roundActive1, setRoundActive1] = useState(false);
       // Define the start times for each round
       switch (currentRoundIndex) {
         case 0:
-          setTargetTime(new Date('April 8, 2024 12:45:00'));
+          setTargetTime(new Date('April 8, 2024 13:00:00'));
           if(targetTime.getTime() < currentTime.getTime()){
             setRoundActive1(true)
           }
           break;
         case 1:
-          setTargetTime(new Date('April 8, 2024 13:00:00'));
-          break;
-        case 2:
           setTargetTime(new Date('April 8, 2024 13:15:00'));
           break;
-        case 3:
+        case 2:
           setTargetTime(new Date('April 8, 2024 13:30:00'));
           break;
+        case 3:
+          setTargetTime(new Date('April 8, 2024 13:45:00'));
+          break;
+        case 4:
+          setTargetTime(new Date('April 8, 2024 14:45:00'));
+          if(targetTime.getTime() < currentTime.getTime()){
+            setQuizClosed(true)
+          }
         default:
           setTargetTime(new Date('April 8, 2024 12:45:00'));
           // Set a default target time if currentRoundIndex is invalid
@@ -393,8 +403,8 @@ const [roundActive1, setRoundActive1] = useState(false);
             <div className='InfoParagraphs'>
               <p className='p1'>Welcome to the quiz!</p>
               <p className='p3'>A total of 4 rounds</p>
-              <p className='p3'>Make sure to answere quickly, </p>
-              <p className='p3'>but correct ofcourse.</p>
+              <p className='p3'>Make sure to answer quickly, </p>
+              <p className='p3'>but correctly ofcourse.</p>
             </div>
             {roundActive1 ?(
               <button className='start-btn' onClick={startQuiz}>
@@ -402,22 +412,21 @@ const [roundActive1, setRoundActive1] = useState(false);
             </button>
             ): (
               <>
-              <p className='p2'>Round 1 will start in:</p>
+              <p className='p2'>Round 1, April 8th 1pm, starts in:</p>
               <p className='p2'>{countdown.full}</p>
               </>
-              
             )
             }
-              <p className='p2'>Round 2: April 8th 13:00pm</p>
-              <p className='p2'>Round 3: April 8th 13:15pm</p>
-              <p className='p2'>Round 4: April 8th 13:30pm</p>
-              <p className='p1'>I hope you win!</p>
+              <p className='p2'>Round 2: April 8th 1:15pm</p>
+              <p className='p2'>Round 3: April 8th 1:30pm</p>
+              <p className='p2'>Round 4: April 8th 1:45pm</p>
+              <p className='p1'>Good luck!</p>
           </div>
         ) :allQuestionsAnswered ? (
           <div className='CompletedRound'>
             <p className='p1'>Round {currentRoundIndex} completed</p>
             <p className='p2'>Total correct answers: {correctAnswers}</p>
-            <p className='p3'>Your score: {score}</p>
+            <p className='p3'>Your total score: {score}</p>
             {currentRoundIndex === questions.rounds.length-1 ? (
               <p className='p4'>Thank you for playing. View your final score in the leaderboard.</p>
             ) : (

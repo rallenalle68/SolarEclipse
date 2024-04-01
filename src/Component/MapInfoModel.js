@@ -28,8 +28,8 @@ const MapInfoModal = ({ index, isOpen, closeModal }) => {
         }}
       >
         <h2>{mapInfo[index].title}</h2>
-        <p>{mapInfo[index].address}</p>
-        <img src={imageSource[index]} alt='' style={{margin: '15px 0'}} />
+        <p className='p4' style={{fontSize:20}}>{mapInfo[index].description}</p>
+        <p className='p2' style={{color:'black'}}>{mapInfo[index].address}</p>
         <button onClick={closeModal}>Close</button>
       </Modal>
     );

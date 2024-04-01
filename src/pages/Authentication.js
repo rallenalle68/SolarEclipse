@@ -123,7 +123,7 @@ function Authentication() {
         setEmail("");
         setPassword("");
         // Check if the user exists in the leaderboard collection in Firestore
-        const userDocumentRef = doc(db, 'leaderboard', userId);
+        const userDocumentRef = doc(db, 'Round1', userId);
         const userDocumentSnapshot = await getDoc(userDocumentRef);
 
         if (!userDocumentSnapshot.exists()) {
@@ -184,10 +184,9 @@ function Authentication() {
   
       // Send password reset email
       await sendPasswordResetEmail(auth, resetEmail);
-      
-      // Set success message and reset form fields
       seterrorMessage("You will receive an email shortly, could take up to 2 min.");
-      setMode("initial");
+      // Set success message and reset form fields
+      setMode("signIn");
       setEmail("");
       setPassword("");
       setUsername("");
@@ -213,14 +212,11 @@ function Authentication() {
     <div className="App">
       {mode === "initial" && (
         <div className="ParentFormHolder">
-          <div className='Header'>
-            <h1>Gannon's Eclipse</h1>
-          </div>
           
 
           <div className="FormsContainer">
             <div className="InfoParagraphs" style={{display:'inline-block'}}>
-              <p className='p1' style={{backgroundColor: 'white', color: 'black', borderRadius:4}}>
+              <p className='p1' style={{backgroundColor: 'white', color: 'black', borderRadius:4, marginBottom: 30}}>
                 Welcome to the 
                 <TypeAnimation
                   sequence={[
@@ -233,9 +229,9 @@ function Authentication() {
                   repeat={Infinity}
                 /> 
               </p>
-              <p style={{fontSize:18}}>We hope you have been refining your astrophysics skills. </p>
-              <p style={{fontSize:18}}>Because if you have... You can compete against the brightest minds in Gannon!</p>
-              <p style={{fontSize:18}}>Create an account, and have the chance to win some exciting prizes.</p>
+              <p style={{fontSize:22}}>We hope you have been refining your astrophysics skills. </p>
+              <p style={{fontSize:22}}>Because if you have... You can compete against the brightest minds in Gannon!</p>
+              <p style={{fontSize:22}}>Create an account, and have the chance to win some exciting prizes.</p>
             </div>
             <div>
               <button onClick={()=>setMode("createAccount")}>Create Account</button>
@@ -246,30 +242,18 @@ function Authentication() {
 
 
           <div className="opening" onClick={toggleAcordionSafetyInfo} style={{position: 'relative'}}>
-            <div style={
-              {
-              backgroundColor: isOpenSafetyInfo ? 'orange' : 'white',
-              color: isOpenSafetyInfo ? 'white' : 'black',
-              width: '2rem',
-              height: '2rem',
-              border: '1px solid black',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              cursor: 'pointer',
-            }}>
-              {isOpenSafetyInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
-            </div>
             <h2>Safety Information</h2>
             {isOpenSafetyInfo && 
               <ul>
-                <li style={{listStyleType: 'circle'}}>Add Safety Info 1</li>
-                <li style={{listStyleType: 'circle'}}>Add Safety Info 2</li> 
-                <li style={{listStyleType: 'circle'}}>Add Safety Info 3</li>
+                <li style={{listStyleType: 'disc'}}>Solar observing presents a risk of eye damage. With basic Knowledge and care, the risks can be easily avoided.</li>
+                <li style={{listStyleType: 'disc'}}>Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness.</li> 
+                <li style={{listStyleType: 'disc'}}>A safe pair of solar eclipse glasses will be labled ISO 12312-2 (or ISO 12312-2:2015).</li>
+                <li style={{listStyleType: 'disc'}}>Remember to supervise children and ensure they also use appropriate eye protection when viewing the eclipse.</li>
+
               </ul>}
+              <div>
+              {isOpenSafetyInfo ? <AiOutlineMinus /> : <AiOutlinePlus />}
+            </div>
           </div>
         </div>
       )}

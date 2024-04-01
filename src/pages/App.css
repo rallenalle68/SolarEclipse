@@ -153,7 +153,24 @@ Authentication form
   display: flex;
   flex-direction: column;
 }
-
+.opening {  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: rgb(18, 133, 18);
+  color: whitesmoke;
+  border-radius: 8px;
+  border: 2px solid black;
+  width: 300px;
+  padding: 20px;
+}
+.opening:hover{
+  cursor: pointer;
+}
+.opening > ul{
+  list-style-type: disc;
+  font-size: 22px;
+}
 /*
 Leaderboard
 */
@@ -312,12 +329,11 @@ Diffferent paragraphs, could be simplified!!?
 }
 /*-------------------*/
 
-/*
-Solar eclipse component
-*/
+/*========================For Solar Eclipse page ========================*/
 
 .SolarTimer{
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 .SolarTimer > div{
@@ -329,6 +345,32 @@ Solar eclipse component
 
 .SolarTimerparag{
   font-size: 12px;
+
+}
+
+.Phases {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.Phase-2, .Phase-3, .Phase-4 {
+  background-color: #fff;
+  border: 2px solid black;
+  margin: 10px;
+  width: 280px;
+  min-height: 180px;
+  height: fit-content;
+  padding: 14px;
+}
+.timerContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.timerContainer > div{
+  margin: 4px;
 }
 /*
 Sun
@@ -374,7 +416,7 @@ Information component
   justify-content: center; /* Corrected 'cente' to 'center' */
   background-color: rgb(18, 133, 18);
   text-align: center;
-  width: 300px;
+  width: 320px;
   min-height: 500px;
   max-height: min-content;
   margin: auto;
@@ -384,6 +426,7 @@ Information component
   top: 50%; /* Move the element 50% down from the top */
   left: 50%; /* Move the element 50% from the left */
   transform: translate(-50%, -50%); /* Translate the element back -50% of its own width and height */
+  font-size: 24px;
 }
 
 .infoBox {
@@ -489,7 +532,7 @@ Sign out button
   top: 0;
   left: 47.5%;
   width: 5%;
-  min-width: 50px;
+  min-width: 55px;
   background-color: transparent; /* Set background color to transparent */
   background-blend-mode: darken; /* Blend the moon with the background */
   animation-name: animate-moon;
@@ -505,12 +548,6 @@ Sign out button
 @media screen and (max-width: 1023px) {
   .sunMoonContainer {
     height: 70px
-  }
-}
-
-@media screen and (max-width: 1018px) {
-  .sun, .moon {
-    left: calc(47.5% - 25px);
   }
 }
 
@@ -549,38 +586,4 @@ Sign out button
   100% {
     transform: translateX(-100%);
   }
-}
-
-/*========================For Solar Eclipse page ========================*/
-.Phases {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.Phase {
-  flex: 1 1 40%; /* Two columns layout for large screens */
-  background-color: #fff;
-  border: 2px solid black;
-  margin: 10px 20px;
-  width: 30%;
-}
-
-/* Media query for small screens */
-@media screen and (max-width: 768px) {
-  .Phase {
-    flex: 1 1 80%; /* Single column layout for small screens */
-    margin: 10px;
-    width: 60%
-  }
-}
-
-.opening {
-  background-color: #fff;
-  border: 2px solid black;
-  margin-left: 0;
-  margin-right: 0;
-  margin: 15px;
-  width: 50%;
-  min-width: 300px;
 }

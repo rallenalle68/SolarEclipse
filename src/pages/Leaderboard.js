@@ -12,7 +12,7 @@ function Leaderboard({ user }) {
   const [userName, setUserName] = useState("");
   const [userScore, setUserScore] = useState(null);
 
-  const [round, setRound] = useState(1);
+  const [round, setRound] = useState(5); // Set default round to 5
   const [topThree, setTopThree] = useState([]);
   
   useEffect(() => {
@@ -23,9 +23,9 @@ function Leaderboard({ user }) {
 
   useEffect(() => {
     if (userName !== "") {
-      fetchLeaderboardData(userName);
+      fetchLeaderboardData(userName, round); // Fetch leaderboard data with the initial round
     }
-  }, [userName]);
+  }, [userName, round]); // Add 'round' as a dependency
 
   const fetchUserData = async (user) => {
     try {
@@ -41,21 +41,21 @@ function Leaderboard({ user }) {
     }
   };
 
-  const fetchLeaderboardData = async (userName) => {
+  const fetchLeaderboardData = async (userName, round) => {
     try {
-      const leaderboardCollection = collection(db, 'leaderboard');
-      const leaderboardQuery = query(leaderboardCollection, orderBy('score', 'desc'));
-
-      const querySnapshot = await getDocs(leaderboardQuery);
+      const roundCollection = collection(db, `Round${round}`);
+      const roundQuery = query(roundCollection, orderBy('score', 'desc'));
+  
+      const querySnapshot = await getDocs(roundQuery);
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
+  
       // Set the sorted data in the state with only the top 10
       setLeaderboardData(data.slice(0, 10));
       setTopThree(data.slice(0,3));
   
       // Set the user's rank and score in the state
       const userEntry = leaderboardData.find(entry => entry.username === userName);
-
+  
       if (userEntry) {
         setUserRank(userEntry.rank);
         setUserScore(userEntry.score);
@@ -72,20 +72,27 @@ function Leaderboard({ user }) {
         }
       }
     } catch (error) {
-      console.error('Error fetching leaderboard data:', error);
+      console.error(`Error fetching leaderboard data for Round${round}:`, error);
     }
   };
 
   const handleClickRound = (round) => {
-    const style = "backgroundColor: orange";
     setRound(round);
     document.getElementById('round1').style.backgroundColor = '';
     document.getElementById('round2').style.backgroundColor = '';
     document.getElementById('round3').style.backgroundColor = '';
     document.getElementById('round4').style.backgroundColor = '';
-    document.getElementById('round0').style.backgroundColor = '';
+    document.getElementById('round5').style.backgroundColor = '';
     document.getElementById(`round${round}`).style.backgroundColor = 'orange';
+    
+    // Fetch leaderboard data for the selected round
+    fetchLeaderboardData(userName, round);
   };
+
+  useEffect(() => {
+    // Initially select round 5 and fetch its leaderboard data
+    handleClickRound(5);
+  }, []);
 
   return (
     <>
@@ -94,7 +101,7 @@ function Leaderboard({ user }) {
         <button id='round2' onClick={() => handleClickRound(2)}>Round 2</button>
         <button id='round3' onClick={() => handleClickRound(3)}>Round 3</button>
         <button id='round4' onClick={() => handleClickRound(4)}>Round 4</button>
-        <button id='round0' onClick={() => handleClickRound(0)}>Total</button>
+        <button id='round5' onClick={() => handleClickRound(5)}>Total</button>
       </div>
 
       <div style={{ 

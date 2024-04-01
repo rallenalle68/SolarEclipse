@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai';
 
 const SolarEclipse = () =>{
-  const phase1 = new Date('April 8, 2024 14:02:00');
-  const phase2 = new Date('April 8, 2024 15:16:23');
-  const phase3 = new Date('April 8, 2024 15:20:05');
-  const phase4 = new Date('April 8, 2024 16:43:57');
+  const firstContactBegins = new Date('April 8, 2024 14:02:00');
+  
+  const totalityBegins = new Date('April 8, 2024 15:16:23');
+  
+  const lastContactBegins = new Date('April 8, 2024 15:20:05');
+  const lastContactEnds = new Date('April 8, 2024 16:30:00');
 
-  const [timeRemaining1, setTimeRemaining1] = useState(calculateTimeRemaining(1));
+  const [timeRemaining5, setTimeRemaining5] = useState(calculateTimeRemaining(5));
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeRemaining1(calculateTimeRemaining(1));
+      setTimeRemaining5(calculateTimeRemaining(5));
     }, 1000);
 
     return () => clearInterval(interval);
@@ -46,14 +48,14 @@ useEffect(() => {
   function calculateTimeRemaining(phase) {
     let time;
     const now = new Date();
-    if(phase === 1) {
-      time = phase1;
-    } else if (phase === 2) {
-      time = phase2;
+    if(phase === 2) {
+      time = firstContactBegins;
     } else if (phase === 3) {
-      time = phase3;
+      time = totalityBegins;
     } else if (phase === 4) {
-      time = phase4;
+      time = lastContactBegins;
+    } else if (phase === 5){
+      time = lastContactEnds;
     }
     const difference = time - now;
 
@@ -97,111 +99,186 @@ useEffect(() => {
 
   function getCurrentPhase() {
     const now = new Date();
-    if (now < phase1) {
-      return 1;
-    } else if (now < phase2) {
-      return 2;
-    } else if (now < phase3) {
-      return 3;
-    } else if (now < phase4) {
+    if (now > lastContactBegins) {
       return 4;
+    } else if (now > totalityBegins) {
+      return 3;
+    } else if (now > firstContactBegins) {
+      return 2;
     } else {
-      return 0;
+      return 1;
     }
   }
 
 return(
     <div className='SolarEclipse'>
-
-        <h2 style={{fontSize: '2rem'}}>Eclipse timeline</h2>
-            
+              <div className='InfoParagraphs'>
+                <p className='p1' style={{backgroundColor:'green'}}>Eclipse timeline</p>
+                <p className='p3' style={{backgroundColor:'green', color:'whitesmoke'}}>We will experience 3 stages of the eclipse.</p>
+                <p className='p3' style={{backgroundColor:'green', color:'whitesmoke'}}>Make sure to stay updated on safety!</p>
+              </div>
         <div className='Phases'>
-            <div className='Phase 2' onClick={toggleAcordion2} style={{position: 'relative', opacity: (currentPhase === 2 || currentPhase === 0 || isOpen2) ? 1 : 0.7,}}>
+            <div className='Phase-2' onClick={toggleAcordion2} style={{position: 'relative', opacity: (currentPhase === 2 || currentPhase === 0 || isOpen2) ? 1 : 0.7,}}>
               <div className='SolarTimer'>
                   <div>
-                    <p className='SolarTime'>{timeRemaining2.days}</p>
-                    <p>days</p>
+                    <p className='p2'>First contact starts in:</p>
+                  </div>
+                  <div className='timerContainer'>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining2.days}</p>
+                      <p>days</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining2.hours}</p>
+                      <p>Hours</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining2.minutes}</p>
+                      <p>Minutes</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining2.seconds}</p>
+                      <p>seconds</p>
+                    </div>
                   </div>
                   <div>
-                    <p className='SolarTime'>{timeRemaining2.hours}</p>
-                    <p>Hours</p>
+                    <p className='p2'>First contact ends in:</p>
                   </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining2.minutes}</p>
-                    <p>Minutes</p>
-                  </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining2.seconds}</p>
-                    <p>seconds</p>
+                  <div className='timerContainer'>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.days}</p>
+                      <p>days</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.hours}</p>
+                      <p>Hours</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.minutes}</p>
+                      <p>Minutes</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.seconds}</p>
+                      <p>seconds</p>
+                    </div>
                   </div>
                 </div>
-                <h2>First contact</h2>
                 <div>
                   {isOpen2 ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 </div>
                 {isOpen2 && 
                 <ul>
-                  <li style={{listStyleType: 'circle', fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
+                  <li style={{fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
                 </ul>}
             </div>
             
-            <div className='Phase 3' onClick={toggleAcordion3} style={{opacity: (currentPhase === 3 || currentPhase === 0 || isOpen3) ? 1 : 0.7,}}>
+            <div className='Phase-3' onClick={toggleAcordion3} style={{opacity: (currentPhase === 3 || currentPhase === 0 || isOpen3) ? 1 : 0.7,}}>
               <div>
               </div>
-              <div className='SolarTimer'>
+                <div className='SolarTimer'>
                   <div>
-                    <p className='SolarTime'>{timeRemaining3.days}</p>
-                    <p>days</p>
+                    <p className='p2'>Totality starts in:</p>
+                  </div>
+                  <div className='timerContainer'>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.days}</p>
+                      <p>days</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.hours}</p>
+                      <p>Hours</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.minutes}</p>
+                      <p>Minutes</p>
+                    </div>
+                    <div>
+                      <p className='SolarTime'>{timeRemaining3.seconds}</p>
+                      <p>seconds</p>
+                    </div>
                   </div>
                   <div>
-                    <p className='SolarTime'>{timeRemaining3.hours}</p>
-                    <p>Hours</p>
+                    <p className='p2'>Totality ends in:</p>
                   </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining3.minutes}</p>
-                    <p>Minutes</p>
-                  </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining3.seconds}</p>
-                    <p>seconds</p>
-                  </div>
+                  <div className='timerContainer'>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.days}</p>
+                        <p>days</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.hours}</p>
+                        <p>Hours</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.minutes}</p>
+                        <p>Minutes</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.seconds}</p>
+                        <p>seconds</p>
+                      </div>
+                    </div>
                 </div>
-                <h2>TOTALITY!</h2>
                 <div>
                   {isOpen3 ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 </div>
                 {isOpen3 && 
                 <ul>
-                  <li style={{listStyleType: 'circle', fontSize: 22}}>Safe to observe without glasses!</li>
+                  <li style={{fontSize: 22}}>Safe to observe without glasses!</li>
                 </ul>}
 
             </div>
-            <div className='Phase 4' onClick={toggleAcordion4} style={{position: 'relative', opacity: (currentPhase === 4 || currentPhase === 0 || isOpen4) ? 1 : 0.7,}}>
+            <div className='Phase-4' onClick={toggleAcordion4} style={{position: 'relative', opacity: (currentPhase === 4 || currentPhase === 0 || isOpen4) ? 1 : 0.7,}}>
               <div className='SolarTimer'>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining4.days}</p>
-                    <p>days</p>
+                    <div>
+                      <p className='p2'>Last contact starts in:</p>
+                    </div>
+                    <div className='timerContainer'>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.days}</p>
+                        <p>days</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.hours}</p>
+                        <p>Hours</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.minutes}</p>
+                        <p>Minutes</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining4.seconds}</p>
+                        <p>seconds</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className='p2'>Solar eclipse ends in:</p>
+                    </div>
+                    <div className='timerContainer'>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining5.days}</p>
+                        <p>days</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining5.hours}</p>
+                        <p>Hours</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining5.minutes}</p>
+                        <p>Minutes</p>
+                      </div>
+                      <div>
+                        <p className='SolarTime'>{timeRemaining5.seconds}</p>
+                        <p>seconds</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining4.hours}</p>
-                    <p>Hours</p>
-                  </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining4.minutes}</p>
-                    <p>Minutes</p>
-                  </div>
-                  <div>
-                    <p className='SolarTime'>{timeRemaining4.seconds}</p>
-                    <p>seconds</p>
-                  </div>
-                </div>
-                <h2>Last Contact</h2>
                 <div>
                   {isOpen4 ? <AiOutlineMinus /> : <AiOutlinePlus />}
               </div>
                 {isOpen4 && 
                 <ul>
-                  <li style={{listStyleType: 'circle', fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
+                  <li style={{fontSize: 22}}>!!Observe ONLY WITH eclipse glasses or solar filters!!</li>
                 </ul>}
             </div>
         </div>

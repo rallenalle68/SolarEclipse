@@ -27,12 +27,12 @@ authentication page pluss sign bug ✅
 information boxes formatting ✅
 
 Welcome to quiz design box ✅
-Each round and total leaderboard ❌
-Leaderboard round buttons design ❌
-Rounds scoring ❌
+Each round and total leaderboard ✅
+Leaderboard round buttons design ✅
+Rounds scoring ✅
+Safety information on homepage ✅
+Error message more clear ✅
 leaderboard podium with prizez (potentially) ❌
-Safety information on homepage ❌
-Error message more clear ❌
 Enable enter on authentication ❌ 
 More information about the places in map ❌
 
@@ -67,6 +67,7 @@ function App() {
       setUser(user);
       setLoading(false); // Set loading to false once authentication state is resolved
     });
+    document.title = "Eclipse Quiz";
     return () => unsubscribe();
   }, []);
 

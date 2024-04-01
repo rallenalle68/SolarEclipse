@@ -80,22 +80,11 @@ const Information = () => {
           <ZoomControl />
           <Marker 
               width={50}
-              anchor={[42.127786437446396, -80.08681813055236]} 
-              color={color} 
-              onClick={() => {setHue(hue + 20); openMapModel(1)}} 
-          />
-          <Marker 
-              width={50}
-              anchor={[42.127067329994716, -80.08709345332936]} 
+              anchor={[42.12941876874667, -80.09093876248161]} 
               color={color} 
               onClick={() => {setHue(hue + 20); openMapModel(0)}} 
           />
-          <Marker 
-              width={50}
-              anchor={[42.125222722951726, -80.08550214390186]} 
-              color={color} 
-              onClick={() => {setHue(hue + 20); openMapModel(2)}} 
-          />
+          
         </Map>
         {(modalIsOpen&&isMap === true) && <MapInfoModal
         index={selectedMapInfo}
@@ -129,11 +118,13 @@ const Information = () => {
               <p style={{ textDecoration: 'underline' }}>Special thanks</p>
               <p>Dr. Kefei Wang</p>
               <p>Nicholas Hubert</p>
+              <p>Alia Scotca</p>
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Other Contributors</p>
               <p>Matthew Gentry</p>
               <p>Quang Phu Ly</p>
+
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Sponsors</p>
