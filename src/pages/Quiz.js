@@ -16,7 +16,7 @@ const [userName, setUsername] = useState("");
 
 // Timer state
 const currentTime = new Date(); 
-const [timer, setTimer] = useState(10); 
+const [timer, setTimer] = useState(15); 
 const [timerRunning, setTimerRunning] = useState(false); 
 
 // Countdown state
@@ -44,7 +44,7 @@ const [roundscore, setRoundScore] = useState(0);
     onValue(quizStateRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setTimer(data.timer || 10);
+        setTimer(data.timer || 15);
         setCurrentQuestionIndex(data.currentQuestion || 0);
         setCorrectAnswers(data.correctAnswers || 0);
         setAllQuestionsAnswered(data.allQuestionsAnswered || false);
@@ -140,7 +140,7 @@ const [roundscore, setRoundScore] = useState(0);
         await update(userRef, {
           timerRunning: true,
           currentQuestion: currentQuestionIndex +1,
-          timer: 10,
+          timer: 15,
           selectedOption: null,
         });
       } catch (error) {
@@ -154,7 +154,7 @@ const [roundscore, setRoundScore] = useState(0);
           currentQuestion: 0,
           currentRound: currentRoundIndex +1,
           allQuestionsAnswered: true,
-          timer: 10,
+          timer: 15,
           selectedOption: null
         });
       } catch (error) {
@@ -223,7 +223,7 @@ const [roundscore, setRoundScore] = useState(0);
     } else {
       // Proceed to the next question
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      setTimer(10); // Reset timer to 10 seconds
+      setTimer(15); // Reset timer to 10 seconds
       setTimerRunning(true);
       setSelectedOption(null);
       updateRealtimeDB(2, 0, 0); // Update realtime database
@@ -302,7 +302,7 @@ const [roundscore, setRoundScore] = useState(0);
         });
         setCurrentRoundIndex(0);
         setCurrentQuestionIndex(0);
-        setTimer(10);
+        setTimer(15);
         setTimerRunning(true);
         setQuizStarted(true);
       
@@ -322,7 +322,7 @@ const [roundscore, setRoundScore] = useState(0);
       setAllQuestionsAnswered(false);
       setCurrentRoundIndex(currentRoundIndex);
       setCurrentQuestionIndex(0);
-      setTimer(10);
+      setTimer(15);
       setTimerRunning(true);
     } catch (error) {
     }
@@ -402,7 +402,7 @@ const [roundscore, setRoundScore] = useState(0);
           <div className='StartScreen'>
             <div className='InfoParagraphs'>
               <p className='p1'>Welcome to the quiz!</p>
-              <p className='p3'>A total of 4 rounds</p>
+              <p className='p3'>A total of 4 rounds with 10 questions each.</p>
               <p className='p3'>Make sure to answer quickly, </p>
               <p className='p3'>but correctly ofcourse.</p>
             </div>

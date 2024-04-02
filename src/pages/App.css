@@ -353,10 +353,20 @@ Diffferent paragraphs, could be simplified!!?
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  
+}
+
+.Phases > div{
+  background-color: rgb(18, 133, 18);
+  color: whitesmoke;
+  border-radius: 8px;
+}
+
+.Phases > div:hover{
+  cursor: pointer;
 }
 
 .Phase-2, .Phase-3, .Phase-4 {
-  background-color: #fff;
   border: 2px solid black;
   margin: 10px;
   width: 280px;
@@ -474,7 +484,7 @@ Sign out button
 }
 
 .Credits {
-  background-color: #0d5d0d;
+  background-color: rgb(18, 133, 18);
   border-radius: 12px 12px 0px 0px;
   width: 100%;
   position: absolute;
@@ -484,17 +494,7 @@ Sign out button
   color: white;
 }
 
-/* ============= Solar Eclipse Effecct =================== */
-.Phases > div{
-  background-color: rgb(18, 133, 18);
-  color: whitesmoke;
-  border-radius: 8px;
-}
-
-.Phases > div:hover{
-  cursor: pointer;
-}
-
+/* ============= Sun and moon Eclipse Effecct =================== */
 .top {
   display: flex;
   flex-direction: column;
@@ -521,8 +521,7 @@ Sign out button
   position: absolute;
   top: 0;
   left: 47.5%;
-  width: 5%;
-  min-width: 50px;
+  width: 50px;
   border-radius: 100%;
   animation-name: animate-sun;
 }
@@ -531,8 +530,7 @@ Sign out button
   position: absolute;
   top: 0;
   left: 47.5%;
-  width: 5%;
-  min-width: 55px;
+  width: 55px;
   background-color: transparent; /* Set background color to transparent */
   background-blend-mode: darken; /* Blend the moon with the background */
   animation-name: animate-moon;

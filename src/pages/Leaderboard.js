@@ -127,7 +127,7 @@ function Leaderboard({ user }) {
       ))}
       </div>
       
-      <div className='LeaderBoard' style={{backgroundColor: 'rgb(34, 120, 23)'}}>
+      <div className='LeaderBoard' style={{backgroundColor: 'rgb(18, 133, 18)'}}>
         <div className='LeaderboardHeader'>
           <span>Rank</span>
           <span>Name</span>

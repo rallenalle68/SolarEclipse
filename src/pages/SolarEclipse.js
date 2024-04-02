@@ -113,9 +113,9 @@ useEffect(() => {
 return(
     <div className='SolarEclipse'>
               <div className='InfoParagraphs'>
-                <p className='p1' style={{backgroundColor:'green'}}>Eclipse timeline</p>
-                <p className='p3' style={{backgroundColor:'green', color:'whitesmoke'}}>We will experience 3 stages of the eclipse.</p>
-                <p className='p3' style={{backgroundColor:'green', color:'whitesmoke'}}>Make sure to stay updated on safety!</p>
+                <p className='p1' style={{backgroundColor:'rgb(18, 133, 18)'}}>Eclipse timeline</p>
+                <p className='p3' style={{backgroundColor:'rgb(18, 133, 18)', color:'whitesmoke'}}>We will experience 3 stages of the eclipse.</p>
+                <p className='p3' style={{backgroundColor:'rgb(18, 133, 18)', color:'whitesmoke'}}>Make sure to stay updated on safety!</p>
               </div>
         <div className='Phases'>
             <div className='Phase-2' onClick={toggleAcordion2} style={{position: 'relative', opacity: (currentPhase === 2 || currentPhase === 0 || isOpen2) ? 1 : 0.7,}}>
