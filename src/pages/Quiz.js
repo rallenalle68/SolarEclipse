@@ -111,7 +111,7 @@ const [roundscore, setRoundScore] = useState(0);
         setTimer(prevTimer => prevTimer - 1);
       } else if (timer === 0) {
         // Handle timer reaching 0, for example, move to the next question or finish the quiz
-        nextQuestion();
+        scoreUpdate("Incorrect")
       }
     }, 1000);
 
@@ -199,18 +199,19 @@ const [roundscore, setRoundScore] = useState(0);
       btn.style.backgroundColor = '';
       btn.style.color = 'black';
     });
-  
+    
+    // Hide "Finish Round" button after it's clicked
+    const nextQuestionButton = document.querySelector('.next-question-btn');
+    if (nextQuestionButton) {
+      nextQuestionButton.style.display = 'none';
+    }
+    
     // Check if it's the last question in the round
     const isLastQuestion = currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1;
   
     if (isLastQuestion) {
       // Hide "Next Question" button after it's clicked
-      const nextQuestionButton = document.querySelector('.next-question-btn');
-      if (nextQuestionButton) {
-        nextQuestionButton.style.display = 'none';
-      }
   
-      // Hide "Finish Round" button after it's clicked
       const finishRoundButton = document.querySelector('.finish-round-btn');
       if (finishRoundButton) {
         finishRoundButton.style.display = 'none';
@@ -335,7 +336,7 @@ const [roundscore, setRoundScore] = useState(0);
       // Define the start times for each round
       switch (currentRoundIndex) {
         case 0:
-          setTargetTime(new Date('April 8, 2024 13:00:00'));
+          setTargetTime(new Date('April 4, 2024 13:00:00'));
           if(targetTime.getTime() < currentTime.getTime()){
             setRoundActive1(true)
           }
