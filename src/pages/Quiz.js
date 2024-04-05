@@ -106,15 +106,22 @@ const [roundscore, setRoundScore] = useState(0);
   
   
   useEffect(() => {
+    const userRef = ref(realtimeDb, `users/${user.uid}`);
     const interval = setInterval(() => {
       if (timerRunning && timer > 0) {
-        setTimer(prevTimer => prevTimer - 1);
-      } else if (timer === 0) {
+        setTimer(prevTimer => {
+          const newTimer = prevTimer - 1;
+          update(userRef, {
+            timer: newTimer, // Update with the decremented value
+          });
+          return newTimer; // Return the decremented value for state update
+        });
+      } else if (timer <= 1) {
         // Handle timer reaching 0, for example, move to the next question or finish the quiz
-        scoreUpdate("Incorrect")
+        scoreUpdate("Incorrect");
       }
     }, 1000);
-
+  
     return () => clearInterval(interval);
   }, [timerRunning, timer]);
 
@@ -205,7 +212,7 @@ const [roundscore, setRoundScore] = useState(0);
     if (nextQuestionButton) {
       nextQuestionButton.style.display = 'none';
     }
-    
+
     // Check if it's the last question in the round
     const isLastQuestion = currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1;
   
