@@ -33,9 +33,12 @@ Rounds scoring ✅
 Safety information on homepage ✅
 Error message more clear ✅
 More information about the places in map ✅
+Enable enter on authentication ✅
 
-Enable enter on authentication ❌ 
-Cloud messaging ❌
+Internet connection
+Close the quiz at a certain time
+
+
 
 */
 // App.js
@@ -54,6 +57,7 @@ import { auth } from "./Assets/firebase-config";
 import Authentication from "./pages/Authentication";
 import HomePage from "./pages/HomePage";
 import LoadingScreen from "./pages/LoadingScreen";
+import Modal from 'react-modal'; // Import react-modal
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -65,6 +69,7 @@ function App() {
       setLoading(false); // Set loading to false once authentication state is resolved
     });
     document.title = "Eclipse Quiz";
+    Modal.setAppElement('#root');
     return () => unsubscribe();
   }, []);
 

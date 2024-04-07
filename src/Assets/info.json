@@ -1,6 +1,7 @@
 [
       {
       "title": "Safety",
+      "img": "",
       "content": [
         "Solar observing presents a risk of eye damage. Risk is easily mitigated with basic knowledge and care.",
         "Never look directly at the sun during an eclipse without proper eye protection, as this can cause permanent eye injury or even blindness.",
@@ -10,12 +11,14 @@
       },
       {
       "title":"Gannon's Goal",
+      "img": "",
       "content":[
         "As education professionals and scientists, we have a duty to promote the safe observation and science of the eclipse.", 
         "Gannon University is committed to the provision of essential safe observing and scientific information to Erie schools, learning institutions and the local community."]
       },
       {
         "title": "Solar Eclipse",
+        "img": "",
         "content": [
           "A solar eclipse occurs when the Moon passes between the Earth and the Sun, obscuring the Sun partially or completely from view.",
           "There are three main types of solar eclipses: total, partial, and annular.",
@@ -24,7 +27,15 @@
         ]
       },
       {
+        "title": "Planets",
+        "img": "../Assets/NASAEclipse.png",
+        "content": [
+          "Make sure to take a look at the visible planets, and the comet."
+        ]
+      },
+      {
         "title": "Light Intensity",
+        "img": "",
         "content": [
           "During a solar eclipse, sunlight intensity decreases dramatically.",
           "Unique lighting conditions emerge, with the sky darkening as if twilight has descended.",
@@ -33,21 +44,23 @@
       },
       {
         "title": "Distances",
+        "img": "",
         "content": [
-          "The sun and moon appear almost the same size in the sky.",
-          "During a total solar eclipse, the moon aligns perfectly with the sun, creating the mesmerizing spectacle of totality."
+          "The moon is 400 times smaller than the sun, and the sun is 400 times further away from earth.",
+          "That is the reason why the can moon perfectly align with the sun, creating the mesmerizing spectacle of totality."
         ]
       },
       {
         "title": "Temperatures",
+        "img": "",
         "content": [
-          "Temperature changes occur during a solar eclipse.",
           "As the moon casts its shadow on Earth, there's a temporary drop in temperature due to the blockage of direct sunlight.",
           "The extent of temperature change depends on factors like location, time of year, and local weather conditions."
         ]
       },
       {
         "title": "Diamond Ring Effect",
+        "img": "../Assets/DiamondRingEffect.png",
         "content": [
           "The Diamond Ring Effect occurs just before complete coverage of the Sun during a solar eclipse.",
           "It creates a stunning visual effect resembling a bright diamond-like ring."
@@ -55,6 +68,7 @@
       },
       {
         "title": "Baileys Effect",
+        "img": "",
         "content": [
           "Bailey's Beads, also known as the Beads Effect, are bright spots of sunlight visible around the silhouette of the Moon during a total solar eclipse.",
           "They are caused by sunlight streaming through valleys and irregularities on the Moon's surface, creating a stunning visual spectacle just before and after totality."
@@ -62,11 +76,26 @@
     },
     {
       "title": "Animals",
+      "img": "",
       "content": [
         "During a solar eclipse, some animals may exhibit unusual behaviors due to the sudden changes in light and temperature.",
         "Birds may become silent, thinking it's nighttime, while nocturnal animals might become active.",
         "Some animals may seek shelter or hide, while others may appear confused or disoriented.",
         "Observers have reported seeing animals behaving strangely during total solar eclipses, adding to the mystique of these celestial events."
+      ]
+    },
+    {
+      "title": "ChatGPT Jokes",
+      "img": "",
+      "content": [
+        "1. What did the sun say to the Moon during the eclipse?",
+        "You're really stealing my shine today, aren't you?",
+        "2.What did the Moon say to the Sun during the solar eclipse?",
+        "I've got you covered!",
+        "3.How does the Sun feel during an eclipse?",
+        "Completly overshadowed!"
+
+        
       ]
     }
 ]

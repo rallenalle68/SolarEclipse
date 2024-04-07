@@ -13,6 +13,8 @@ const [loadingScreen, setLoading] = useState(true);
 const [quizClosed, setQuizClosed] = useState(true);
 // User state
 const [userName, setUsername] = useState(""); 
+const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+
 
 // Timer state
 const currentTime = new Date(); 
@@ -36,41 +38,61 @@ const [selectedOption, setSelectedOption] = useState(null);
 const [roundActive1, setRoundActive1] = useState(false); 
 const [score, setScore] = useState(0);  
 const [roundscore, setRoundScore] = useState(0);
-
-
-  useEffect(() => {
-    const quizStateRef = ref(realtimeDb, `users/${user.uid}`);
+useEffect(() => {
+  const quizStateRef = ref(realtimeDb, `users/${user.uid}`);
   
-    onValue(quizStateRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        setTimer(data.timer || 15);
-        setCurrentQuestionIndex(data.currentQuestion || 0);
-        setCorrectAnswers(data.correctAnswers || 0);
-        setAllQuestionsAnswered(data.allQuestionsAnswered || false);
-        setUsername(data.username || "");
-        setQuizStarted(data.quizStarted || false);
-        setTimerRunning(data.timerRunning || false);
-        setCurrentRoundIndex(data.currentRound || 0);
-        setRoundScore(data[`round${data.currentRound+1}score`] || 0);
-        setScore(data.score || 0);
-        setSelectedOption(data.selectedOption || null); // Fetch selected option
-        setLoading(false)
+  function handleOnlineStatus() {
+    setIsOnline(window.navigator.onLine);
+  }
+
+  window.addEventListener('online', handleOnlineStatus);
+  window.addEventListener('offline', handleOnlineStatus);
+
+  // Listen for Firebase connection state changes
+  const connectedRef = ref(realtimeDb, '.info/connected');
+  onValue(connectedRef, (snapshot) => {
+    const isConnected = snapshot.val();
+    if (isConnected) {
+      // Fetch data from the database once the connection is established
+      try {
+        onValue(quizStateRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            setTimer(data.timer || 15);
+            setCurrentQuestionIndex(data.currentQuestion || 0);
+            setCorrectAnswers(data.correctAnswers || 0);
+            setAllQuestionsAnswered(data.allQuestionsAnswered || false);
+            setUsername(data.username || "");
+            setQuizStarted(data.quizStarted || false);
+            setTimerRunning(data.timerRunning || false);
+            setCurrentRoundIndex(data.currentRound || 0);
+            setRoundScore(data[`round${data.currentRound+1}score`] || 0);
+            setScore(data.score || 0);
+            setSelectedOption(data.selectedOption || null); // Fetch selected option
+            setLoading(false)
+          }
+        });
+      } catch (error) {
+        setLoading(true);
+        console.error("Error fetching quiz state:", error);
       }
-    });
-
-    // Clean up the listener when component unmounts
-    return () => {
-      off(quizStateRef);
-    };
-  }, [user, setScore]);
-
-  useEffect(() => {
-    // Call the function to disable other options after the component mounts
-    if (selectedOption !== null) {
-      disableOtherOptions(selectedOption);
+      if (selectedOption !== null) {
+        disableOtherOptions(selectedOption);
+      }
+    } else {
+      setLoading(true); // Set loading to true when the connection is lost
     }
-  }, [selectedOption, currentQuestion.correctOption]);
+  });
+
+  // Clean up the listeners when component unmounts
+  return () => {
+    window.removeEventListener('online', handleOnlineStatus);
+    window.removeEventListener('offline', handleOnlineStatus);
+    off(connectedRef);
+    off(quizStateRef);
+  };
+}, [user, setScore, selectedOption, currentQuestion.correctOption]);
+
 
   function disableOtherOptions(selectedOption) {
     let allOptionsDisabled = true; // Flag to track if all options are disabled
@@ -78,6 +100,10 @@ const [roundscore, setRoundScore] = useState(0);
       if (btn) { // Check if btn is not null
         btn.disabled = true;
         const optionText = btn.textContent;
+        console.log(btn)
+        console.log(optionText)
+        console.log(currentQuestion.correctOption)
+        console.log(selectedOption)
         if (optionText === currentQuestion.correctOption) {
           btn.style.backgroundColor = 'green'; // Highlight correct option green
           btn.style.color = 'white';
@@ -343,7 +369,7 @@ const [roundscore, setRoundScore] = useState(0);
       // Define the start times for each round
       switch (currentRoundIndex) {
         case 0:
-          setTargetTime(new Date('April 4, 2024 13:00:00'));
+          setTargetTime(new Date('April 8, 2024 13:00:00'));
           if(targetTime.getTime() < currentTime.getTime()){
             setRoundActive1(true)
           }
@@ -403,7 +429,7 @@ const [roundscore, setRoundScore] = useState(0);
   return (
     <div className='Quiz'>
       <div>
-        {loadingScreen ? (
+        {loadingScreen && !isOnline ?(
           <LoadingScreen/>
         ) :!loadingScreen && !quizStarted ? (
           // Initial screen before quiz starts

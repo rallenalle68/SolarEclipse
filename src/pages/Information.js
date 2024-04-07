@@ -1,27 +1,42 @@
-// Information.js
 import React, { useState } from 'react';
 import InfoModal from './InfoModal';
 import infoData from '../Assets/info.json';
 import { signOut } from "firebase/auth";
-import {auth} from '../Assets/firebase-config';
-import { Map, Marker,ZoomControl } from 'pigeon-maps';
+import { auth } from '../Assets/firebase-config';
+import { Map, Marker, ZoomControl } from 'pigeon-maps';
 import MapInfoModal from '../Component/MapInfoModel';
+import Planets from '../Assets/NASAEclipse.png';
+import DiamondRingEffect from '../Assets/DiamondRingEffect.png';
+import BaileysBeads from '../Assets/BaileysBeads.png';
+
 
 const Information = () => {
   const [user, setUser] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedInfo, setSelectedInfo] = useState({ title: '', content: '' });
+  const [selectedInfo, setSelectedInfo] = useState({ title: '', img: '', content: '' });
   const [selectedMapInfo, setSelectedMapInfo] = useState(-1);
   const [isMap, setIsMap] = useState(false);
-
   /*================ Variables for maps config ====================*/
   const [center, setCenter] = useState([42.12841284953883, -80.08891550873273])
   const [zoom, setZoom] = useState(16)
   const [hue, setHue] = useState(0)
-  const color = `hsl(${hue % 360}deg 39% 70%)`
-
-  const openModal = (title, content) => {
-    setSelectedInfo({ title, content });
+  const color = `hsl(${hue % 360}deg 39% 70%)`;
+  
+  const openModal = (title, img, content, index) => {
+    let selectedImg = img; // Default to the provided image
+    // Check if it's the 4th box (index 3) or the 6th box (index 5)
+    if (index === 3) {
+      selectedImg = Planets; // Set image source to Planets for the 4th index
+    } else if (index === 7) {
+      selectedImg = DiamondRingEffect; // Set image source to DiamondRingEffect for the 6th index
+    } else if(index === 8){
+      selectedImg = BaileysBeads; // Set image source to DiamondRingEffect for the 7th index
+    }
+    setSelectedInfo({
+      title,
+      img: selectedImg,
+      content
+    });
     setModalIsOpen(true);
   };
 
@@ -43,26 +58,25 @@ const Information = () => {
     setModalIsOpen(true);
     setIsMap(true);
     setSelectedMapInfo(index);
-  }
-
+  };
 
   return (
     <div>
       <div className='Info'>
-      {infoData.map((info, index) => (
-        <div key={index} className='infoBox' onClick={() => openModal(info.title, info.content)}>
-          <p>{info.title}</p>
-        </div>
-      ))}
+        {infoData.map((info, index) => (
+          <div key={index} className='infoBox' onClick={() => openModal(info.title, info.img, info.content, index)}>
+            <p>{info.title}</p>
+          </div>
+        ))}
 
-      {isMap === false && <InfoModal
-        isOpen={modalIsOpen}
-        closeModal={closeModal}
-        title={selectedInfo.title}
-        content={selectedInfo.content}
-      />}
+        {isMap === false && <InfoModal
+          isOpen={modalIsOpen}
+          closeModal={closeModal}
+          title={selectedInfo.title}
+          img={selectedInfo.img}
+          content={selectedInfo.content}
+        />}
       </div>
-
       {/*===================== Map =======================*/}
       <p className='p1' style={{backgroundColor:'green'}}>Campus events</p>
       <p className='p2' style={{backgroundColor:'green', padding:30}}>The Gannon Students, faculty, staff and community are invited to view the solar eclipse on Friendship Green and The McConnell Family Stadium. Weather permitting, Gannon staff/faculty will be providing a safe, educational viewing experience. Solar eclipse glasses will be provided as well as the opportunity to view the eclipse through high powered telescopes and a specially designed large format viewing window.</p>
@@ -116,6 +130,11 @@ const Information = () => {
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Author</p>
               <p>Rasmus Seppänen</p>
+
+              <div style={{ marginBottom: '10px' }}>
+              <p style={{ textDecoration: 'underline' }}>Co-developer</p>
+              <p>Quang Phu Ly</p>
+            </div>
             </div>
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Sources</p>
@@ -130,7 +149,6 @@ const Information = () => {
             <div style={{ marginBottom: '10px' }}>
               <p style={{ textDecoration: 'underline' }}>Other Contributors</p>
               <p>Matthew Gentry</p>
-              <p>Quang Phu Ly</p>
 
             </div>
             <div style={{ marginBottom: '10px' }}>
@@ -140,7 +158,7 @@ const Information = () => {
             </div>
           </div>
 
-        <button className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
+        <button style={{marginBottom:30}}className='SignOutButton' onClick={handleSignOut}> Sign Out</button>
       </div>
     </div>
   );

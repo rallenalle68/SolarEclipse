@@ -428,6 +428,7 @@ Information component
   background-color: rgb(18, 133, 18);
   text-align: center;
   width: 320px;
+  min-width: fit-content;
   min-height: 500px;
   max-height: min-content;
   margin: auto;

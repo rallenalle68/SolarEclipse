@@ -14,21 +14,21 @@
           "correctOption": "Using certified solar viewing glasses"
         },
         {
-          "text": "During a total solar eclipse, what phenomenon occurs when the Sun's corona becomes visible around the Moon?",
+          "text": "During a total solar eclipse, what part of the sun becomes visible around the Moon?",
           "options": [
-            "Baileys Beads",
+            "The Corona",
             "Diamond Ring Effect",
             "Solar Flare",
-            "Coronal Mass Ejection"
+            "Baileys Beads"
           ],
-          "correctOption": "Coronal Mass Ejection"
+          "correctOption": "The Corona"
         },
         {
           "text": "What does Gannon University aim to promote regarding solar eclipse observation?",
           "options": [
             "Indoor activities",
-            "Unsafe viewing practices",
             "Safe observing and scientific information",
+            "Unsafe viewing practices",
             "Ignoring the event"
           ],
           "correctOption": "Safe observing and scientific information"
@@ -46,9 +46,9 @@
         {
           "text": "What is unique about the alignment of the sun and moon during a total solar eclipse?",
           "options": [
+            "Perfect alignment",
             "They never align",
             "Partial alignment",
-            "Perfect alignment",
             "Opposite alignment"
           ],
           "correctOption": "Perfect alignment"
@@ -58,50 +58,50 @@
           "options": [
             "Total solar eclipse",
             "Partial solar eclipse",
-            "Annular solar eclipse",
-            "Lunar eclipse"
+            "Lunar eclipse",
+            "Annular solar eclipse"
           ],
           "correctOption": "Annular solar eclipse"
         },
         {
-          "text": "What is the darkest part of the moon's shadow during a solar eclipse?",
+          "text": "What is the Moons shadow on earth called?",
           "options": [
-            "Penumbra",
+            "Moon Shadow",
             "Umbra",
-            "Corona",
-            "Solar flare"
+            "Penumbra",
+            "Corona"
           ],
           "correctOption": "Umbra"
         },
         {
           "text": "Which type of solar eclipse occurs when the Sun is completely obscured by the Moon?",
           "options": [
+            "Lunar eclipse",
             "Partial solar eclipse",
-            "Total solar eclipse",
             "Annular solar eclipse",
-            "Lunar eclipse"
+            "Total solar eclipse"
           ],
           "correctOption": "Total solar eclipse"
         },
         {
           "text": "What are the three main types of solar eclipses?",
           "options": [
-            "Partial, full, total",
+            "Annular, full, total",
             "Partial, annular, total",
-            "Partial, lunar, total",
-            "Partial, solar, total"
+            "Full, lunar, total",
+            "Lunar, solar, total"
           ],
           "correctOption": "Partial, annular, total"
         },
         {
-          "text": "What is the name of the glowing halo of plasma surrounding the obscured solar disk during a total solar eclipse?",
+          "text": "What did the sun say to the Moon during the eclipse?",
           "options": [
-            "Solar flare",
-            "Corona",
-            "Penumbra",
-            "Umbra"
+            "I've got you covered!",
+            "You are cool.",
+            "I don't like you",
+            "You're really stealing my shine today aren't you?"
           ],
-          "correctOption": "Corona"
+          "correctOption": "You're really stealing my shine today aren't you?"
         }
       ]
     },
@@ -121,22 +121,22 @@
         {
           "text": "During a solar eclipse, which celestial bodies are aligned?",
           "options": [
-            "Sun, Earth, and Moon",
             "Sun, Moon, and Mars",
+            "Sun, Earth, and Moon",
             "Sun, Mercury, and Venus",
             "Sun, Jupiter, and Saturn"
           ],
           "correctOption": "Sun, Earth, and Moon"
         },
         {
-          "text": "What is the maximum duration of totality for a solar eclipse?",
+          "text": "What is the duration of the totality in Erie?",
           "options": [
-            "7 minutes and 31 seconds",
             "12 minutes and 22 seconds",
             "5 minutes and 20 seconds",
+            "3 minutes and 42 seconds",
             "2 minutes and 40 seconds"
           ],
-          "correctOption": "7 minutes and 31 seconds"
+          "correctOption": "3 minutes and 42 seconds"
         },
         {
           "text": "What is the term for the moment during a solar eclipse when the Sun appears as a thin ring around the Moon?",
@@ -149,16 +149,6 @@
           "correctOption": "Diamond ring effect"
         },
         {
-          "text": "What phenomenon creates a ring of sunlight known as the 'ring of fire'?",
-          "options": [
-            "Total solar eclipse",
-            "Partial solar eclipse",
-            "Annular solar eclipse",
-            "Lunar eclipse"
-          ],
-          "correctOption": "Annular solar eclipse"
-        },
-        {
           "text": "How often do total solar eclipses occur on average?",
           "options": [
             "Every 1-2 years",
@@ -169,44 +159,54 @@
           "correctOption": "Every 1-2 years"
         },
         {
-          "text": "Which type of solar eclipse occurs when the Sun is completely obscured by the Moon?",
-          "options": [
-            "Partial solar eclipse",
-            "Total solar eclipse",
-            "Annular solar eclipse",
-            "Lunar eclipse"
-          ],
-          "correctOption": "Total solar eclipse"
-        },
-        {
           "text": "What is the term for the alignment of the Earth, Moon, and Sun in a straight line during a solar eclipse?",
           "options": [
             "Ecliptic",
-            "Syzygy",
             "Conjunction",
-            "Opposition"
+            "Opposition",
+            "Syzygy"
           ],
           "correctOption": "Syzygy"
         },
         {
-          "text": "What is the approximate speed at which the shadow of a solar eclipse moves across the Earth's surface?",
+          "text": "What is the approximate speed of the umbra across the Earth's surface?",
           "options": [
-            "1000 km/h",
             "1500 km/h",
             "2000 km/h",
-            "2500 km/h"
+            "2500 km/h",
+            "3000 km/h"
           ],
           "correctOption": "1500 km/h"
         },
         {
-          "text": "What is the phenomenon that occurs when the Moon only partially covers the Sun during a solar eclipse?",
+          "text": "What are the three main stages of an eclipse?",
           "options": [
-            "Total solar eclipse",
-            "Partial solar eclipse",
-            "Annular solar eclipse",
-            "Hybrid solar eclipse"
+            "First Contact, full moon, Last Contact",
+            "First Contact, lunar moon, Totality",
+            "Partial alignment, Totality, Edning Alignment",
+            "First Contact, Totality, Last Contact"
           ],
-          "correctOption": "Partial solar eclipse"
+          "correctOption": "First Contact, Totality, Last Contact"
+        },
+        {
+          "text": "Why do animals get disoriented from the eclipse?",
+          "options": [
+            "It messes with their biological clock.",
+            "Cause they dont understand science.",
+            "They think it's night",
+            "They are just confused."
+          ],
+          "correctOption": "They think it's night"
+        },
+        {
+          "text": "What did the Moon say to the Sun during the eclipse?",
+          "options": [
+            "You are cool.",
+            "I've got you covered!",
+            "I don't like you",
+            "You're really stealing my shine today aren't you?"
+          ],
+          "correctOption": "I've got you covered!"
         }
       ]
     },
@@ -214,35 +214,34 @@
       "name": "Round 3",
       "questions": [
         {
-          "text": "What is the name of the orbit in which the Moon crosses the plane of the Earth's orbit during a solar eclipse?",
+          "text": "What is the name of the orbit in which the Moon crosses the plane of the Earth's orbit?",
           "options": [
-            "Ecliptic orbit",
             "Lunar orbit",
             "Nodal orbit",
-            "Solar orbit"
+            "Solar orbit",
+            "Ecliptic plane"
           ],
-          "correctOption": "Nodal orbit"
-        },
-
-        {
-          "text": "What happens during a solar eclipse when the Moon passes between the Earth and the Sun?",
-          "options": [
-            "The Moon disappears",
-            "The Earth disappears",
-            "The Sun disappears",
-            "The Moon partially or completely blocks the Sun"
-          ],
-          "correctOption": "The Moon partially or completely blocks the Sun"
+          "correctOption": "Ecliptic plane"
         },
         {
           "text": "What scientific principle explains the alignment necessary for a solar eclipse to occur?",
           "options": [
-            "Principle of gravitational attraction",
             "Principle of celestial mechanics",
+            "Principle of gravitational attraction",
             "Principle of electromagnetic induction",
             "Principle of conservation of energy"
           ],
           "correctOption": "Principle of celestial mechanics"
+        },
+        {
+          "text": "Why is Gannon so invested on the solar eclipse?",
+          "options": [
+            "It's cool!",
+            "Because we have Dr. David Horne!!",
+            "Becuase everyone else is?",
+            "Why not"
+          ],
+          "correctOption": "Because we have Dr. David Horne!!"
         },
         {
           "text": "Which part of the world is least likely to observe a solar eclipse?",
@@ -253,13 +252,172 @@
             "Temperate regions"
           ],
           "correctOption": "Arctic regions"
+        },
+        {
+          "text": "When will Erie experience another Total Solar Eclipse?",
+          "options": [
+            "2049",
+            "2079",
+            "2099",
+            "2129"
+          ],
+          "correctOption": "2099"
+        },
+        {
+          "text": "What countries will experience the totality?",
+          "options": [
+            "Sweden, Norway, USA",
+            "Canada, USA, Russia,",
+            "Mexico, Colombia, USA",
+            "Mexico, USA, Canada"
+          ],
+          "correctOption": "Mexico, USA, Canada"
+        },
+        {
+          "text": "How did ancient civilizations most often interperet solar eclipses?",
+          "options": [
+            "As Omens or divine messages",
+            "Nothing special, they didnt understand science.",
+            "As battles between celestial deities",
+            "As a natural phenomenon"
+          ],
+          "correctOption": "As Omens or divine messages"
+        },
+        {
+          "text": "Why is it important to protect your eyes during an eclipse?",
+          "options": [
+            "It's not that important for me",
+            "Staring into the sun can cause blindness",
+            "Because the glasses are cool",
+            "Im immune to the sunlight."
+          ],
+          "correctOption": "Staring into the sun can cause blindness"
+        },
+        {
+          "text": "What planets can we see during the eclipse?",
+          "options": [
+            "Venus, Mercury, Saturn, Mars",
+            "Jupiter, Saturn, Uranus, Venus, Mars",
+            "Jupiter, Mercury, Venus, Saturn, Mars",
+            "Jupiter, Uranus, Mercury, Venus, Saturn"
+          ],
+          "correctOption": "Jupiter, Mercury, Venus, Saturn, Mars"
+        },
+        {
+          "text": "Why does the Moon and the sun appear the same size in our sky?",
+          "options": [
+            "The Moon is 400 times smaller, and 400 times closer to us than the sun.",
+            "The Moon is 300 times smaller, and 300 times closer to us closer than the sun.",
+            "The Moon is 500 times smaller, and 500 times closer to us closer than the sun.",
+            "The Moon is 1000 times smaller, and 1000 times closer to us closer than the sun."
+          ],
+          "correctOption": "The Moon is 400 times smaller, and 400 times closer to us than the sun."
         }
       ]
     },
     {
       "name": "Round 4",
       "questions": [
-        
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        },
+        {
+          "text": "",
+          "options": [
+            "",
+            "",
+            "",
+            ""
+          ],
+          "correctOption": ""
+        }
       ]
     },
       {

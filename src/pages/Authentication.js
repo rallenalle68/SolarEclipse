@@ -14,6 +14,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { TypeAnimation } from 'react-type-animation';
 import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai';
 
+
 function Authentication() {
   // State variables
   const [email, setEmail] = useState("");
