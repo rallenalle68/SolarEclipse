@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import HomePage from "./HomePage";
-import { collection, query, getDocs, where, doc, getDoc } from 'firebase/firestore';
+import { collection, query, getDocs, where, doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, set, get } from 'firebase/database';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { TypeAnimation } from 'react-type-animation';
@@ -32,26 +32,6 @@ function Authentication() {
     const querySnapshot = await getDocs(query(usersRef, where("username", "==", username)));
     return querySnapshot.empty; // Returns true if the username is available, false otherwise
   };
-
-  /*==================== Set up for sending email ======================*/
-  // const transporter = nodemailer.createTransport({
-  //   host: 'smtp.forwardemail.net',
-  //   port: 465,
-  //   secure: true,
-  //   auth: {
-  //     user: 'solareclipse@gannon.edu',
-  //     pass: '',
-  //   },
-  // });
-  
-  // const emailHtml = render(<SignUpEmail />);
-
-  // const options = {
-  //   from: 'solareclipse@gannon.edu',
-  //   to: 'ly001@gannon.edu',
-  //   subject: 'Sign Up testing email',
-  //   html: emailHtml,
-  // };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -103,6 +83,9 @@ function Authentication() {
             console.error("Error writing user data to the Realtime Database:", error);
             seterrorMessage("Error occurred while saving user data.");
           });
+           // Create a document in the "Email" collection with the user's email as the document ID
+          const emailDocRef = doc(db, 'Emails', email);
+          await setDoc(emailDocRef, { email: email });
 
           setEmail("");
           setPassword("");
@@ -157,6 +140,13 @@ function Authentication() {
                 });
             } else {
                 console.error("User data not found in the Realtime Database.");
+            }
+            const emailDocRef = doc(db, 'Emails', email);
+            const emailDocSnapshot = await getDoc(emailDocRef);
+        
+            if (!emailDocSnapshot.exists()) {
+              // If the user's email doesn't exist in the "Email" collection, create a document with the user's email as the document ID
+              await setDoc(emailDocRef, { email: email });
             }
         }
     } catch (error) {

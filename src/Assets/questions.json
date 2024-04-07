@@ -254,7 +254,7 @@
           "correctOption": "Arctic regions"
         },
         {
-          "text": "When will Erie experience another Total Solar Eclipse?",
+          "text": "When will Erie experience its next Total Solar Eclipse?",
           "options": [
             "2049",
             "2079",
@@ -264,10 +264,10 @@
           "correctOption": "2099"
         },
         {
-          "text": "What countries will experience the totality?",
+          "text": "What countries will experience the totality today?",
           "options": [
             "Sweden, Norway, USA",
-            "Canada, USA, Russia,",
+            "Canada, USA, Russia",
             "Mexico, Colombia, USA",
             "Mexico, USA, Canada"
           ],
@@ -306,12 +306,12 @@
         {
           "text": "Why does the Moon and the sun appear the same size in our sky?",
           "options": [
-            "The Moon is 400 times smaller, and 400 times closer to us than the sun.",
-            "The Moon is 300 times smaller, and 300 times closer to us closer than the sun.",
-            "The Moon is 500 times smaller, and 500 times closer to us closer than the sun.",
-            "The Moon is 1000 times smaller, and 1000 times closer to us closer than the sun."
+            "The Moon is 400 times smaller and closer to Earth than the Sun.",
+            "The Moon is 300 times smaller and closer to Earth than the Sun.",
+            "The Moon is 500 times smaller and closer to Earth than the Sun.",
+            "The Moon is 1000 times smaller and closer to Earth than the Sun."
           ],
-          "correctOption": "The Moon is 400 times smaller, and 400 times closer to us than the sun."
+          "correctOption": "The Moon is 400 times smaller and closer to Earth than the Sun."
         }
       ]
     },
@@ -319,104 +319,104 @@
       "name": "Round 4",
       "questions": [
         {
-          "text": "",
+          "text": "Which of the following is NOT a type of solar eclipse?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Partial eclipse",
+            "Annular eclipse",
+            "Total lunar eclipse",
+            "Hybrid eclipse"
           ],
-          "correctOption": ""
+          "correctOption": "Total lunar eclipse"
         },
         {
-          "text": "",
+          "text": "Which of the following factors can affect the duration of a solar ecipse?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Earths axial tilt",
+            "Moons distance from Earth",
+            "Suns rotation speed",
+            "none of the above"
           ],
-          "correctOption": ""
+          "correctOption": "Moons distance from Earth"
         },
         {
-          "text": "",
+          "text": "What phenomenon occurs when sunlight passes through gaps between leaves and creates crescent-shaped shadows on the ground?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Solar wind",
+            "Baileys Beads",
+            "Diamond Ring Effect",
+            "Shadow bands"
           ],
-          "correctOption": ""
+          "correctOption": "Shadow bands"
         },
         {
-          "text": "",
+          "text": "At what time does the Totality start in Erie PA?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "2:58 pm",
+            "3:09 pm",
+            "3:16 pm",
+            "3:20 pm"
           ],
-          "correctOption": ""
+          "correctOption": "3:16 pm"
         },
         {
-          "text": "",
+          "text": "What is the rarest type of eclipse?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Annular eclipse",
+            "Total solar eclipse",
+            "Hybrid solar eclipse",
+            "Partial eclipse"
           ],
-          "correctOption": ""
+          "correctOption": "Hybrid solar eclipse"
         },
         {
-          "text": "",
+          "text": "On average, how many solar eclipses happen every year?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "1",
+            "2",
+            "3",
+            "4"
           ],
-          "correctOption": ""
+          "correctOption": "2"
         },
         {
-          "text": "",
+          "text": "Which country will see the longest totality during the eclipse?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Mexico",
+            "USA",
+            "Canada",
+            "All will experience the same"
           ],
-          "correctOption": ""
+          "correctOption": "Mexico"
         },
         {
-          "text": "",
+          "text": "When will the next total eclipse happen in the US?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "2027",
+            "2030",
+            "2033",
+            "2036"
           ],
-          "correctOption": ""
+          "correctOption": "2033"
         },
         {
-          "text": "",
+          "text": "What planet will be the brightest in the sky during the eclipse?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Jupiter",
+            "Mars",
+            "Mercury",
+            "Venus"
           ],
-          "correctOption": ""
+          "correctOption": "Venus"
         },
         {
-          "text": "",
+          "text": "Did you learn anything?",
           "options": [
-            "",
-            "",
-            "",
-            ""
+            "Yes",
+            "Yes",
+            "Yes",
+            "Yes"
           ],
-          "correctOption": ""
+          "correctOption": "Yes"
         }
       ]
     },

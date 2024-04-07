@@ -10,11 +10,11 @@ import LoadingScreen from './LoadingScreen';
 function Quiz({ user }) {
 // UI state
 const [loadingScreen, setLoading] = useState(true); 
-const [quizClosed, setQuizClosed] = useState(true);
+const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+const [quizClosed, setQuizClosed] = useState(false)
+
 // User state
 const [userName, setUsername] = useState(""); 
-const [isOnline, setIsOnline] = useState(window.navigator.onLine);
-
 
 // Timer state
 const currentTime = new Date(); 
@@ -146,7 +146,11 @@ useEffect(() => {
         // Handle timer reaching 0, for example, move to the next question or finish the quiz
         scoreUpdate("Incorrect");
       }
+
+      
     }, 1000);
+
+
   
     return () => clearInterval(interval);
   }, [timerRunning, timer]);
@@ -257,7 +261,7 @@ useEffect(() => {
     } else {
       // Proceed to the next question
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      setTimer(15); // Reset timer to 10 seconds
+      setTimer(15); // Reset timer to 15 seconds
       setTimerRunning(true);
       setSelectedOption(null);
       updateRealtimeDB(2, 0, 0); // Update realtime database
@@ -332,7 +336,7 @@ useEffect(() => {
         timerRunning: true,
         currentRound: 0,
         currentQuestion: 0,
-        timer: 10, // Starting timer value
+        timer: 15, // Starting timer value
         });
         setCurrentRoundIndex(0);
         setCurrentQuestionIndex(0);
@@ -364,6 +368,10 @@ useEffect(() => {
 
 
   useEffect(() => {
+    const quizClosedTime = new Date('April 8, 2024 16:30:00');
+    if(quizClosedTime.getTime() < currentTime.getTime()){
+      setQuizClosed(true);
+    }
     // Function to calculate the remaining time until April 8, 2024, at 1:00 PM
     function calculateCountdown(currentRoundIndex) {
       // Define the start times for each round
@@ -383,16 +391,11 @@ useEffect(() => {
         case 3:
           setTargetTime(new Date('April 8, 2024 13:45:00'));
           break;
-        case 4:
-          setTargetTime(new Date('April 8, 2024 14:45:00'));
-          if(targetTime.getTime() < currentTime.getTime()){
-            setQuizClosed(true)
-          }
         default:
-          setTargetTime(new Date('April 8, 2024 12:45:00'));
+          setTargetTime(new Date('April 8, 2024 13:00:00'));
           // Set a default target time if currentRoundIndex is invalid
       }
-  
+      
       // Calculate the time difference in milliseconds
       let diff = targetTime.getTime() - new Date().getTime()
       setTimeDiff(diff); // Update currentTime here
@@ -413,7 +416,6 @@ useEffect(() => {
       // Update the countdown states
       setCountdown({ full: formattedCountdownFull, simple: formattedCountdownSimple });
     }
-  
     // Start the countdown initially
     calculateCountdown(currentRoundIndex);
   
@@ -429,9 +431,16 @@ useEffect(() => {
   return (
     <div className='Quiz'>
       <div>
-        {loadingScreen && !isOnline ?(
+        {!isOnline?(
           <LoadingScreen/>
-        ) :!loadingScreen && !quizStarted ? (
+        ):quizClosed?(
+          <div className='StartScreen'>
+            <div className='InfoParagraphs'>
+              <p className='p1'>The Quiz is closed.</p>
+              <p className='p2'>Thank you for playing.</p>
+            </div>
+          </div>
+          ):!loadingScreen && !quizStarted ? (
           // Initial screen before quiz starts
           <div className='StartScreen'>
             <div className='InfoParagraphs'>
@@ -470,8 +479,7 @@ useEffect(() => {
               </>
             )}
           </div>
-        ) : (
-          
+        ) : quizStarted?(
           <div className='Quiz-main'>
             <p>{currentQuestion.text}</p>
             <p className='Timer'>{timer}</p>
@@ -495,6 +503,8 @@ useEffect(() => {
               {currentQuestionIndex === questions.rounds[currentRoundIndex].questions.length - 1 ? 'Finish Round' : 'Next Question'}
             </button>
           </div>
+        ):(
+          <LoadingScreen/>
         )}
       </div>
     </div>

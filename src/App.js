@@ -34,8 +34,10 @@ Safety information on homepage ✅
 Error message more clear ✅
 More information about the places in map ✅
 Enable enter on authentication ✅
+Internet connection ✅
 
-Internet connection
+
+Questions
 Close the quiz at a certain time
 
 
