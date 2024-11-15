@@ -64,9 +64,7 @@ Follow this protocol please:
 --------
 
 # Current Errors and Todo
- - writing to realtime database
- - Question: Do we use a realtime database or cloud firestore?
- - 
+ - Finished project
 
 --------
 
